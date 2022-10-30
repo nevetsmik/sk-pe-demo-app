@@ -1,0 +1,25 @@
+<svg
+    id="logo"
+    xmlns="http://www.w3.org/2000/svg"
+    width="1200"
+    height="1200"
+    viewBox="0 0 1200 1200"
+    fill="none"
+>
+    <defs>
+    <clipPath id="clip">
+        <path d="M1200,200 L1200,500 L600,300 L600,0 Z"/>
+        <path d="M600,300 L0,500 L0,200 L600,0 Z"/>
+        <path d="M300,800 L0,700 L0,500, L300,400 Z"/>
+        <path d="M600,1200 L0,1000 L0,700 L600,900 Z"/>
+        <path d="M1200,1000 L600,1200 L600,900 L1200,700 Z"/>
+    </clipPath>
+    </defs>
+    <foreignObject
+    width="1200"
+    height="1200"
+    clip-path="url(#clip)"
+    style="background: conic-gradient(from 90deg, #94d2c6, #005569)"
+    >
+    </foreignObject>
+</svg>
