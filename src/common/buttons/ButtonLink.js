@@ -14,7 +14,6 @@ const ButtonLink = (props) => {
         {props.icon ? (
           <MuiIconButton
             sx={{
-              borderRadius: '5px',
               ...props.styles,
             }}
             {...props.opts}
@@ -30,6 +29,7 @@ const ButtonLink = (props) => {
           <MuiButton
             sx={{
               borderRadius: '5px',
+              padding: '6px 40px',
               ...props.styles,
             }}
             {...props.opts}

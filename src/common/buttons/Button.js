@@ -26,7 +26,6 @@ const Button = (props) => {
             <MuiIconButton
               sx={{
                 ...props.styles,
-                flexDirection: { xs: 'column', sm: 'row' },
               }}
               {...props.opts}
               id={props.id}
@@ -38,8 +37,9 @@ const Button = (props) => {
           ) : (
             <MuiButton
               sx={{
+                borderRadius: '5px',
+                padding: '6px 40px',
                 ...props.styles,
-                flexDirection: { xs: 'column', sm: 'row' },
               }}
               {...props.opts}
               id={props.id}
