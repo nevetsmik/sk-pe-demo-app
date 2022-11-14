@@ -35,7 +35,7 @@ npm install
 To create a development build that updates on changes run:
 
 ```
-npm run watch
+npm run start:dev
 ```
 
 #### Production Build
@@ -44,6 +44,12 @@ To create a production build to test before releasing to production run:
 
 ```
 npm run build
+```
+
+followed by:
+
+```
+npm run start
 ```
 
 ## Configuration Options
