@@ -13,7 +13,7 @@ export default {
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
       backgroundColor: '#ebecee',
-      filter: 'hue-rotate(30deg);',
+      filter: 'hue-rotate(240deg);',
     },
     opts: {},
     id: '',
@@ -78,52 +78,12 @@ export default {
             alignment: 'left',
           },
           {
-            // Pale blue
-            // styles: {
-            //   backgroundColor: 'rgb(144, 202, 249)',
-            // },
-            // Opaque
-            // styles: {
-            //   backgroundColor: hexToRGBA('#ffffff', 0.15),
-            //   '&:hover': {
-            //     backgroundColor: hexToRGBA('#ffffff', 0.25),
-            //   },
-            // },
-            // Green
             styles: {
-              backgroundColor: hexToRGBA('#50CD89', 1.0),
+              backgroundColor: hexToRGBA('#009ef7', 1.0),
               '&:hover': {
-                backgroundColor: hexToRGBA('#50CD89', 1.0),
+                backgroundColor: hexToRGBA('#009ef7', 1.0),
               },
             },
-            // Blue
-            // styles: {
-            //   backgroundColor: hexToRGBA('#009EF7', 1.0),
-            //   '&:hover': {
-            //     backgroundColor: hexToRGBA('#26adf8', 1.0),
-            //   },
-            // },
-            // Purple
-            // styles: {
-            //   backgroundColor: hexToRGBA('#7239EA', 1.0),
-            //   '&:hover': {
-            //     backgroundColor: hexToRGBA('#7239EA', 1.0),
-            //   },
-            // },
-            // Red
-            // styles: {
-            //   backgroundColor: hexToRGBA('#F1416C', 1.0),
-            //   '&:hover': {
-            //     backgroundColor: hexToRGBA('#F1416C', 1.0),
-            //   },
-            // },
-            // Yellow
-            // styles: {
-            //   backgroundColor: hexToRGBA('#FFC700', 1.0),
-            //   '&:hover': {
-            //     backgroundColor: hexToRGBA('#FFC700', 1.0),
-            //   },
-            // },
             opts: {
               variant: 'contained',
             },

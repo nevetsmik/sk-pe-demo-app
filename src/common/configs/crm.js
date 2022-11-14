@@ -82,7 +82,6 @@ export default {
               '&:hover': {
                 backgroundColor: hexToRGBA('#1DA259', 1.0),
               },
-              padding: '6px 40px',
             },
             opts: {
               variant: 'contained',

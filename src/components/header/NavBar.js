@@ -117,7 +117,7 @@ const NavBar = (props) => {
   const StyledMenuItem = muiStyled(MuiMenuItem)(({ theme }) => ({
     borderRadius: '5px',
     '&.Mui-selected': {
-      backgroundColor: 'rgba(25, 118, 210, 0.38)',
+      backgroundColor: 'rgba(0, 0, 0, 0.08)',
     },
     '&.Mui-selected:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.14)',
