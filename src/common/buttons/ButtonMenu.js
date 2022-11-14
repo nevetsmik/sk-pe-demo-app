@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 import MuiTooltip from '@mui/material/Tooltip';
 import MuiIconButton from '@mui/material/IconButton';
+import MuiButton from '@mui/material/Button';
 import MuiMenu from '@mui/material/Menu';
 
-import DynamicIcon from '../../DynamicIcon';
+import DynamicIcon from '../DynamicIcon';
 import MenuItem from './menu-items/MenuItem';
 
 const menuItems = [
@@ -14,7 +15,7 @@ const menuItems = [
   { name: 'Add New Opportunity', type: 'Link' },
 ];
 
-const IconButtonMenu = (props) => {
+const ButtonMenu = (props) => {
   // State management for open/close state of menu
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -28,9 +29,33 @@ const IconButtonMenu = (props) => {
   return (
     <>
       <MuiTooltip title={props.tooltipText}>
-        <MuiIconButton color="inherit" onClick={handleOpen}>
-          <DynamicIcon icon={props.icon}></DynamicIcon>
-        </MuiIconButton>
+        {props.icon ? (
+          <MuiIconButton
+            sx={{
+              borderRadius: '5px',
+              ...props.styles,
+            }}
+            {...props.opts}
+            id={props.id}
+            className={props.classes}
+            color="inherit"
+          >
+            <DynamicIcon icon={props.icon}></DynamicIcon>
+          </MuiIconButton>
+        ) : (
+          <MuiButton
+            sx={{
+              borderRadius: '5px',
+              ...props.styles,
+            }}
+            {...props.opts}
+            id={props.id}
+            className={props.classes}
+            color="inherit"
+          >
+            {props.name}
+          </MuiButton>
+        )}
       </MuiTooltip>
       <MuiMenu
         sx={{ mt: '45px' }}
@@ -54,18 +79,20 @@ const IconButtonMenu = (props) => {
             handleClose={handleClose}
             {...item}
           ></MenuItem>
-          // <MuiMenuItem key={item} onClick={handleClose}>
-          //   <MuiTypography textAlign="center">{item}</MuiTypography>
-          // </MuiMenuItem>
         ))}
       </MuiMenu>
     </>
   );
 };
 
-IconButtonMenu.propTypes = {
-  icon: PropTypes.string.isRequired,
+ButtonMenu.propTypes = {
+  styles: PropTypes.object,
+  opts: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string,
+  icon: PropTypes.string,
+  name: PropTypes.string,
   tooltipText: PropTypes.string,
 };
 
-export default IconButtonMenu;
+export default ButtonMenu;

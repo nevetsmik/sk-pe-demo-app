@@ -6,7 +6,88 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <title>PE Demo</title>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlDisablePendo = urlParams.get('disablePendo') === 'true';
+      const urlApiKey = urlParams.get('apiKey');
+
+      // Initialize Pendo if not disabled by url param
+      if (!urlDisablePendo) {
+        // Pendo Snippet
+        (function (apiKey) {
+          (function (p, e, n, d, o) {
+            var v, w, x, y, z;
+            o = p[d] = p[d] || {};
+            o._q = [];
+            v = [
+              'initialize',
+              'identify',
+              'updateOptions',
+              'pageLoad',
+              'track',
+            ];
+            for (w = 0, x = v.length; w < x; ++w)
+              (function (m) {
+                o[m] =
+                  o[m] ||
+                  function () {
+                    o._q[m === v[0] ? 'unshift' : 'push'](
+                      [m].concat([].slice.call(arguments, 0))
+                    );
+                  };
+              })(v[w]);
+            y = e.createElement(n);
+            y.async = !0;
+            y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+            z = e.getElementsByTagName(n)[0];
+            z.parentNode.insertBefore(y, z);
+          })(window, document, 'script', 'pendo');
+        })(urlApiKey || '74924fb4-e18c-42b1-664b-47ed918c3a45');
+
+        // Don't add zendesk widget if urlApiKey specified
+        if (!urlApiKey) {
+          // Zendesk widget script
+          const script = document.createElement('script');
+          script.id = 'ze-snippet';
+          script.src =
+            'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
+          document.head.appendChild(script);
+        }
+      }
+    </script>
+    <script>
+      Object.defineProperty(Element.prototype, 'outerHeight', {
+        get: function () {
+          var height = this.clientHeight;
+          var computedStyle = window.getComputedStyle(this);
+          height += parseInt(computedStyle.marginTop, 10);
+          height += parseInt(computedStyle.marginBottom, 10);
+          height += parseInt(computedStyle.borderTopWidth, 10);
+          height += parseInt(computedStyle.borderBottomWidth, 10);
+          return height;
+        },
+      });
+    </script>
+    <style>
+      /* Fix for scroll lock caused by pop over */
+      /* TODO: replace pop over with something else */
+      body {
+        padding-right: 0px !important;
+        overflow-y: auto !important;
+      }
+
+      header {
+        padding-right: 0px !important;
+      }
+    </style>
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>

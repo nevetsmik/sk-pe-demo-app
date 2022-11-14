@@ -6,11 +6,11 @@ import MuiIconButton from '@mui/material/IconButton';
 import MuiSearchIcon from '@mui/icons-material/Search';
 import { styled as muiStyled, alpha as muiAlpha } from '@mui/material/styles';
 
-const Search = (props) => {
+const NavSearch = (props) => {
   // Search bar contents
   const SearchBar = muiStyled('div')(({ theme }) => ({
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: '5px',
     backgroundColor: muiAlpha(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: muiAlpha(theme.palette.common.white, 0.25),
@@ -25,7 +25,12 @@ const Search = (props) => {
   }));
 
   return (
-    <SearchBar>
+    <SearchBar
+      sx={{ ...props.styles }}
+      {...props.opts}
+      id={props.id}
+      className={props.classes}
+    >
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
@@ -37,6 +42,11 @@ const Search = (props) => {
   );
 };
 
-Search.propTypes = {};
+NavSearch.propTypes = {
+  styles: PropTypes.object,
+  opts: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string,
+};
 
-export default Search;
+export default NavSearch;

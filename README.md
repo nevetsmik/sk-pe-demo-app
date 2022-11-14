@@ -1,139 +1,87 @@
-# Acme CRM
+# pe-demo-app
 
-A mock CRM app used to demo Pendo on.
+This application is a new demo web application using React.js and Material UI that can be configured to render different content based on subdomain. The current configurations available are:
+[crm.pendoexperience.io](https://crm.pendoexperience.io) - a mock CRM application to replace the original Acme CRM
+[investments.pendoexperience.io](https://investments.pendoexperience.io) - a new mock investor portal
 
-## Heroku
-
-- [Staging Instance](https://dashboard.heroku.com/apps/pe-acme-crm-staging) - [(view app)](https://pe-acme-crm-staging.herokuapp.com/)
-- [Production Instance](https://dashboard.heroku.com/apps/pe-acme-crm) - [(view app)](https://www.acmecrm.io/)
-
-The Heroku instances currently use the following buildpacks:
-
-- heroku/nodejs
-- https://github.com/jontewks/puppeteer-heroku-buildpack.git
-
-Production runs `npm run automateusage` every 10 minutes and `npm run automateusage:a4p` every hour in the Heroku Scheduler.
-
-## Getting Started
+## Developing
 
 #### Dependencies
 
 In order to get the project up and running you will need:
 
-- Node JS v16.13.0 (Check with `node -v`)
-- Yarn v1.22.17 (Check with `yarn -v`)
+- Node JS
+- NPM
 
 #### Cloning
 
 To clone a local version of the project run:
 
 ```
-git clone https://github.com/pendo-io/pe-acme-crm.git
+git clone https://github.com/pendo-io/pe-demo-app.git
 ```
 
 #### Installation
 
-To install dependencies and create the static server to serve the build run:
+To install dependencies:
 
 ```
-cd ./pe-acme-crm
-yarn install
+cd ./pe-demo-app
+npm install
 ```
 
-If you plan to run the automated puppeteer scripts locally, you must also run:
+#### Development Build
+
+To create a development build that updates on changes run:
 
 ```
-node node_modules/puppeteer/install.js
+npm run watch
 ```
 
-#### Development Environment
+#### Production Build
 
-To start a development environment that updates on source changes run:
-
-```
-npm run start:dev
-```
-
-The development environment will start at [http://localhost:3000/](http://localhost:3000/).
-
-#### Static Server
-
-To serve static build via server run:
+To create a production build to test before releasing to production run:
 
 ```
-npm run start
+npm run build
 ```
 
-The static build will be served at [http://localhost:5010/](http://localhost:5010/).
+## Configuration Options
 
-#### Puppeteer Testing
-
-To test changes to the automated puppeteer scripts run:
+Each subdomain posesses it's own configuration file located in `~/src/configs`. These files export a JavaScript object containing all configuration information needed to create the application. The configuration hierarchy resembles the following:
 
 ```
-npm run automateusage
-```
-
-or
-
-```
-npm run automateusage:a4p
-```
-
-depending on which scripts you have modified. Note that these scripts point to the production url [https://www.acmecrm.io/](https://www.acmecrm.io/) so they will not see any updates to the UI that have not yet been deployed to Heroku.
-
-## Deploying to Heroku
-
-#### Heroku CLI
-
-Follow the instructions [here](https://devcenter.heroku.com/articles/heroku-cli) to install the Heroku CLI. Then login by running:
-
-```
-heroku login
-```
-
-#### Verify Remotes
-
-Check that the remotes for Heroku have been set up by running:
-
-```
-git remote -v
-```
-
-Which should yeild the following:
-
-```
-heroku-prod     https://git.heroku.com/pe-acme-crm.git (fetch)
-heroku-prod     https://git.heroku.com/pe-acme-crm.git (push)
-heroku-staging  https://git.heroku.com/pe-acme-crm-staging.git (fetch)
-heroku-staging  https://git.heroku.com/pe-acme-crm-staging.git (push)
-origin  https://github.com/pendo-io/pe-acme-crm (fetch)
-origin  https://github.com/pendo-io/pe-acme-crm (push)
-```
-
-If remotes for heroku-staging and heroku-prod are not present, add them by running:
-
-```
-git remote add heroku-prod https://git.heroku.com/pe-acme-crm.git
-git remote add heroku-staging https://git.heroku.com/pe-acme-crm-staging.git
-```
-
-#### Push Changes
-
-First, push changes to remote main to ensure it is up to date with heroku build:
-
-```
-git push
-```
-
-Then, push changes to heroku staging, monitor build process and test at [https://pe-acme-crm-staging.herokuapp.com/](https://pe-acme-crm-staging.herokuapp.com/):
-
-```
-git push heroku-staging
-```
-
-Finally, push changes to heroku prod, monitor build process and test at [https://www.acmecrm.io/](https://www.acmecrm.io/):
-
-```
-git push heroku-prod
+{
+    styles: {}, // Object containing camel cased style attributes. Optionally can be included at every level of the hierarchy.
+    opts: {}, // Object containing camel cased React props. Optionally can be included at every level of the hierarchy.
+    id: '', // String id attribute. Optionally can be included at every level of the hierarchy.
+    classes: '', // String containing space separated class names to be used in addition to dynamic Material UI classes. Optionally can be included at every level of the hierarchy.
+    background: {}, // Optional object detailing  container for background image.
+    header: { // Required object detailing container for top aligned navigation and application tool bars.
+        navBar: { // Required object detailing applications navigation bar.
+            contents: [ // Required array of objects detailing supported components (NavTitle, Button, NavAvatar) to render in application bar. For full props required for a given component, see the PropTypes in the components file.
+                {
+                    componentName: 'NavTitle', // Supported component name as specified in code base.
+                    alignment: 'left', // String 'left' or 'right' to indicate which container to place navBar/appBar component in.
+                    name: 'CRM', // String to appear in NavTitle.
+                },
+            ],
+        },
+        appBars: [ // Required array of objects detailing application bars. Note: Array can be empty, which would result in no app bars being rendered.
+            contents: [ // Required array of objects detailing supported components (NavSearch, Button) to render in application bar. For full props required for a given component, see the PropTypes in the components file.
+            ],
+        ],
+    },
+    content: {
+        routes: [ // Required array of objects detailing routes present in application. While not currently enforced, this array should never be empty.
+            {
+                name: 'Dashboard', // Required string giving name of route as it should appear in nav menu/drawer and in page title.
+                route: '/', // Required string giving path for current route.
+                contents: [ // Required array of objects detailing components (Grid, ContentTile) used to build.content of current page. Note: Unlike navBar and appBar contents, these components can contain sub components which are rendered recursively. This allows the grids to be nested arbitrarily creating the desired application layout. For full props required for a given component, see the PropTypes in the components file.
+                ],
+            }
+        ],
+    }, // Required object detailing container of page contents.
+    footer: {}, // Required container for bottom aligned footer text. Currently hardcoded for all projects.
+}
 ```

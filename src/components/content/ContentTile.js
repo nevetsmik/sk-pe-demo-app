@@ -16,56 +16,123 @@ const supportedComponents = {
 };
 
 const ContentTile = (props) => {
+  // Handle card margins
   const cardRef = React.useRef(null);
-  const headerRef = React.useRef(null);
 
-  const [cardHeight, setCardHeight] = React.useState(0);
-  const [headerHeight, setHeaderHeight] = React.useState(0);
-
-  const handleElementResized = () => {
-    if (cardRef.current.offsetHeight !== cardHeight) {
-      setCardHeight(cardRef.current.offsetHeight);
-    }
-    if (headerRef.current.offsetHeight !== headerHeight) {
-      setHeaderHeight(headerRef.current.offsetHeight);
+  const getCardOffset = (cardEl) => {
+    if (cardEl) {
+      const computedStyle = window.getComputedStyle(cardEl);
+      return (
+        parseInt(computedStyle.marginTop, 10) +
+        parseInt(computedStyle.marginBottom, 10)
+      );
+    } else {
+      return 0;
     }
   };
 
-  const resizeObserver = new ResizeObserver(handleElementResized);
+  // Handle card header height
+  const cardHeaderRef = React.useRef(null);
+
+  const [cardHeaderHeight, setCardHeaderHeight] = React.useState(0);
+
+  const handleCardHeaderResized = () => {
+    if (cardHeaderRef.current.offsetHeight !== cardHeaderHeight) {
+      setCardHeaderHeight(cardHeaderRef.current.offsetHeight);
+    }
+  };
+
+  const headerObserver = new ResizeObserver(handleCardHeaderResized);
 
   React.useEffect(() => {
-    resizeObserver.observe(cardRef.current);
+    headerObserver.observe(cardRef.current);
 
     return function cleanup() {
-      resizeObserver.disconnect();
+      headerObserver.disconnect();
     };
   });
 
-  // Merge global styles with styles specified as props
-  const styles = {
-    margin: '8px',
-    ...props.sx,
-  };
+  // Handle window resize
+  const [windowHeight, setWindowHeight] = React.useState(window.innerHeight);
+
+  React.useEffect(() => {
+    function handleWindowResize() {
+      setWindowHeight(window.innerHeight);
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+  });
 
   // Select content component based on type
-  const Content = supportedComponents[props.type];
+  const Content = supportedComponents[props.content.type];
 
   return (
-    <MuiCard ref={cardRef} sx={styles}>
-      <MuiCardHeader ref={headerRef} title={props.header}></MuiCardHeader>
+    <MuiCard
+      ref={cardRef}
+      sx={{ margin: '8px', borderRadius: '5px', ...props.styles }}
+      {...props.opts}
+      id={props.id}
+      className={props.classes}
+    >
+      <MuiCardHeader
+        sx={{
+          fontSize: '1rem',
+          fontWeight: 500,
+          ...props.header.styles,
+        }}
+        {...props.header.opts}
+        id={props.header.id}
+        className={props.header.classes}
+        ref={cardHeaderRef}
+        title={props.header.name}
+        disableTypography={true}
+      ></MuiCardHeader>
       <MuiDivider />
       <MuiCardContent>
-        <Content height={cardHeight - headerHeight} {...props.opts}></Content>
+        <Content
+          sx={{ ...props.content.styles }}
+          {...props.content.opts}
+          id={props.content.id}
+          className={props.content.classes}
+          height={
+            (windowHeight -
+              props.header_height -
+              props.footer_height -
+              props.container_offset) *
+              props.height -
+            cardHeaderHeight -
+            getCardOffset(cardRef.current) -
+            1
+          }
+        ></Content>
       </MuiCardContent>
     </MuiCard>
   );
 };
 
 ContentTile.propTypes = {
-  header: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  opts: PropTypes.object.isRequired,
-  sx: PropTypes.object,
+  styles: PropTypes.object,
+  opts: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string,
+  height: PropTypes.number.isRequired,
+  header: PropTypes.shape({
+    styles: PropTypes.object,
+    opts: PropTypes.object,
+    id: PropTypes.string,
+    classes: PropTypes.string,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  content: PropTypes.shape({
+    styles: PropTypes.object,
+    opts: PropTypes.object.isRequired,
+    id: PropTypes.string,
+    classes: PropTypes.string,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  header_height: PropTypes.number.isRequired,
+  footer_height: PropTypes.number.isRequired,
+  container_offset: PropTypes.number.isRequired,
 };
 
 export default ContentTile;

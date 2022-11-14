@@ -11,21 +11,34 @@ const supportedComponents = {
 };
 
 const PageContent = (props) => {
-  function renderPageContent(content) {
+  function renderPageContent(content, key) {
     return content.map((d, i) => {
+      let newKey = `${key}-${d.componentName}${i}${
+        d?.opts?.content?.opts?.dataUrl
+          ? `-${d?.opts?.content?.opts?.dataUrl}`
+          : ''
+      }`;
+
       if (d.componentName) {
         let Component = supportedComponents[d.componentName];
 
-        d.opts.sx = { ...d.opts.sx, ...props.styles[d.componentName] };
-
         return (
-          <Component key={d.key || i} {...d.opts}>
-            {d.contents ? renderPageContent(d.contents) : ''}
+          <Component
+            sx={{ ...d.styles }}
+            {...d.opts}
+            id={d.id}
+            className={d.classes}
+            key={newKey}
+            header_height={props.headerHeight}
+            footer_height={props.footerHeight}
+            container_offset={props.containerOffset}
+          >
+            {d.contents ? renderPageContent(d.contents, newKey) : ''}
           </Component>
         );
       } else {
         return (
-          <p key={i}>
+          <p key={newKey}>
             No Content Set in Page Config. Please update /src/common/Config.js
           </p>
         );
@@ -33,12 +46,14 @@ const PageContent = (props) => {
     });
   }
 
-  return renderPageContent(props.content);
+  return renderPageContent(props.contents, 'root');
 };
 
 PageContent.propTypes = {
-  content: PropTypes.array.isRequired,
-  styles: PropTypes.object.isRequired,
+  contents: PropTypes.array.isRequired,
+  headerHeight: PropTypes.number.isRequired,
+  footerHeight: PropTypes.number.isRequired,
+  containerOffset: PropTypes.number.isRequired,
 };
 
 export default PageContent;
