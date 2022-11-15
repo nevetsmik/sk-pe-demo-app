@@ -139,6 +139,7 @@ const App = (props) => {
       });
 
     function initPendo(visInfo) {
+      visInfo.visitor.acmeVersion = 3;
       if (!urlDisablePendo) {
         pendo.initialize({
           additionalApiKeys: urlApiKey
