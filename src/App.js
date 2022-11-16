@@ -170,6 +170,7 @@ const App = (props) => {
               flexDirection: 'column',
               minHeight: '100vh',
               fontFamily: 'Sora',
+              backgroundColor: '#ebecee',
               ...props.styles,
             }}
             {...props.opts}
@@ -183,7 +184,7 @@ const App = (props) => {
                   width: '100%',
                   minHeight: '100vh',
                   position: 'absolute',
-                  zIndex: '-1',
+                  zIndex: '1',
                   ...props.background.styles,
                 }}
               ></MuiBox>
@@ -208,6 +209,7 @@ const App = (props) => {
                 padding: { xs: '10px', sm: '20px', md: '40px' },
                 marginLeft: { xs: '10px', sm: '20px', md: '40px' },
                 marginRight: { xs: '10px', sm: '20px', md: '40px' },
+                zIndex: '2',
                 ...props.content.styles,
               }}
               {...props.content.opts}

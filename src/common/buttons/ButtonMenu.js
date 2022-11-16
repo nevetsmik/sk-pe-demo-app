@@ -93,6 +93,7 @@ ButtonMenu.propTypes = {
   icon: PropTypes.string,
   name: PropTypes.string,
   tooltipText: PropTypes.string,
+  callback: PropTypes.func,
 };
 
 export default ButtonMenu;

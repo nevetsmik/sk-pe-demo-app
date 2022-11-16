@@ -6,10 +6,46 @@ import MuiButton from '@mui/material/Button';
 import MuiIconButton from '@mui/material/IconButton';
 
 import DynamicIcon from '../DynamicIcon';
+import Modal from '../modals/Modal';
 
-const ButtonLink = (props) => {
+const ButtonModal = (props) => {
+  // Handle modal state
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    // Call optional open start callback
+    if (props.openStartCallback) {
+      props.openStartCallback();
+    }
+
+    setOpen(true);
+
+    // Call optional open end callback
+    if (props.openEndCallback) {
+      props.openEndCallback();
+    }
+  };
+  const handleClose = () => {
+    // Call optional open start callback
+    if (props.closeStartCallback) {
+      props.closeStartCallback();
+    }
+
+    setOpen(false);
+
+    // Call optional open end callback
+    if (props.closeEndCallback) {
+      props.closeEndCallback();
+    }
+  };
+
   return (
     <>
+      <Modal
+        open={open}
+        handleClose={handleClose}
+        header={props.header}
+        content={props.content}
+      ></Modal>
       <MuiTooltip title={props.tooltipText}>
         {props.icon ? (
           <MuiIconButton
@@ -20,8 +56,7 @@ const ButtonLink = (props) => {
             id={props.id}
             className={props.classes}
             color="inherit"
-            href={props.href}
-            target={props.target || ''}
+            onClick={handleOpen}
           >
             <DynamicIcon icon={props.icon}></DynamicIcon>
           </MuiIconButton>
@@ -36,8 +71,7 @@ const ButtonLink = (props) => {
             id={props.id}
             className={props.classes}
             color="inherit"
-            href={props.href}
-            target={props.target || ''}
+            onClick={handleOpen}
           >
             {props.name}
           </MuiButton>
@@ -47,7 +81,7 @@ const ButtonLink = (props) => {
   );
 };
 
-ButtonLink.propTypes = {
+ButtonModal.propTypes = {
   styles: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,
@@ -56,9 +90,12 @@ ButtonLink.propTypes = {
   icon: PropTypes.string,
   name: PropTypes.string,
   tooltipText: PropTypes.string,
-  href: PropTypes.string.isRequired,
-  target: PropTypes.string,
-  callback: PropTypes.func,
+  openStartCallback: PropTypes.func,
+  openEndCallback: PropTypes.func,
+  closeStartCallback: PropTypes.func,
+  closeEndCallback: PropTypes.func,
+  header: PropTypes.object.isRequired,
+  content: PropTypes.object.isRequired,
 };
 
-export default ButtonLink;
+export default ButtonModal;

@@ -8,6 +8,7 @@ import MuiButton from '@mui/material/Button';
 import DynamicIcon from '../DynamicIcon';
 import ButtonMenu from './ButtonMenu';
 import ButtonLink from './ButtonLink';
+import ButtonModal from './ButtonModal';
 
 const Button = (props) => {
   // Pick button based on specified type
@@ -18,6 +19,9 @@ const Button = (props) => {
       break;
     case 'Link':
       Button = ButtonLink;
+      break;
+    case 'Modal':
+      Button = ButtonModal;
       break;
     default:
       Button = (

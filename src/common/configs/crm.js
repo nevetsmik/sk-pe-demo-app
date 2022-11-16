@@ -1,5 +1,36 @@
 import hexToRGBA from '../hexToRGBA';
 
+const updateAddNewLabels = (event) => {
+  // Dynamically change text field labels based on type
+  let labels = [
+    { Account: 'Name', Contact: 'Name', Opportunity: 'Name' },
+    {
+      Account: 'Rep',
+      Contact: 'Email',
+      Opportunity: 'Contact',
+    },
+    {
+      Account: 'Territory',
+      Contact: 'Phone #',
+      Opportunity: 'ARR',
+    },
+  ];
+
+  let selectedValue =
+    event?.target?.value ||
+    document.getElementById('add-new-select-type').nextElementSibling.value;
+  console.log('Updating labels to match with value ', selectedValue);
+
+  labels.forEach((d, i) => {
+    document.getElementById(`add-new-text-field-${i}-label`).innerText =
+      labels[i][selectedValue];
+    document.getElementById(
+      `add-new-text-field-${i}`
+    ).nextElementSibling.children[0].children[0].innerText =
+      labels[i][selectedValue];
+  });
+};
+
 export default {
   styles: {
     display: 'flex',
@@ -12,7 +43,6 @@ export default {
       backgroundImage: 'url("./common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
-      backgroundColor: '#ebecee',
     },
     opts: {},
     id: '',
@@ -78,9 +108,9 @@ export default {
           },
           {
             styles: {
-              backgroundColor: hexToRGBA('#1DA259', 1.0),
+              backgroundColor: '#1DA259',
               '&:hover': {
-                backgroundColor: hexToRGBA('#1DA259', 1.0),
+                backgroundColor: '#1a9150',
               },
             },
             opts: {
@@ -90,8 +120,97 @@ export default {
             classes: '',
             componentName: 'Button',
             alignment: 'right',
-            type: 'Menu',
+            type: 'Modal',
             name: 'Add New',
+            openStartCallback: () => {
+              // Set dynamic labels for add new form before it is rendered
+              updateAddNewLabels();
+
+              // Add '/new' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              pendo.location.setUrl(
+                baseUrl.slice(-1) === '/' ? `${baseUrl}new` : `${baseUrl}/new`
+              );
+            },
+            closeEndCallback: () => {
+              // Return to using browser url on form closed
+              pendo.location.useBrowserUrl();
+            },
+            header: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              name: 'Add New',
+            },
+            content: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              componentName: 'Form',
+              contents: [
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'add-new-select-type',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Type',
+                  options: [
+                    {
+                      name: 'Account',
+                      value: 'Account',
+                    },
+                    {
+                      name: 'Contact',
+                      value: 'Contact',
+                    },
+                    {
+                      name: 'Opportunity',
+                      value: 'Opportunity',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    const path = window.location.pathname;
+
+                    if (path.includes('accounts')) {
+                      return 'Account';
+                    } else if (path.includes('contacts')) {
+                      return 'Contact';
+                    } else {
+                      return 'Opportunity';
+                    }
+                  },
+                  changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'add-new-text-field-0',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Name',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'add-new-text-field-1',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Default',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'add-new-text-field-2',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Default',
+                },
+              ],
+            },
           },
         ],
       },
@@ -701,101 +820,6 @@ export default {
       },
     ],
   },
-  // modals: [
-  //   {
-  //     styles: {},
-  //     opts: {},
-  //     id: '',
-  //     classes: '',
-  //     contents: [
-  //       {
-  //         styles: {},
-  //         opts: {},
-  //         id: '',
-  //         classes: '',
-  //         componentName: 'FormGroup',
-  //         contents: [
-  //           {
-  //             styles: {},
-  //             opts: {},
-  //             id: '',
-  //             classes: '',
-  //             componentName: 'FormSelect',
-  //             label: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //             formItem: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //           },
-  //           {
-  //             styles: {},
-  //             opts: {},
-  //             id: '',
-  //             classes: '',
-  //             componentName: 'FormInput',
-  //             label: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //             formItem: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //           },
-  //           {
-  //             styles: {},
-  //             opts: {},
-  //             id: '',
-  //             classes: '',
-  //             componentName: 'FormInput',
-  //             label: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //             formItem: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //           },
-  //           {
-  //             styles: {},
-  //             opts: {},
-  //             id: '',
-  //             classes: '',
-  //             componentName: 'FormInput',
-  //             label: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //             formItem: {
-  //               styles: {},
-  //               opts: {},
-  //               id: '',
-  //               classes: '',
-  //             },
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  // ],
   footer: {
     styles: {},
     opts: {},
