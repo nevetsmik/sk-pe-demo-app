@@ -42,6 +42,8 @@ const Form = (props) => {
         >
           <MuiButton
             sx={{
+              borderRadius: '5px',
+              padding: '6px 40px',
               color: '#7E8299',
               backgroundColor: '#f5f8fa',
               '&:hover': { backgroundColor: '#eff2f5' },
@@ -53,6 +55,8 @@ const Form = (props) => {
           </MuiButton>
           <MuiButton
             sx={{
+              borderRadius: '5px',
+              padding: '6px 40px',
               marginLeft: '20px',
               backgroundColor: '#1DA259',
               '&:hover': {
