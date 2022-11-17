@@ -34,10 +34,13 @@ const Footer = (props) => {
         Made with
         <MuiFavoriteBorderIcon
           sx={{
-            color: '#0d88e6',
             fontSize: '1.2rem',
             padding: '0px 2px',
+            ...props.typography.icon.styles,
           }}
+          {...props.typography.icon.opts}
+          id={props.typography.icon.id}
+          className={props.typography.icon.classes}
         ></MuiFavoriteBorderIcon>
         by Pendo Demo Engineering.
       </MuiTypography>
@@ -51,6 +54,18 @@ Footer.propTypes = {
   id: PropTypes.string,
   classes: PropTypes.string,
   innerRef: PropTypes.object.isRequired,
+  typography: PropTypes.shape({
+    styles: PropTypes.object,
+    opts: PropTypes.object,
+    id: PropTypes.string,
+    classes: PropTypes.string,
+    icon: PropTypes.shape({
+      styles: PropTypes.object,
+      opts: PropTypes.object,
+      id: PropTypes.string,
+      classes: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default Footer;

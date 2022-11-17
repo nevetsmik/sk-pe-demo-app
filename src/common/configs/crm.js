@@ -825,5 +825,19 @@ export default {
     opts: {},
     id: '',
     classes: '',
+    typography: {
+      styles: {},
+      opts: {},
+      id: '',
+      classes: '',
+      icon: {
+        styles: {
+          color: '#0d88e6',
+        },
+        opts: {},
+        id: '',
+        classes: '',
+      },
+    },
   },
 };
