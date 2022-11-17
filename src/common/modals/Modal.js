@@ -34,7 +34,18 @@ const Modal = (props) => {
           className={props.classes}
         >
           <MuiCard>
-            <MuiCardHeader title={props.header.name}></MuiCardHeader>
+            <MuiCardHeader
+              sx={{
+                fontSize: '1rem',
+                fontWeight: 500,
+                ...props.header.styles,
+              }}
+              {...props.header.opts}
+              id={props.header.id}
+              className={props.header.classes}
+              title={props.header.name}
+              disableTypography={true}
+            ></MuiCardHeader>
             <MuiDivider></MuiDivider>
             <MuiCardContent>
               <Component
