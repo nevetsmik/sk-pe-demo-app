@@ -86,6 +86,7 @@ const NavBar = (props) => {
     }
 
     window.addEventListener('resize', handleWindowResize);
+    handleWindowResize();
   });
 
   // Handle state for nav drawer
@@ -100,16 +101,16 @@ const NavBar = (props) => {
   // Wrapper for left aligned app bar items
   const LeftWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'left',
     padding: theme.spacing(1, 1, 1, 1),
   }));
 
   // Wrapper for right aligned app bar items
   const RightWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.up('sm')]: {
-      justifyContent: 'right',
-    },
+    alignItems: 'center',
+    justifyContent: 'right',
     padding: theme.spacing(1, 1, 1, 1),
   }));
 
