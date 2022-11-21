@@ -9,6 +9,12 @@ import {
   PhoneIphone,
   AddCircle,
   ContactSupport,
+  CalendarToday,
+  CheckBox,
+  Build,
+  Phone,
+  Email,
+  NoteAlt,
 } from '@mui/icons-material';
 
 const DynamicIcon = (props) => {
@@ -38,6 +44,24 @@ const DynamicIcon = (props) => {
     case 'ContactSupport':
       Icon = ContactSupport;
       break;
+    case 'CalendarToday':
+      Icon = CalendarToday;
+      break;
+    case 'CheckBox':
+      Icon = CheckBox;
+      break;
+    case 'Build':
+      Icon = Build;
+      break;
+    case 'Phone':
+      Icon = Phone;
+      break;
+    case 'Email':
+      Icon = Email;
+      break;
+    case 'NoteAlt':
+      Icon = NoteAlt;
+      break;
     default:
       Icon = Home;
       break;
@@ -45,12 +69,13 @@ const DynamicIcon = (props) => {
 
   return (
     <>
-      <Icon></Icon>
+      <Icon sx={{ ...props.styles }}></Icon>
     </>
   );
 };
 
 DynamicIcon.propTypes = {
+  styles: PropTypes.object,
   icon: PropTypes.string.isRequired,
 };
 

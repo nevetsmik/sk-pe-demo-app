@@ -21,11 +21,7 @@ const Header = (props) => {
       id={props.id}
       className={props.classes}
     >
-      <NavBar
-        {...props.navBar}
-        routes={props.routes}
-        pendoMetadata={props.pendoMetadata}
-      ></NavBar>
+      <NavBar {...props.navBar} pendoMetadata={props.pendoMetadata}></NavBar>
       {props.appBars.map((d, i) => {
         return <AppBar key={i} {...d}></AppBar>;
       })}
@@ -41,7 +37,6 @@ Header.propTypes = {
   navBar: PropTypes.object.isRequired,
   appBars: PropTypes.array.isRequired,
   innerRef: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired,
   pendoMetadata: PropTypes.object.isRequired,
 };
 

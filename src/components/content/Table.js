@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import MuiCircularProgress from '@mui/material/CircularProgress';
@@ -7,10 +7,10 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const Table = (props) => {
   // Get padding to determine height
-  const ref = useRef(null);
-  const [padding, setPadding] = useState(0);
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const parentStyles = getComputedStyle(ref.current.parentElement);
     const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
     const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
@@ -18,13 +18,13 @@ const Table = (props) => {
   });
 
   // Fetch table data
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetch(props.dataUrl)
       .then((response) => response.json())
       .then((data) => {
-        setTableData(data);
+        setTableData(data.rows);
       })
       .catch((error) =>
         console.error(`Failed to load data from ${props.dataUrl}`)
@@ -38,6 +38,16 @@ const Table = (props) => {
           rows={tableData}
           columns={props.columns}
           autoPageSize={true}
+          disableSelectionOnClick
+          sx={{
+            ' .MuiDataGrid-cell a': {
+              color: '#009ef7',
+              textDecoration: 'none',
+            },
+            ' .MuiDataGrid-cell:focus, .MuiDataGrid-cell:focus-within': {
+              outline: 'none',
+            },
+          }}
         />
       ) : (
         <MuiCircularProgress />

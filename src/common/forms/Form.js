@@ -16,7 +16,7 @@ const supportedComponents = {
 const Form = (props) => {
   return (
     <>
-      <MuiBox>
+      <MuiBox sx={{ padding: '0px 10px' }}>
         {/* Render form components from contents */}
         {props.contents.map((d, i) => {
           let Component = supportedComponents[d.componentName];
@@ -49,7 +49,12 @@ const Form = (props) => {
               '&:hover': { backgroundColor: '#eff2f5' },
             }}
             variant="contained"
-            onClick={props.handleClose}
+            onClick={
+              props.cancelCallback ||
+              (() => {
+                console.log('Cancel');
+              })
+            }
           >
             Cancel
           </MuiButton>
@@ -64,7 +69,12 @@ const Form = (props) => {
               },
             }}
             variant="contained"
-            onClick={props.handleClose}
+            onClick={
+              props.submitCallback ||
+              (() => {
+                console.log('Submit');
+              })
+            }
           >
             Submit
           </MuiButton>
@@ -85,7 +95,8 @@ Form.propTypes = {
       componentName: PropTypes.string.isRequired,
     })
   ).isRequired,
-  handleClose: PropTypes.func,
+  cancelCallback: PropTypes.func,
+  submitCallback: PropTypes.func,
 };
 
 export default Form;

@@ -8,11 +8,17 @@ import MuiCardContent from '@mui/material/CardContent';
 
 import Chart from './Chart';
 import Table from './Table';
+import QuickInfo from './QuickInfo';
+import TabbedInput from './TabbedInput';
+import Timeline from './Timeline';
 
 // Create object of supported content types to be rendered in tile
 const supportedComponents = {
   Chart: Chart,
   Table: Table,
+  QuickInfo: QuickInfo,
+  TabbedInput: TabbedInput,
+  Timeline: Timeline,
 };
 
 const ContentTile = (props) => {

@@ -15,6 +15,7 @@ import NavTitle from './NavTitle';
 import Button from '../../common/buttons/Button';
 import NavAvatar from './NavAvatar';
 import NavListLink from './NavListLink';
+import NavListCustom from './NavListCustom';
 
 let supportedComponents = {
   NavTitle: NavTitle,
@@ -175,9 +176,13 @@ const NavBar = (props) => {
         >
           {
             <MuiList>
-              {props.routes.map((route) => (
-                <NavListLink {...route} key={route.route}></NavListLink>
-              ))}
+              {props.navItems.map((d) =>
+                d.type === 'route' ? (
+                  <NavListLink key={d.name} {...d}></NavListLink>
+                ) : (
+                  <NavListCustom key={d.name} {...d}></NavListCustom>
+                )
+              )}
             </MuiList>
           }
         </MuiDrawer>
@@ -200,18 +205,32 @@ const NavBar = (props) => {
           {/* Left Aligned Items */}
           {renderContentsWithAlignment('left')}
 
-          {/* Route Menu Items */}
-          {props.routes.map((d) => (
-            <StyledMenuItem
-              key={d.route}
-              component={Link}
-              to={d.route}
-              selected={location.pathname === d.route}
-              sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
-            >
-              <MuiTypography textAlign="center">{d.name}</MuiTypography>
-            </StyledMenuItem>
-          ))}
+          {/* Navigation Menu Items */}
+          {props.navItems.map((d) => {
+            if (d.type === 'route') {
+              return (
+                <StyledMenuItem
+                  key={d.name}
+                  component={Link}
+                  to={d.path}
+                  selected={location.pathname === d.path}
+                  sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
+                >
+                  <MuiTypography textAlign="center">{d.name}</MuiTypography>
+                </StyledMenuItem>
+              );
+            } else if (d.type === 'custom') {
+              return (
+                <StyledMenuItem
+                  key={d.name}
+                  sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
+                  onClick={d.callback}
+                >
+                  <MuiTypography textAlign="center">{d.name}</MuiTypography>
+                </StyledMenuItem>
+              );
+            }
+          })}
         </LeftWrapper>
 
         <RightWrapper ref={rightWrapperRef}>
@@ -229,10 +248,12 @@ NavBar.propTypes = {
   id: PropTypes.string,
   classes: PropTypes.string,
   contents: PropTypes.array.isRequired,
-  routes: PropTypes.arrayOf(
+  navItems: PropTypes.arrayOf(
     PropTypes.shape({
+      type: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      route: PropTypes.string.isRequired,
+      path: PropTypes.string,
+      callback: PropTypes.func,
     }).isRequired
   ).isRequired,
   pendoMetadata: PropTypes.object.isRequired,

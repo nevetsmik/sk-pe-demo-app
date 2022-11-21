@@ -36,7 +36,7 @@ const Modal = (props) => {
           <MuiCard>
             <MuiCardHeader
               sx={{
-                fontSize: '1rem',
+                fontSize: '1.25rem',
                 fontWeight: 500,
                 ...props.header.styles,
               }}
@@ -50,7 +50,7 @@ const Modal = (props) => {
             <MuiCardContent>
               <Component
                 {...props.content}
-                handleClose={props.handleClose}
+                cancelCallback={props.handleClose}
               ></Component>
             </MuiCardContent>
           </MuiCard>

@@ -9,11 +9,11 @@ import ListItemText from '@mui/material/ListItemText';
 
 import DynamicIcon from '../../common/DynamicIcon';
 
-const NavListLink = (props) => {
+const NavListCustom = (props) => {
   return (
     <>
-      <ListItem disablePadding button component={Link} to={props.path}>
-        <ListItemButton sx={{ padding: '5px 40px' }}>
+      <ListItem disablePadding button component={Link}>
+        <ListItemButton sx={{ padding: '5px 40px' }} onClick={props.callback}>
           {props.icon ? (
             <ListItemIcon>
               <DynamicIcon icon={props.icon}></DynamicIcon>
@@ -28,11 +28,11 @@ const NavListLink = (props) => {
   );
 };
 
-NavListLink.propTypes = {
+NavListCustom.propTypes = {
   icon: PropTypes.string,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
-export default NavListLink;
+export default NavListCustom;

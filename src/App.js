@@ -197,7 +197,6 @@ const App = (props) => {
             <Header
               {...props.header}
               innerRef={headerRef}
-              routes={props.content.routes}
               pendoMetadata={pendoMetadata}
             ></Header>
             {/* Content */}

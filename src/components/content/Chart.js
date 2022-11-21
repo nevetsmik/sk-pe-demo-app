@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Doughnut from './charts/Doughnut';
@@ -13,10 +13,10 @@ const supportedComponents = {
 
 const Graph = (props) => {
   // Get padding to determine height
-  const ref = useRef(null);
-  const [padding, setPadding] = useState(0);
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const parentStyles = getComputedStyle(ref.current.parentElement);
     const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
     const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));

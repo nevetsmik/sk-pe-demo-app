@@ -1,3 +1,4 @@
+import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
 const updateAddNewLabels = (event) => {
@@ -40,7 +41,7 @@ export default {
   classes: '',
   background: {
     styles: {
-      backgroundImage: 'url("./common/images/header-bg.png")',
+      backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
     },
@@ -88,6 +89,42 @@ export default {
           classes: '',
           componentName: 'NavAvatar',
           alignment: 'right',
+        },
+      ],
+      navItems: [
+        {
+          name: 'Dashboard',
+          type: 'route',
+          path: '/',
+        },
+        {
+          name: 'Accounts',
+          type: 'route',
+          path: '/accounts',
+        },
+        {
+          name: 'Contacts',
+          type: 'route',
+          path: '/contacts',
+        },
+        {
+          name: 'Opportunities',
+          type: 'route',
+          path: '/opportunities',
+        },
+        {
+          name: 'Mobile',
+          type: 'custom',
+          callback: () => {
+            const publicKey = 'ag_yy3m7wknuu96nw0qd9ww7tr6z4';
+            const osVersion = '15.5';
+            const device = 'iphone12promax';
+
+            window.open(
+              `https://appetize.io/embed/${publicKey}?osVersion=${osVersion}&device=${device}&scale=100&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
+              '_blank'
+            );
+          },
         },
       ],
     },
@@ -210,6 +247,36 @@ export default {
                   label: 'Default',
                 },
               ],
+              submitCallback: function () {
+                // Get details from DOM and place in local storage
+                const type = document.getElementById(
+                  'add-new-select-type'
+                ).innerText;
+
+                const newDetails = {};
+                for (let i = 0; i < 3; i++) {
+                  newDetails[
+                    document.getElementById(
+                      `add-new-text-field-${i}-label`
+                    ).innerText
+                  ] = document.getElementById(`add-new-text-field-${i}`).value;
+                }
+                console.log(newDetails);
+
+                window.localStorage.setItem(
+                  '_acmeNewDetails',
+                  JSON.stringify(newDetails)
+                );
+
+                // Go to relevant details page
+                if (type === 'Account') {
+                  window.location.href = `${window.location.origin}/accounts/new/details`;
+                } else if (type === 'Contact') {
+                  window.location.href = `${window.location.origin}/contacts/new/details`;
+                } else {
+                  window.location.href = `${window.location.origin}/opportunities/new/details`;
+                }
+              },
             },
           },
         ],
@@ -547,6 +614,13 @@ export default {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
+                              renderCell: (params) => (
+                                <a
+                                  href={`${window.location.origin}/opportunities/${params.id}/details`}
+                                >
+                                  {params.formattedValue}
+                                </a>
+                              ),
                             },
                             {
                               field: 'account',
@@ -612,6 +686,13 @@ export default {
                             {
                               field: 'name',
                               headerName: 'Name',
+                              renderCell: (params) => (
+                                <a
+                                  href={`${window.location.origin}/accounts/${params.id}/details`}
+                                >
+                                  {params.formattedValue}
+                                </a>
+                              ),
                               flex: 1,
                             },
                             {
@@ -694,6 +775,13 @@ export default {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
+                              renderCell: (params) => (
+                                <a
+                                  href={`${window.location.origin}/contacts/${params.id}/details`}
+                                >
+                                  {params.formattedValue}
+                                </a>
+                              ),
                             },
                             {
                               field: 'account',
@@ -775,6 +863,13 @@ export default {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
+                              renderCell: (params) => (
+                                <a
+                                  href={`${window.location.origin}/opportunities/${params.id}/details`}
+                                >
+                                  {params.formattedValue}
+                                </a>
+                              ),
                             },
                             {
                               field: 'account',
@@ -814,9 +909,128 @@ export default {
         ],
       },
       {
-        name: 'Mobile',
-        route: '/mobile',
-        contents: [],
+        name: 'Details',
+        route: '/:detailType/:detailId/details',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  md: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Quick Information',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        type: 'QuickInfo',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  md: 8,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Activity Tracker',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        type: 'TabbedInput',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Timeline',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        type: 'Timeline',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     ],
   },
