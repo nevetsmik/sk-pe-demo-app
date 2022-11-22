@@ -9,11 +9,11 @@ const expressStaticGzip = require('express-static-gzip');
 const app = express();
 
 /*********************************** REST API ***********************************/
-// // Require routers defined for visitorApi
-// const router = require('./visitorApi/router.js');
+// Require routers defined for visitorApi
+const router = require('./visitorApi/router.js');
 
-// // Serve content on relevant route
-// app.use('/visitorApi', router);
+// Serve content on relevant route
+app.use('/visitorApi', router);
 
 /*********************************** MIDDLEWARES ***********************************/
 // Enforce ssl
