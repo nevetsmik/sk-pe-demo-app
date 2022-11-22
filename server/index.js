@@ -48,7 +48,7 @@ app.use(
 
 // Compression
 app.use(
-  '/',
+  '*',
   expressStaticGzip(path.join(__dirname, '..', 'build'), {
     enableBrotli: true,
     customCompressions: [
