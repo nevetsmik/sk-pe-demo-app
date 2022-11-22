@@ -52,7 +52,7 @@ export default {
   header: {
     styles: {},
     opts: {},
-    id: '',
+    id: 'header',
     classes: '',
     navBar: {
       styles: {},
@@ -63,7 +63,7 @@ export default {
         {
           styles: {},
           opts: {},
-          id: '',
+          id: 'crm-title',
           classes: '',
           componentName: 'NavTitle',
           alignment: 'left',
@@ -72,7 +72,7 @@ export default {
         {
           styles: {},
           opts: {},
-          id: '',
+          id: 'help-button',
           classes: '',
           componentName: 'Button',
           alignment: 'right',
@@ -138,7 +138,7 @@ export default {
           {
             styles: {},
             opts: {},
-            id: '',
+            id: 'search-bar',
             classes: '',
             componentName: 'NavSearch',
             alignment: 'left',
@@ -403,7 +403,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: '',
+                            id: 'forecast-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -500,7 +500,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: '',
+                            id: 'quota-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -573,7 +573,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: '',
+                            id: 'pipeline-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -951,7 +951,7 @@ export default {
                         type: 'QuickInfo',
                       },
                     },
-                    id: '',
+                    id: 'quick-info',
                     classes: '',
                     componentName: 'ContentTile',
                   },
@@ -1037,7 +1037,7 @@ export default {
   footer: {
     styles: {},
     opts: {},
-    id: '',
+    id: 'footer',
     classes: '',
     typography: {
       styles: {},
