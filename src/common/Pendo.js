@@ -94,7 +94,7 @@ function initPendo(config, visitorInfo) {
     },
     account: {
       ...config?.visitor,
-      ...visitorInfo.visitor,
+      ...visitorInfo.account,
     },
   });
 }
