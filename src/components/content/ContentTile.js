@@ -6,6 +6,7 @@ import MuiCardHeader from '@mui/material/CardHeader';
 import MuiDivider from '@mui/material/Divider';
 import MuiCardContent from '@mui/material/CardContent';
 
+import getDimensions from '../../common/getDimensions';
 import Chart from './Chart';
 import Table from './Table';
 import QuickInfo from './QuickInfo';
@@ -37,26 +38,11 @@ const ContentTile = (props) => {
     }
   };
 
-  // Handle card header height
-  const cardHeaderRef = React.useRef(null);
+  // Resize handler for card content
+  const [cardHeaderRef, cardHeaderDim] = getDimensions();
 
-  const [cardHeaderHeight, setCardHeaderHeight] = React.useState(0);
-
-  const handleCardHeaderResized = () => {
-    if (cardHeaderRef.current.offsetHeight !== cardHeaderHeight) {
-      setCardHeaderHeight(cardHeaderRef.current.offsetHeight);
-    }
-  };
-
-  const headerObserver = new ResizeObserver(handleCardHeaderResized);
-
-  React.useEffect(() => {
-    headerObserver.observe(cardRef.current);
-
-    return function cleanup() {
-      headerObserver.disconnect();
-    };
-  });
+  // Resize handler for card content
+  const [cardContentRef, cardContentDim] = getDimensions();
 
   // Handle window resize
   const [windowHeight, setWindowHeight] = React.useState(window.innerHeight);
@@ -94,7 +80,7 @@ const ContentTile = (props) => {
         disableTypography={true}
       ></MuiCardHeader>
       <MuiDivider />
-      <MuiCardContent>
+      <MuiCardContent ref={cardContentRef} sx={{ overflowY: 'auto' }}>
         <Content
           sx={{ ...props.content.styles }}
           {...props.content.opts}
@@ -106,10 +92,11 @@ const ContentTile = (props) => {
               props.footer_height -
               props.container_offset) *
               props.height -
-            cardHeaderHeight -
+            cardHeaderDim.outerHeight -
             getCardOffset(cardRef.current) -
             1
           }
+          card_content_vert_padding={cardContentDim.padding.vert}
         ></Content>
       </MuiCardContent>
     </MuiCard>

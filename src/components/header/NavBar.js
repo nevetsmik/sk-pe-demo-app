@@ -10,7 +10,6 @@ import MuiTypography from '@mui/material/Typography';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiList from '@mui/material/List';
 import { styled as muiStyled } from '@mui/material/styles';
-
 import NavTitle from './NavTitle';
 import Button from '../../common/buttons/Button';
 import NavAvatar from './NavAvatar';
@@ -99,20 +98,26 @@ const NavBar = (props) => {
     setDrawerOpen(!drawerOpen);
   };
 
-  // Wrapper for left aligned app bar items
+  // Wrapper for left aligned nav bar items
   const LeftWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'left',
-    padding: theme.spacing(1, 1, 1, 1),
+    padding: theme.spacing(1, 1, 1, 0),
+    '> .nav-item:not(.MuiButton-contained):first-of-type *': {
+      paddingLeft: '0px',
+    },
   }));
 
-  // Wrapper for right aligned app bar items
+  // Wrapper for right aligned nav bar items
   const RightWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'right',
-    padding: theme.spacing(1, 1, 1, 1),
+    padding: theme.spacing(1, 0, 1, 1),
+    '> .nav-item:not(.MuiButton-contained):last-of-type *': {
+      paddingRight: '0px',
+    },
   }));
 
   // Styled menu items
@@ -135,15 +140,13 @@ const NavBar = (props) => {
       .filter((d) => d.alignment === alignment)
       .map((d, i) => {
         let Component = supportedComponents[d.componentName];
-        return Component ? (
-          <Component
-            key={`${d.componentName}-${i}`}
-            {...d}
-            pendoMetadata={props.pendoMetadata}
-          ></Component>
-        ) : (
-          <div key={`${d.componentName}-${i}`}>
-            Unsupported component type: {d.componentName}
+        return (
+          <div key={`${d.componentName}-${i}`} className="nav-item">
+            {Component ? (
+              <Component {...d}></Component>
+            ) : (
+              `Unsupported component type: ${d.componentName}`
+            )}
           </div>
         );
       });
@@ -167,6 +170,12 @@ const NavBar = (props) => {
       >
         {/* Slide out drawer */}
         <MuiDrawer
+          sx={{
+            '& .MuiDrawer-paper': {
+              width: '240px',
+              paddingTop: '25px',
+            },
+          }}
           variant="temporary"
           onClose={handleDrawerToggle}
           open={drawerOpen}
@@ -189,18 +198,13 @@ const NavBar = (props) => {
 
         <LeftWrapper ref={leftWrapperRef}>
           {/* Nav Drawer Button */}
-          <MuiIconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{
-              mr: 2,
-              display: drawerMenuIconDisplayed ? 'inherit' : 'none',
-            }}
-          >
-            <MuiMenuIcon />
-          </MuiIconButton>
+          {drawerMenuIconDisplayed ? (
+            <MuiIconButton color="inherit" onClick={handleDrawerToggle}>
+              <MuiMenuIcon />
+            </MuiIconButton>
+          ) : (
+            <></>
+          )}
 
           {/* Left Aligned Items */}
           {renderContentsWithAlignment('left')}
@@ -212,7 +216,7 @@ const NavBar = (props) => {
                 <StyledMenuItem
                   key={d.name}
                   component={Link}
-                  to={d.path}
+                  to={d.path + location.search}
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                 >

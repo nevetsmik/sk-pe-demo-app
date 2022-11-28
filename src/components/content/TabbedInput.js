@@ -7,17 +7,20 @@ import MuiTab from '@mui/material/Tab';
 import MuiTextField from '@mui/material/TextField';
 import MuiButton from '@mui/material/Button';
 
-const TabbedInput = (props) => {
-  // Get padding to determine height
-  const ref = React.useRef(null);
-  const [padding, setPadding] = React.useState(0);
+import getDimensions from '../../common/getDimensions';
 
-  React.useEffect(() => {
-    const parentStyles = getComputedStyle(ref.current.parentElement);
-    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
-    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
-    setPadding(paddingTop + paddingBottom);
-  });
+const TabbedInput = (props) => {
+  // Resize handler for container
+  const [containerRef, containerDim] = getDimensions();
+
+  // Resize handler for tabs
+  const [tabsRef, tabsDim] = getDimensions();
+
+  // Resize handler for text area
+  const [textAreaRef, textAreaDim] = getDimensions();
+
+  // Resize handler for buttons
+  const [buttonsRef, buttonsDim] = getDimensions();
 
   // Handle tabs selected state
   const [value, setValue] = React.useState(0);
@@ -36,8 +39,20 @@ const TabbedInput = (props) => {
   ];
 
   return (
-    <div ref={ref} style={{ height: props.height - padding, width: '100%' }}>
+    <div
+      ref={containerRef}
+      style={{
+        height:
+          props.height -
+          props.card_content_vert_padding -
+          containerDim.padding.top -
+          containerDim.padding.bottom,
+        width: '100%',
+      }}
+    >
+      {/* Scrolling tabs */}
       <MuiTabs
+        ref={tabsRef}
         value={value}
         onChange={handleChange}
         variant="scrollable"
@@ -48,21 +63,45 @@ const TabbedInput = (props) => {
         ))}
       </MuiTabs>
 
+      {/* Text area */}
       <MuiTextField
+        ref={textAreaRef}
         sx={{
           marginTop: '20px',
           width: '100%',
+          height: `${
+            props.height -
+            props.card_content_vert_padding -
+            containerDim.padding.vert -
+            tabsDim.outerHeight -
+            textAreaDim.margin.vert -
+            buttonsDim.outerHeight
+          }px !important`,
           '& .MuiInputBase-root': {
             height: '100%',
           },
+          '& .MuiInputBase-root .MuiInputBase-input': {
+            height: `${
+              props.height -
+              props.card_content_vert_padding -
+              containerDim.padding.vert -
+              tabsDim.outerHeight -
+              textAreaDim.margin.vert -
+              buttonsDim.outerHeight -
+              33 // Interior text area padding; TODO: Make dynamic
+            }px !important`,
+          },
         }}
+        id="activity-tracker-text-area"
         multiline
-        rows={5}
+        minRows={1}
+        maxRows={10}
         label="Enter Activity Information"
       ></MuiTextField>
 
       {/* Submit Button */}
       <MuiBox
+        ref={buttonsRef}
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -71,6 +110,7 @@ const TabbedInput = (props) => {
         }}
       >
         <MuiButton
+          className="tabbed-input-button submit-button"
           sx={{
             borderRadius: '5px',
             padding: '6px 40px',
@@ -91,6 +131,7 @@ const TabbedInput = (props) => {
 
 TabbedInput.propTypes = {
   height: PropTypes.number.isRequired,
+  card_content_vert_padding: PropTypes.number.isRequired,
 };
 
 export default TabbedInput;

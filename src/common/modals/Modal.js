@@ -20,7 +20,17 @@ const Modal = (props) => {
 
   return (
     <>
-      <MuiModal open={props.open} onClose={props.handleClose} keepMounted>
+      <MuiModal
+        sx={{
+          '> .MuiBox-root': {
+            width: '520px',
+            maxWidth: 'calc(100% - 100px)',
+          },
+        }}
+        open={props.open}
+        onClose={props.handleClose}
+        keepMounted
+      >
         <MuiBox
           sx={{
             position: 'absolute',
@@ -47,7 +57,15 @@ const Modal = (props) => {
               disableTypography={true}
             ></MuiCardHeader>
             <MuiDivider></MuiDivider>
-            <MuiCardContent>
+            <MuiCardContent
+              sx={{
+                padding: '16px 24px',
+                ...props.content.styles,
+              }}
+              {...props.content.opts}
+              id={props.content.id}
+              className={props.content.classes}
+            >
               <Component
                 {...props.content}
                 cancelCallback={props.handleClose}
@@ -75,6 +93,10 @@ Modal.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
   content: PropTypes.shape({
+    styles: PropTypes.object,
+    opts: PropTypes.object,
+    id: PropTypes.string,
+    classes: PropTypes.string,
     componentName: PropTypes.string.isRequired,
   }).isRequired,
 };

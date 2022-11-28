@@ -7,13 +7,17 @@ export default {
   opts: {},
   id: '',
   classes: '',
+  favicon: '/investments/logos/main.ico',
+  pendoConfig: {
+    apiKey: '7057a1b8-0531-49a8-62f3-f4816139ca04',
+  },
   background: {
     styles: {
       backgroundImage: 'url("./common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
       backgroundColor: '#ebecee',
-      filter: 'hue-rotate(240deg);',
+      filter: 'brightness(80%);',
     },
     opts: {},
     id: '',
@@ -61,6 +65,24 @@ export default {
           alignment: 'right',
         },
       ],
+
+      navItems: [
+        {
+          name: 'Research',
+          type: 'route',
+          path: '/',
+        },
+        {
+          name: 'Debt Portal',
+          type: 'route',
+          path: '/debt',
+        },
+        {
+          name: 'Equity Portal',
+          type: 'route',
+          path: '/equity',
+        },
+      ],
     },
     appBars: [
       {
@@ -105,7 +127,7 @@ export default {
     classes: '',
     routes: [
       {
-        name: 'Dashboard',
+        name: 'Research',
         route: '/',
         contents: [
           {
@@ -453,8 +475,8 @@ export default {
         ],
       },
       {
-        name: 'Accounts',
-        route: '/accounts',
+        name: 'Debt Portal',
+        route: '/debt',
         contents: [
           {
             styles: {},
@@ -534,8 +556,8 @@ export default {
         ],
       },
       {
-        name: 'Contacts',
-        route: '/contacts',
+        name: 'Equity Portal',
+        route: '/equity',
         contents: [
           {
             styles: {},
@@ -613,92 +635,6 @@ export default {
             ],
           },
         ],
-      },
-      {
-        name: 'Opportunities',
-        route: '/opportunities',
-        contents: [
-          {
-            styles: {},
-            opts: {
-              container: true,
-            },
-            id: '',
-            classes: '',
-            componentName: 'Grid',
-            contents: [
-              {
-                styles: {},
-                opts: {
-                  item: true,
-                  xs: 12,
-                },
-                id: '',
-                classes: '',
-                componentName: 'Grid',
-                contents: [
-                  {
-                    styles: {},
-                    opts: {
-                      height: 1,
-                      header: {
-                        styles: {},
-                        opts: {},
-                        id: '',
-                        classes: '',
-                        name: 'Opportunities',
-                      },
-                      content: {
-                        styles: {},
-                        opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
-                          columns: [
-                            {
-                              field: 'name',
-                              headerName: 'Name',
-                              flex: 1,
-                            },
-                            {
-                              field: 'account',
-                              headerName: 'Account',
-                              flex: 1,
-                            },
-                            {
-                              field: 'contact',
-                              headerName: 'Contact',
-                              flex: 1,
-                            },
-                            {
-                              field: 'rep',
-                              headerName: 'Rep',
-                              flex: 1,
-                            },
-                            {
-                              field: 'arr',
-                              headerName: 'ARR',
-                              flex: 1,
-                            },
-                          ],
-                        },
-                        id: '',
-                        classes: '',
-                        type: 'Table',
-                      },
-                    },
-                    id: '',
-                    classes: '',
-                    componentName: 'ContentTile',
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: 'Mobile',
-        route: '/mobile',
-        contents: [],
       },
     ],
   },

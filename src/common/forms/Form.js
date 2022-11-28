@@ -16,80 +16,75 @@ const supportedComponents = {
 const Form = (props) => {
   return (
     <>
-      <MuiBox sx={{ padding: '0px 10px' }}>
-        {/* Render form components from contents */}
-        {props.contents.map((d, i) => {
-          let Component = supportedComponents[d.componentName];
+      {/* Render form components from contents */}
+      {props.contents.map((d, i) => {
+        let Component = supportedComponents[d.componentName];
 
-          return (
-            <MuiFormControl
-              key={`${d.componentName}-${d.label}-${i}`}
-              fullWidth
-              sx={{ marginTop: '15px' }}
-            >
-              <Component {...d}></Component>
-            </MuiFormControl>
-          );
-        })}
-        {/* Render Cancel and Submit Buttons */}
-        <MuiBox
+        return (
+          <MuiFormControl
+            key={`${d.componentName}-${d.label}-${i}`}
+            fullWidth
+            sx={{ marginTop: '15px' }}
+          >
+            <Component {...d}></Component>
+          </MuiFormControl>
+        );
+      })}
+      {/* Render Cancel and Submit Buttons */}
+      <MuiBox
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginTop: '20px',
+        }}
+      >
+        <MuiButton
+          className="form-button cancel-button"
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: '20px',
+            borderRadius: '5px',
+            padding: '6px 40px',
+            color: '#7E8299',
+            backgroundColor: '#f5f8fa',
+            '&:hover': { backgroundColor: '#E1E3E6' },
           }}
+          variant="contained"
+          onClick={
+            props.cancelCallback ||
+            (() => {
+              console.log('Cancel');
+            })
+          }
         >
-          <MuiButton
-            sx={{
-              borderRadius: '5px',
-              padding: '6px 40px',
-              color: '#7E8299',
-              backgroundColor: '#f5f8fa',
-              '&:hover': { backgroundColor: '#eff2f5' },
-            }}
-            variant="contained"
-            onClick={
-              props.cancelCallback ||
-              (() => {
-                console.log('Cancel');
-              })
-            }
-          >
-            Cancel
-          </MuiButton>
-          <MuiButton
-            sx={{
-              borderRadius: '5px',
-              padding: '6px 40px',
-              marginLeft: '20px',
-              backgroundColor: '#1DA259',
-              '&:hover': {
-                backgroundColor: '#1a9150',
-              },
-            }}
-            variant="contained"
-            onClick={
-              props.submitCallback ||
-              (() => {
-                console.log('Submit');
-              })
-            }
-          >
-            Submit
-          </MuiButton>
-        </MuiBox>
+          Cancel
+        </MuiButton>
+        <MuiButton
+          className="form-button submit-button"
+          sx={{
+            borderRadius: '5px',
+            padding: '6px 40px',
+            marginLeft: '20px',
+            backgroundColor: '#1DA259',
+            '&:hover': {
+              backgroundColor: '#1a9150',
+            },
+          }}
+          variant="contained"
+          onClick={
+            props.submitCallback ||
+            (() => {
+              console.log('Submit');
+            })
+          }
+        >
+          Submit
+        </MuiButton>
       </MuiBox>
     </>
   );
 };
 
 Form.propTypes = {
-  styles: PropTypes.object,
-  opts: PropTypes.object,
-  id: PropTypes.string,
-  classes: PropTypes.string,
-  componentName: PropTypes.string.isRequired,
   contents: PropTypes.arrayOf(
     PropTypes.shape({
       componentName: PropTypes.string.isRequired,

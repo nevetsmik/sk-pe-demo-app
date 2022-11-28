@@ -11,6 +11,11 @@ const supportedComponents = {
 };
 
 const PageContent = (props) => {
+  // Update document title based on current route
+  React.useEffect(() => {
+    document.title = props.title || '';
+  }, [props.title]);
+
   function renderPageContent(content, key) {
     return content.map((d, i) => {
       let newKey = `${key}-${d.componentName}${i}${
@@ -50,6 +55,7 @@ const PageContent = (props) => {
 };
 
 PageContent.propTypes = {
+  title: PropTypes.string.isRequired,
   contents: PropTypes.array.isRequired,
   headerHeight: PropTypes.number.isRequired,
   footerHeight: PropTypes.number.isRequired,

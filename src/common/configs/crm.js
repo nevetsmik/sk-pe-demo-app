@@ -39,6 +39,30 @@ export default {
   opts: {},
   id: '',
   classes: '',
+  favicon: '/crm/logos/main.ico',
+  pendoConfig: {
+    apiKey: '74924fb4-e18c-42b1-664b-47ed918c3a45',
+    additionalApiKeys: [
+      '758434d6-672f-4326-4db4-64412a4af191', // Pendo Experience Sandbox
+      'bada3d2f-3371-418a-6711-c9ed5af6d466', // Pendo - Onboarding
+      '9a491f59-cc46-43e2-4c67-179d36c5d03b', // Pendo Free Sample Data (US prod)
+      'b2cb409b-391e-4505-71ef-f35a6ba59b9f', // (Demo) Digital Adaoption - SFDC
+      'aafdb96f-d3f0-4704-59a1-912a146e228c', // sr$2A - d44B! (Custom Demo Sub)
+    ],
+    snippetCallback: function (config, urlParams) {
+      if (!urlParams.get('apiKey')) {
+        // Zendesk widget script
+        const script = document.createElement('script');
+        script.id = 'ze-snippet';
+        script.src =
+          'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
+        document.head.appendChild(script);
+      }
+    },
+    visitor: {
+      acmeVersion: 3,
+    },
+  },
   background: {
     styles: {
       backgroundImage: 'url("/common/images/header-bg.png")',
@@ -86,7 +110,7 @@ export default {
           styles: {},
           opts: {},
           id: '',
-          classes: '',
+          classes: 'profile-button',
           componentName: 'NavAvatar',
           alignment: 'right',
         },
@@ -116,12 +140,14 @@ export default {
           name: 'Mobile',
           type: 'custom',
           callback: () => {
-            const publicKey = 'ag_yy3m7wknuu96nw0qd9ww7tr6z4';
+            const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
             const osVersion = '15.5';
             const device = 'iphone12promax';
+            const deviceColor = 'black';
+            const scale = 75;
 
             window.open(
-              `https://appetize.io/embed/${publicKey}?osVersion=${osVersion}&device=${device}&scale=100&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
+              `https://appetize.io/app/${publicKey}?osVersion=${osVersion}&device=${device}&deviceColor=${deviceColor}&scale=${scale}&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
               '_blank'
             );
           },
@@ -395,6 +421,24 @@ export default {
                                       legend: {
                                         display: false,
                                       },
+                                      tooltip: {
+                                        callbacks: {
+                                          label: function (context) {
+                                            return (
+                                              '$' + context.raw / 1000000 + 'm'
+                                            );
+                                          },
+                                        },
+                                      },
+                                    },
+                                    scales: {
+                                      y: {
+                                        ticks: {
+                                          callback: function (value) {
+                                            return '$' + value / 1000000 + 'm';
+                                          },
+                                        },
+                                      },
                                     },
                                   },
                                 },
@@ -485,12 +529,28 @@ export default {
                                   },
                                   opts: {
                                     maintainAspectRatio: false,
+                                    plugins: {
+                                      tooltip: {
+                                        callbacks: {
+                                          label: function (context) {
+                                            return (
+                                              '$' + context.raw / 1000 + 'k'
+                                            );
+                                          },
+                                        },
+                                      },
+                                    },
                                     scales: {
                                       x: {
                                         stacked: true,
                                       },
                                       y: {
                                         stacked: true,
+                                        ticks: {
+                                          callback: function (value) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
                                       },
                                     },
                                   },
@@ -1050,7 +1110,7 @@ export default {
         },
         opts: {},
         id: '',
-        classes: '',
+        classes: 'footer-icon',
       },
     },
   },

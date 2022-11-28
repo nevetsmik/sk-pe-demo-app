@@ -23,7 +23,13 @@ const NavAvatar = (props) => {
 
   return (
     <>
-      <MuiIconButton onClick={handleClick}>
+      <MuiIconButton
+        sx={{ ...props.styles }}
+        {...props.opts}
+        id={props.id}
+        className={props.classes}
+        onClick={handleClick}
+      >
         <MuiAvatar>
           <MuiPersonIcon></MuiPersonIcon>
         </MuiAvatar>
@@ -114,6 +120,10 @@ const NavAvatar = (props) => {
 };
 
 NavAvatar.propTypes = {
+  styles: PropTypes.object,
+  opts: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string,
   pendoMetadata: PropTypes.object.isRequired,
 };
 

@@ -17,19 +17,25 @@ const AppBar = (props) => {
   // Wrapper for left aligned items
   const LeftWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
-    padding: theme.spacing(1, 1, 1, 1),
     width: '100%',
+    alignItems: 'center',
+    justifyContent: 'left',
+    padding: theme.spacing(1, 1, 1, 0),
+    '> .nav-item:not(.MuiButton-contained):first-of-type': {
+      paddingLeft: '0px',
+    },
   }));
 
-  // Wrapper for right aligned items
+  // Wrapper for right aligned app bar items
   const RightWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.up('sm')]: {
-      justifyContent: 'right',
-    },
-    padding: theme.spacing(1, 1, 1, 1),
     width: '100%',
+    alignItems: 'center',
+    justifyContent: 'right',
+    padding: theme.spacing(1, 0, 1, 1),
+    '> .nav-item:not(.MuiButton-contained):last-of-type': {
+      paddingRight: '0px',
+    },
   }));
 
   return (
@@ -50,21 +56,17 @@ const AppBar = (props) => {
           .filter((d) => d.alignment === 'left')
           .map((d, i) => {
             let Component = supportedComponents[d.componentName];
-            return Component ? (
-              <Component key={`${d.componentName}-${i}`} {...d}></Component>
-            ) : (
-              <div key={`${d.componentName}-${i}`}>
-                Unsupported component type: {d.componentName}
+            return (
+              <div key={`${d.componentName}-${i}`} className="nav-item">
+                {Component ? (
+                  <Component {...d}></Component>
+                ) : (
+                  `Unsupported component type: ${d.componentName}`
+                )}
               </div>
             );
           })}
       </LeftWrapper>
-
-      {/* Spacer between Left Wrapper and Right Wrapper */}
-      <MuiTypography
-        component="div"
-        sx={{ flexGrow: 1, alignSelf: 'flex-end' }}
-      ></MuiTypography>
 
       <RightWrapper>
         {/* Right Aligned Items */}
@@ -72,11 +74,13 @@ const AppBar = (props) => {
           .filter((d) => d.alignment === 'right')
           .map((d, i) => {
             let Component = supportedComponents[d.componentName];
-            return Component ? (
-              <Component key={`${d.componentName}-${i}`} {...d}></Component>
-            ) : (
-              <div key={`${d.componentName}-${i}`}>
-                Unsupported component type: {d.componentName}
+            return (
+              <div key={`${d.componentName}-${i}`} className="nav-item">
+                {Component ? (
+                  <Component {...d}></Component>
+                ) : (
+                  `Unsupported component type: ${d.componentName}`
+                )}
               </div>
             );
           })}

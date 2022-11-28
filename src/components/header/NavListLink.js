@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,9 +10,12 @@ import ListItemText from '@mui/material/ListItemText';
 import DynamicIcon from '../../common/DynamicIcon';
 
 const NavListLink = (props) => {
+  // Query params to preserve on link
+  const { search } = useLocation();
+
   return (
     <>
-      <ListItem disablePadding button component={Link} to={props.path}>
+      <ListItem disablePadding button component={Link} to={props.path + search}>
         <ListItemButton sx={{ padding: '5px 40px' }}>
           {props.icon ? (
             <ListItemIcon>

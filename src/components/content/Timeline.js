@@ -40,7 +40,6 @@ let entries = [
 ];
 
 const Timeline = (props) => {
-  console.log(props);
   // Get padding to determine height
   const ref = React.useRef(null);
   const [padding, setPadding] = React.useState(0);

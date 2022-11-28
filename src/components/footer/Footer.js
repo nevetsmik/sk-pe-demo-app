@@ -10,7 +10,7 @@ const Footer = (props) => {
     <MuiAppBar
       ref={props.innerRef}
       sx={{
-        position: 'relative',
+        position: 'sticky',
         backgroundColor: 'rgba(0, 0, 0, 0)',
         color: '#000000',
         boxShadow: 'none',
@@ -42,7 +42,7 @@ const Footer = (props) => {
           id={props.typography.icon.id}
           className={props.typography.icon.classes}
         ></MuiFavoriteBorderIcon>
-        by Pendo Demo Engineering.
+        by Pendo Demo Engineering
       </MuiTypography>
     </MuiAppBar>
   );
