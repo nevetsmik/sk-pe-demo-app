@@ -6,25 +6,19 @@ import { useParams } from 'react-router-dom';
 import MuiBox from '@mui/material/Box';
 import MuiTypography from '@mui/material/Typography';
 
+import getDimensions from '../../common/getDimensions';
+
 const baseUrl = '/crm/tableData/';
 
 const QuickInfo = (props) => {
-  // const { detailType, detailId } = useParams();
-  // Get padding to determine height
-  const ref = React.useRef(null);
-  const [padding, setPadding] = React.useState(0);
-  const [sidePadding, setSidePadding] = React.useState(0);
+  // Resize handler for container
+  const [containerRef, containerDim] = getDimensions();
 
-  React.useEffect(() => {
-    const parentStyles = getComputedStyle(ref.current.parentElement);
-    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
-    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
-    setPadding(paddingTop + paddingBottom);
+  // Resize handler for text items
+  const [imageRef, imageDim] = getDimensions();
 
-    const paddingLeft = parseInt(parentStyles.paddingLeft.slice(0, -2));
-    const paddingRight = parseInt(parentStyles.paddingRight.slice(0, -2));
-    setSidePadding(paddingLeft + paddingRight);
-  });
+  // Resize handler for text items
+  const [textRef, textDim] = getDimensions();
 
   // Get quick info from relevant table
   const { detailType, detailId } = useParams();
@@ -55,42 +49,57 @@ const QuickInfo = (props) => {
   }, []);
 
   return (
-    <div ref={ref} style={{ height: props.height - padding, width: '100%' }}>
+    <div
+      ref={containerRef}
+      style={{
+        height:
+          props.height -
+          props.card_content_vert_padding -
+          containerDim.padding.vert,
+        width: '100%',
+      }}
+    >
       <MuiBox
+        ref={imageRef}
         sx={{
+          display: 'flex',
+          paddingBottom: '16px',
           justifyContent: 'center',
-          padding: '20px 25%',
-          display: {
-            xs: 'none',
-            sm: 'flex',
-          },
         }}
       >
         <img
           src="https://www.acmecrm.io/static/media/hex_logo.ec9f114f.png"
           style={{
-            width: '100%',
-            maxWidth: '200px',
+            maxHeight: `${
+              containerDim.innerHeight -
+              imageDim.padding.vert -
+              imageDim.margin.vert -
+              textDim.outerHeight
+            }px`,
+            maxWidth: '80%',
           }}
         ></img>
       </MuiBox>
-      {Object.entries(fields).map(([key, val]) => {
-        return (
-          <MuiBox
-            key={key}
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <MuiTypography sx={{ fontWeight: 'bold' }}>{key}:</MuiTypography>
-            <MuiTypography sx={{ paddingLeft: '20px' }}>{val}</MuiTypography>
-          </MuiBox>
-        );
-      })}
+      <MuiBox ref={textRef}>
+        {Object.entries(fields).map(([key, val]) => {
+          return (
+            <MuiBox
+              key={key}
+              sx={{ display: 'flex', justifyContent: 'space-between' }}
+            >
+              <MuiTypography sx={{ fontWeight: 'bold' }}>{key}:</MuiTypography>
+              <MuiTypography sx={{ paddingLeft: '20px' }}>{val}</MuiTypography>
+            </MuiBox>
+          );
+        })}
+      </MuiBox>
     </div>
   );
 };
 
 QuickInfo.propTypes = {
   height: PropTypes.number.isRequired,
+  card_content_vert_padding: PropTypes.number.isRequired,
 };
 
 export default QuickInfo;

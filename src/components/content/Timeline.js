@@ -10,6 +10,7 @@ import MuiTimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import MuiTimelineDot from '@mui/lab/TimelineDot';
 import MuiTypography from '@mui/material/Typography';
 
+import getDimensions from '../../common/getDimensions';
 import DynamicIcon from '../../common/DynamicIcon';
 
 let entries = [
@@ -40,27 +41,34 @@ let entries = [
 ];
 
 const Timeline = (props) => {
-  // Get padding to determine height
-  const ref = React.useRef(null);
-  const [padding, setPadding] = React.useState(0);
-
-  React.useEffect(() => {
-    const parentStyles = getComputedStyle(ref.current.parentElement);
-    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
-    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
-    setPadding(paddingTop + paddingBottom);
-  });
+  // Resize handler for container
+  const [containerRef, containerDim] = getDimensions();
 
   <MuiTimelineConnector />;
   return (
-    <div ref={ref} style={{ height: props.height - padding, width: '100%' }}>
+    <div
+      ref={containerRef}
+      style={{
+        height:
+          props.height -
+          containerDim.padding.vert -
+          props.card_content_vert_padding,
+        width: '100%',
+      }}
+    >
       <MuiTimeline sx={{ margin: '0px', padding: '0px' }}>
         {entries.map((d, i) => {
           return (
             <MuiTimelineItem
               key={`${i}-${d.text}`}
               sx={{
-                minHeight: `${(props.height - padding) / entries.length}px`,
+                minHeight: '10px',
+                height: `${
+                  (props.height -
+                    containerDim.padding.vert -
+                    props.card_content_vert_padding) /
+                  entries.length
+                }px`,
               }}
             >
               <MuiTimelineOppositeContent
@@ -68,21 +76,36 @@ const Timeline = (props) => {
               ></MuiTimelineOppositeContent>
               <MuiTimelineSeparator>
                 <MuiTimelineConnector sx={{ opacity: i === 0 ? 0 : 1 }} />
-                <MuiTimelineDot>
-                  <DynamicIcon icon={d.icon}></DynamicIcon>
+                <MuiTimelineDot sx={{ margin: '0px', padding: '2px' }}>
+                  <DynamicIcon
+                    icon={d.icon}
+                    styles={{
+                      height: `${
+                        0.5 *
+                        ((props.height -
+                          containerDim.padding.vert -
+                          props.card_content_vert_padding) /
+                          entries.length)
+                      }px`,
+                    }}
+                  ></DynamicIcon>
                 </MuiTimelineDot>
                 <MuiTimelineConnector
                   sx={{ opacity: i === entries.length - 1 ? 0 : 1 }}
                 />
               </MuiTimelineSeparator>
-              <MuiTimelineContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0px 16px',
-                }}
-              >
-                <MuiTypography>{d.text}</MuiTypography>
+              <MuiTimelineContent sx={{ maxWidth: '100%' }}>
+                <MuiTypography
+                  sx={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    '-webkit-line-clamp': '1',
+                    '-webkit-box-orient': 'vertical',
+                  }}
+                >
+                  {d.text}
+                </MuiTypography>
               </MuiTimelineContent>
             </MuiTimelineItem>
           );
@@ -94,6 +117,7 @@ const Timeline = (props) => {
 
 Timeline.propTypes = {
   height: PropTypes.number.isRequired,
+  card_content_vert_padding: PropTypes.number.isRequired,
 };
 
 export default Timeline;

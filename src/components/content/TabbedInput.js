@@ -45,13 +45,28 @@ const TabbedInput = (props) => {
         height:
           props.height -
           props.card_content_vert_padding -
-          containerDim.padding.top -
-          containerDim.padding.bottom,
+          containerDim.padding.vert,
         width: '100%',
       }}
     >
       {/* Scrolling tabs */}
       <MuiTabs
+        sx={{
+          display:
+            props.height -
+              props.card_content_vert_padding -
+              containerDim.padding.vert <
+            175
+              ? 'none'
+              : 'initial',
+          height:
+            props.height -
+              props.card_content_vert_padding -
+              containerDim.padding.vert <
+            175
+              ? 0
+              : 'initial',
+        }}
         ref={tabsRef}
         value={value}
         onChange={handleChange}
@@ -67,7 +82,7 @@ const TabbedInput = (props) => {
       <MuiTextField
         ref={textAreaRef}
         sx={{
-          marginTop: '20px',
+          marginTop: '8px',
           width: '100%',
           height: `${
             props.height -
@@ -94,9 +109,10 @@ const TabbedInput = (props) => {
         }}
         id="activity-tracker-text-area"
         multiline
+        fullWidth
         minRows={1}
         maxRows={10}
-        label="Enter Activity Information"
+        label="Enter Information"
       ></MuiTextField>
 
       {/* Submit Button */}
