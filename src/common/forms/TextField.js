@@ -13,6 +13,7 @@ const TextField = (props) => {
         id={props.id}
         className={props.classes}
         label={props.label}
+        name={props.label}
       ></MuiTextField>
     </>
   );
