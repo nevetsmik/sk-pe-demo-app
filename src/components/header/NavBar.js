@@ -143,7 +143,7 @@ const NavBar = (props) => {
         return (
           <div key={`${d.componentName}-${i}`} className="nav-item">
             {Component ? (
-              <Component {...d}></Component>
+              <Component {...d} pendoMetadata={props.pendoMetadata}></Component>
             ) : (
               `Unsupported component type: ${d.componentName}`
             )}

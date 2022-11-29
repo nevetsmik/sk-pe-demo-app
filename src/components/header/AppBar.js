@@ -57,7 +57,11 @@ const AppBar = (props) => {
           .map((d, i) => {
             let Component = supportedComponents[d.componentName];
             return (
-              <div key={`${d.componentName}-${i}`} className="nav-item">
+              <div
+                key={`${d.componentName}-${i}`}
+                style={{ width: '100%' }}
+                className="nav-item"
+              >
                 {Component ? (
                   <Component {...d}></Component>
                 ) : (
