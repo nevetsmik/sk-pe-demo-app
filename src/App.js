@@ -45,7 +45,6 @@ const App = (props) => {
 
   // Run Pendo snippet to install agent
   React.useEffect(() => {
-    console.log(`Install snippet from apiKey: ${props.pendoConfig.apiKey}`);
     runSnippet(props.pendoConfig, setPendoMetadata);
   }, []);
 
