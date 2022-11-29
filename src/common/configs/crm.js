@@ -1,5 +1,6 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
+import { Link } from 'react-router-dom';
 
 const updateAddNewLabels = (event) => {
   // Dynamically change text field labels based on type
@@ -20,7 +21,6 @@ const updateAddNewLabels = (event) => {
   let selectedValue =
     event?.target?.value ||
     document.getElementById('add-new-select-type').nextElementSibling.value;
-  console.log('Updating labels to match with value ', selectedValue);
 
   labels.forEach((d, i) => {
     document.getElementById(`add-new-text-field-${i}-label`).innerText =
@@ -188,16 +188,6 @@ export default {
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
-
-              // Add '/new' to url using pendo location api when add new form open
-              let baseUrl = pendo.location.getHref();
-              pendo.location.setUrl(
-                baseUrl.slice(-1) === '/' ? `${baseUrl}new` : `${baseUrl}/new`
-              );
-            },
-            closeEndCallback: () => {
-              // Return to using browser url on form closed
-              pendo.location.useBrowserUrl();
             },
             header: {
               styles: {},
@@ -273,7 +263,7 @@ export default {
                   label: 'Default',
                 },
               ],
-              submitCallback: function () {
+              submitCallback: function (event, navigate) {
                 // Get details from DOM and place in local storage
                 const type = document.getElementById(
                   'add-new-select-type'
@@ -287,7 +277,6 @@ export default {
                     ).innerText
                   ] = document.getElementById(`add-new-text-field-${i}`).value;
                 }
-                console.log(newDetails);
 
                 window.localStorage.setItem(
                   '_acmeNewDetails',
@@ -296,11 +285,11 @@ export default {
 
                 // Go to relevant details page
                 if (type === 'Account') {
-                  window.location.href = `${window.location.origin}/accounts/new/details`;
+                  navigate(`/accounts/new/details`);
                 } else if (type === 'Contact') {
-                  window.location.href = `${window.location.origin}/contacts/new/details`;
+                  navigate(`/contacts/new/details`);
                 } else {
-                  window.location.href = `${window.location.origin}/opportunities/new/details`;
+                  navigate(`/opportunities/new/details`);
                 }
               },
             },
@@ -675,9 +664,7 @@ export default {
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <a
-                                  href={`${window.location.origin}/opportunities/${params.id}/details`}
-                                >
+                                <a href={`/opportunities/${params.id}/details`}>
                                   {params.formattedValue}
                                 </a>
                               ),
@@ -747,11 +734,9 @@ export default {
                               field: 'name',
                               headerName: 'Name',
                               renderCell: (params) => (
-                                <a
-                                  href={`${window.location.origin}/accounts/${params.id}/details`}
-                                >
+                                <Link to={`/accounts/${params.id}/details`}>
                                   {params.formattedValue}
-                                </a>
+                                </Link>
                               ),
                               flex: 1,
                             },
@@ -836,11 +821,9 @@ export default {
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <a
-                                  href={`${window.location.origin}/contacts/${params.id}/details`}
-                                >
+                                <Link to={`/contacts/${params.id}/details`}>
                                   {params.formattedValue}
-                                </a>
+                                </Link>
                               ),
                             },
                             {
@@ -924,11 +907,11 @@ export default {
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <a
-                                  href={`${window.location.origin}/opportunities/${params.id}/details`}
+                                <Link
+                                  to={`/opportunities/${params.id}/details`}
                                 >
                                   {params.formattedValue}
-                                </a>
+                                </Link>
                               ),
                             },
                             {
@@ -986,7 +969,8 @@ export default {
                 opts: {
                   item: true,
                   xs: 12,
-                  md: 4,
+                  md: 3,
+                  lg: 2,
                 },
                 id: '',
                 classes: '',
@@ -1022,7 +1006,8 @@ export default {
                 opts: {
                   item: true,
                   xs: 12,
-                  md: 8,
+                  md: 9,
+                  lg: 10,
                 },
                 id: '',
                 classes: '',

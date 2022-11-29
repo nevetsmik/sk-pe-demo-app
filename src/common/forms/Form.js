@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import MuiBox from '@mui/material/Box';
 import MuiFormControl from '@mui/material/FormControl';
@@ -14,6 +15,23 @@ const supportedComponents = {
 };
 
 const Form = (props) => {
+  // Router navigation hook for rendering new page on submit
+  const navigate = useNavigate();
+
+  const handleCancel = (event) => {
+    // Call optional cancel callback
+    if (props.cancelCallback) {
+      props.cancelCallback(event, navigate);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    // Call optional submit callback
+    if (props.submitCallback) {
+      props.submitCallback(event, navigate);
+    }
+  };
+
   return (
     <>
       {/* Render form components from contents */}
@@ -49,12 +67,7 @@ const Form = (props) => {
             '&:hover': { backgroundColor: '#E1E3E6' },
           }}
           variant="contained"
-          onClick={
-            props.cancelCallback ||
-            (() => {
-              console.log('Cancel');
-            })
-          }
+          onClick={handleCancel}
         >
           Cancel
         </MuiButton>
@@ -70,12 +83,7 @@ const Form = (props) => {
             },
           }}
           variant="contained"
-          onClick={
-            props.submitCallback ||
-            (() => {
-              console.log('Submit');
-            })
-          }
+          onClick={handleSubmit}
         >
           Submit
         </MuiButton>
