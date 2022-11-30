@@ -68,7 +68,7 @@ const Modal = (props) => {
             >
               <Component
                 {...props.content}
-                cancelCallback={props.handleClose}
+                modalClose={props.handleClose}
               ></Component>
             </MuiCardContent>
           </MuiCard>

@@ -23,12 +23,22 @@ const Form = (props) => {
     if (props.cancelCallback) {
       props.cancelCallback(event, navigate);
     }
+
+    // Call optional modal close function
+    if (props.modalClose) {
+      props.modalClose();
+    }
   };
 
   const handleSubmit = (event) => {
     // Call optional submit callback
     if (props.submitCallback) {
       props.submitCallback(event, navigate);
+    }
+
+    // Call optional modal close function
+    if (props.modalClose) {
+      props.modalClose();
     }
   };
 
@@ -100,6 +110,7 @@ Form.propTypes = {
   ).isRequired,
   cancelCallback: PropTypes.func,
   submitCallback: PropTypes.func,
+  modalClose: PropTypes.func,
 };
 
 export default Form;

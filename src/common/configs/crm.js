@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 const updateAddNewLabels = (event) => {
   // Dynamically change text field labels based on type
   let labels = [
-    { Account: 'Name', Contact: 'Name', Opportunity: 'Name' },
+    { accounts: 'Name', contacts: 'Name', opportunities: 'Name' },
     {
-      Account: 'Rep',
-      Contact: 'Email',
-      Opportunity: 'Contact',
+      accounts: 'Rep',
+      contacts: 'Email',
+      opportunities: 'Contact',
     },
     {
-      Account: 'Territory',
-      Contact: 'Phone #',
-      Opportunity: 'ARR',
+      accounts: 'Territory',
+      contacts: 'Phone #',
+      opportunities: 'ARR',
     },
   ];
 
@@ -23,11 +23,16 @@ const updateAddNewLabels = (event) => {
     document.getElementById('add-new-select-type').nextElementSibling.value;
 
   labels.forEach((d, i) => {
+    // Label text
     document.getElementById(`add-new-text-field-${i}-label`).innerText =
       labels[i][selectedValue];
+    // Child span that sets width of text when focused
     document.getElementById(
       `add-new-text-field-${i}`
     ).nextElementSibling.children[0].children[0].innerText =
+      labels[i][selectedValue];
+    // Input name attribute
+    document.getElementById(`add-new-text-field-${i}`).name =
       labels[i][selectedValue];
   });
 };
@@ -213,28 +218,22 @@ export default {
                   options: [
                     {
                       name: 'Account',
-                      value: 'Account',
+                      value: 'accounts',
                     },
                     {
                       name: 'Contact',
-                      value: 'Contact',
+                      value: 'contacts',
                     },
                     {
                       name: 'Opportunity',
-                      value: 'Opportunity',
+                      value: 'opportunities',
                     },
                   ],
                   default: () => {
                     // Dynamically assign default based on path
-                    const path = window.location.pathname;
-
-                    if (path.includes('accounts')) {
-                      return 'Account';
-                    } else if (path.includes('contacts')) {
-                      return 'Contact';
-                    } else {
-                      return 'Opportunity';
-                    }
+                    return (
+                      window.location.pathname.split('/')[1] || 'opportunities'
+                    );
                   },
                   changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
@@ -244,7 +243,7 @@ export default {
                   id: 'add-new-text-field-0',
                   classes: '',
                   componentName: 'TextField',
-                  label: 'Name',
+                  label: 'Default',
                 },
                 {
                   styles: {},
@@ -264,33 +263,21 @@ export default {
                 },
               ],
               submitCallback: function (event, navigate) {
-                // Get details from DOM and place in local storage
-                const type = document.getElementById(
-                  'add-new-select-type'
-                ).innerText;
+                // Get details from DOM and use to navigate to new details page
+                let url = `/${
+                  document.getElementById('add-new-select-type')
+                    .nextElementSibling.value
+                }/new/details?obj={`;
 
-                const newDetails = {};
+                // Store form fields as query params
                 for (let i = 0; i < 3; i++) {
-                  newDetails[
-                    document.getElementById(
-                      `add-new-text-field-${i}-label`
-                    ).innerText
-                  ] = document.getElementById(`add-new-text-field-${i}`).value;
+                  let el = document.getElementById(`add-new-text-field-${i}`);
+                  url += `${i ? ',' : ''}"${encodeURIComponent(
+                    el.name
+                  )}":"${encodeURIComponent(el.value)}"`;
                 }
 
-                window.localStorage.setItem(
-                  '_acmeNewDetails',
-                  JSON.stringify(newDetails)
-                );
-
-                // Go to relevant details page
-                if (type === 'Account') {
-                  navigate(`/accounts/new/details`);
-                } else if (type === 'Contact') {
-                  navigate(`/contacts/new/details`);
-                } else {
-                  navigate(`/opportunities/new/details`);
-                }
+                navigate(`${url}}`);
               },
             },
           },
@@ -969,8 +956,9 @@ export default {
                 opts: {
                   item: true,
                   xs: 12,
-                  md: 3,
-                  lg: 2,
+                  sm: 5,
+                  md: 4,
+                  lg: 3,
                 },
                 id: '',
                 classes: '',
@@ -989,7 +977,13 @@ export default {
                       },
                       content: {
                         styles: {},
-                        opts: {},
+                        opts: {
+                          schema: {
+                            accounts: ['name', 'rep', 'territory'],
+                            contacts: ['name', 'email', 'phone'],
+                            opportunities: ['name', 'contact', 'arr'],
+                          },
+                        },
                         id: '',
                         classes: '',
                         type: 'QuickInfo',
@@ -1006,8 +1000,9 @@ export default {
                 opts: {
                   item: true,
                   xs: 12,
-                  md: 9,
-                  lg: 10,
+                  sm: 7,
+                  md: 8,
+                  lg: 9,
                 },
                 id: '',
                 classes: '',
@@ -1026,7 +1021,16 @@ export default {
                       },
                       content: {
                         styles: {},
-                        opts: {},
+                        opts: {
+                          tabs: [
+                            'New Note',
+                            'Email',
+                            'Call',
+                            'Log Activity',
+                            'Create Task',
+                            'Schedule',
+                          ],
+                        },
                         id: '',
                         classes: '',
                         type: 'TabbedInput',
@@ -1061,7 +1065,34 @@ export default {
                       },
                       content: {
                         styles: {},
-                        opts: {},
+                        opts: {
+                          entries: [
+                            {
+                              icon: 'NoteAlt',
+                              text: 'Waiting on approval from Jane (CEO) on SaaS approved vendor agreement, aiming for December 31, 2020 close date.',
+                            },
+                            {
+                              icon: 'Email',
+                              text: 'Sent follow up email to re-engage.',
+                            },
+                            {
+                              icon: 'Phone',
+                              text: 'Had a phone conversation discussing next steps.',
+                            },
+                            {
+                              icon: 'Build',
+                              text: 'Had a troubleshooting conversation with David, Sales Engineer. Resolved.',
+                            },
+                            {
+                              icon: 'CheckBox',
+                              text: 'Demo Complete.',
+                            },
+                            {
+                              icon: 'CalendarToday',
+                              text: 'Demo Scheduled November 15, 2020.',
+                            },
+                          ],
+                        },
                         id: '',
                         classes: '',
                         type: 'Timeline',
