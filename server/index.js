@@ -29,26 +29,8 @@ app.use((req, res, next) => {
   }
 });
 
-// Cache control headers
+// Serve static assets with compression
 app.use(
-  express.static(path.join(__dirname, '..', 'build'), {
-    setHeaders: (res, path) => {
-      res.setHeader('Cache-Control', 'no-cache');
-    },
-  })
-);
-
-app.use(
-  express.static('public', {
-    setHeaders: (res, path) => {
-      res.setHeader('Cache-Control', 'no-cache');
-    },
-  })
-);
-
-// Compression
-app.use(
-  '*',
   expressStaticGzip(path.join(__dirname, '..', 'build'), {
     enableBrotli: true,
     customCompressions: [
@@ -60,6 +42,15 @@ app.use(
     orderPreference: ['br', 'gz'],
   })
 );
+
+// Catch all for routes
+app.get('/*', (req, res) => {
+  // May not be necessary, but set cache control headers on response
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  res.sendFile(path.join(__dirname, '..', 'build/index.html'));
+});
 
 // Start server
 app.listen(process.env.PORT || 5050, () => {
