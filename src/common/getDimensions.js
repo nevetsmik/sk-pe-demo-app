@@ -1,4 +1,3 @@
-import { margin } from '@mui/system';
 import React from 'react';
 
 export default function getDimensions(self) {
@@ -30,6 +29,9 @@ export default function getDimensions(self) {
 
   // Callback function to set dimensions when element is updated
   const handleUpdate = () => {
+    if (self) {
+      console.log(`Resize occured for ${self}`, ref, dimensions);
+    }
     const styles = getComputedStyle(ref.current);
     if (ref.current.offsetHeight !== dimensions.height) {
       let dim = {

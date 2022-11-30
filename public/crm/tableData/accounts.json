@@ -1,8 +1,23 @@
 {
-  "quickInfoSchema": {
-    "field0": "name",
-    "field1": "rep",
-    "field2": "territory"
+  "schema": {
+    "id": {
+      "label": "ID"
+    },
+    "name": {
+      "label": "Name"
+    },
+    "rep": {
+      "label": "Rep"
+    },
+    "territory": {
+      "label": "Territory"
+    },
+    "industry": {
+      "label": "Industry"
+    },
+    "address": {
+      "label": "Address"
+    }
   },
   "rows": [
     {

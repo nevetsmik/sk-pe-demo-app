@@ -1,8 +1,26 @@
 {
-  "quickInfoSchema": {
-    "field0": "name",
-    "field1": "contact",
-    "field2": "arr"
+  "schema": {
+    "id": {
+      "label": "ID"
+    },
+    "name": {
+      "label": "Name"
+    },
+    "account": {
+      "label": "Account"
+    },
+    "email": {
+      "label": "Email"
+    },
+    "contact": {
+      "label": "Contact"
+    },
+    "rep": {
+      "label": "Rep"
+    },
+    "arr": {
+      "label": "ARR"
+    }
   },
   "rows": [
     {
