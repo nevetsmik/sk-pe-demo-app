@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MuiBox from '@mui/material/Box';
 import MuiTimeline from '@mui/lab/Timeline';
 import MuiTimelineItem from '@mui/lab/TimelineItem';
 import MuiTimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -13,62 +14,29 @@ import MuiTypography from '@mui/material/Typography';
 import getDimensions from '../../common/getDimensions';
 import DynamicIcon from '../../common/DynamicIcon';
 
-let entries = [
-  {
-    icon: 'NoteAlt',
-    text: 'Waiting on approval from Jane (CEO) on SaaS approved vendor agreement, aiming for December 31, 2020 close date.',
-  },
-  {
-    icon: 'Email',
-    text: 'Sent follow up email to re-engage.',
-  },
-  {
-    icon: 'Phone',
-    text: 'Had a phone conversation discussing next steps.',
-  },
-  {
-    icon: 'Build',
-    text: 'Had a troubleshooting conversation with David, Sales Engineer. Resolved.',
-  },
-  {
-    icon: 'CheckBox',
-    text: 'Demo Complete.',
-  },
-  {
-    icon: 'CalendarToday',
-    text: 'Demo Scheduled November 15, 2020.',
-  },
-];
-
 const Timeline = (props) => {
   // Resize handler for container
   const [containerRef, containerDim] = getDimensions();
 
-  <MuiTimelineConnector />;
+  const availableHeight =
+    props.height - props.card_content_vert_padding - containerDim.padding.vert;
+
   return (
     <div
       ref={containerRef}
       style={{
-        height:
-          props.height -
-          containerDim.padding.vert -
-          props.card_content_vert_padding,
+        height: availableHeight,
         width: '100%',
       }}
     >
       <MuiTimeline sx={{ margin: '0px', padding: '0px' }}>
-        {entries.map((d, i) => {
+        {props.entries.map((d, i) => {
           return (
             <MuiTimelineItem
               key={`${i}-${d.text}`}
               sx={{
-                minHeight: '10px',
-                height: `${
-                  (props.height -
-                    containerDim.padding.vert -
-                    props.card_content_vert_padding) /
-                  entries.length
-                }px`,
+                minHeight: '25px',
+                height: `${availableHeight / props.entries.length}px`,
               }}
             >
               <MuiTimelineOppositeContent
@@ -81,27 +49,25 @@ const Timeline = (props) => {
                     icon={d.icon}
                     styles={{
                       height: `${
-                        0.5 *
-                        ((props.height -
-                          containerDim.padding.vert -
-                          props.card_content_vert_padding) /
-                          entries.length)
+                        0.5 * (availableHeight / props.entries.length)
                       }px`,
                     }}
                   ></DynamicIcon>
                 </MuiTimelineDot>
                 <MuiTimelineConnector
-                  sx={{ opacity: i === entries.length - 1 ? 0 : 1 }}
+                  sx={{ opacity: i === props.entries.length - 1 ? 0 : 1 }}
                 />
               </MuiTimelineSeparator>
-              <MuiTimelineContent sx={{ maxWidth: '100%' }}>
+              <MuiTimelineContent
+                sx={{ maxWidth: '100%', display: 'flex', alignItems: 'center' }}
+              >
                 <MuiTypography
                   sx={{
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     display: '-webkit-box',
-                    '-webkit-line-clamp': '1',
-                    '-webkit-box-orient': 'vertical',
+                    WebkitLineClamp: '1',
+                    WebkitBoxOrient: 'vertical',
                   }}
                 >
                   {d.text}
@@ -118,6 +84,12 @@ const Timeline = (props) => {
 Timeline.propTypes = {
   height: PropTypes.number.isRequired,
   card_content_vert_padding: PropTypes.number.isRequired,
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Timeline;

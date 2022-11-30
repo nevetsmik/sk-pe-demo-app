@@ -57,7 +57,6 @@ const ContentTile = (props) => {
 
   // Select content component based on type
   const Content = supportedComponents[props.content.type];
-
   return (
     <MuiCard
       ref={cardRef}

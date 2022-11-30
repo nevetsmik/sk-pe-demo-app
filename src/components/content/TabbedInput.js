@@ -29,54 +29,38 @@ const TabbedInput = (props) => {
     setValue(newValue);
   };
 
-  const tabs = [
-    'New Note',
-    'Email',
-    'Call',
-    'Log Activity',
-    'Create Task',
-    'Schedule',
-  ];
+  const availableHeight =
+    props.height - props.card_content_vert_padding - containerDim.padding.vert;
 
   return (
     <div
       ref={containerRef}
       style={{
-        height:
-          props.height -
-          props.card_content_vert_padding -
-          containerDim.padding.vert,
+        height: availableHeight,
         width: '100%',
       }}
     >
       {/* Scrolling tabs */}
-      <MuiTabs
-        sx={{
-          display:
-            props.height -
-              props.card_content_vert_padding -
-              containerDim.padding.vert <
-            175
-              ? 'none'
-              : 'initial',
-          height:
-            props.height -
-              props.card_content_vert_padding -
-              containerDim.padding.vert <
-            175
-              ? 0
-              : 'initial',
-        }}
+      <MuiBox
         ref={tabsRef}
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
+        sx={{
+          maxWidth: '100%',
+          visibility: availableHeight < 175 ? 'hidden' : 'visible',
+          width: availableHeight < 175 ? 0 : 'initial',
+          height: availableHeight < 175 ? 0 : 'initial',
+        }}
       >
-        {tabs.map((d) => (
-          <MuiTab key={d} label={d} />
-        ))}
-      </MuiTabs>
+        <MuiTabs
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          {props.tabs.map((d) => (
+            <MuiTab key={d} label={d} />
+          ))}
+        </MuiTabs>
+      </MuiBox>
 
       {/* Text area */}
       <MuiTextField
@@ -84,22 +68,32 @@ const TabbedInput = (props) => {
         sx={{
           marginTop: '8px',
           width: '100%',
-          height: `${
-            props.height -
-            props.card_content_vert_padding -
-            containerDim.padding.vert -
-            tabsDim.outerHeight -
-            textAreaDim.margin.vert -
-            buttonsDim.outerHeight
-          }px !important`,
+          height: function () {
+            window._test = tabsRef.current;
+            // console.log(tabsDim);
+            // console.log(`${availableHeight}
+            // - ${tabsDim.outerHeight}
+            // - ${textAreaDim.margin.vert}
+            // - ${buttonsDim.outerHeight}
+            // = ${
+            //   availableHeight -
+            //   tabsDim.outerHeight -
+            //   textAreaDim.margin.vert -
+            //   buttonsDim.outerHeight
+            // }`);
+            return `${
+              availableHeight -
+              (availableHeight < 175 ? 0 : tabsDim.outerHeight) -
+              textAreaDim.margin.vert -
+              buttonsDim.outerHeight
+            }px !important`;
+          },
           '& .MuiInputBase-root': {
             height: '100%',
           },
           '& .MuiInputBase-root .MuiInputBase-input': {
             height: `${
-              props.height -
-              props.card_content_vert_padding -
-              containerDim.padding.vert -
+              availableHeight -
               tabsDim.outerHeight -
               textAreaDim.margin.vert -
               buttonsDim.outerHeight -
@@ -148,6 +142,7 @@ const TabbedInput = (props) => {
 TabbedInput.propTypes = {
   height: PropTypes.number.isRequired,
   card_content_vert_padding: PropTypes.number.isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TabbedInput;
