@@ -13,8 +13,8 @@ const urlOffice = urlParams.get('office') || '';
 const urlSystem = urlParams.get('system') || '';
 
 export function runSnippet(config, setPendoMetadata) {
-  // Run Pendo snippet if not disabled by url param
-  if (!urlDisablePendo) {
+  // Run Pendo snippet if not disabled by url param or already installed
+  if (!urlDisablePendo && !window.pendo) {
     // Pendo Snippet
     (function (apiKey) {
       (function (p, e, n, d, o) {
