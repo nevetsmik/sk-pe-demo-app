@@ -1,13 +1,14 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import MuiList from '@mui/material/List';
+import MuiListItem from '@mui/material/ListItem';
+import MuiListItemText from '@mui/material/ListItemText';
+import MuiBox from '@mui/material/Box';
+import MuiIconButton from '@mui/material/IconButton';
+import MuiTypography from '@mui/material/Typography';
+import MuiDivider from '@mui/material/Divider';
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-// import MuiCircularProgress from '@mui/material/CircularProgress';
-import DownloadIcon from '@mui/icons-material/Download';
+import MuiDownloadIcon from '@mui/icons-material/Download';
+import MuiLink from '@mui/material/Link';
 
 const ListResults = (props) => {
   // Get padding to determine height
@@ -35,16 +36,18 @@ const ListResults = (props) => {
       );
   }, []);
 
-  function downloadAction() {
-    console.log("I'm downloading");
+  function downloadAction(title, link) {
+    openModal(title, link);
+    console.log('Downloading track event here');
   }
 
-  function openModal(title, state) {
-    console.log(title);
+  function openModal(title, link) {
+    console.log(title, link);
+    // Show Modal w/ Embed, title=title, link = embed link from json
   }
 
   return (
-    <List
+    <MuiList
       ref={ref}
       style={{
         height: props.height - padding,
@@ -55,23 +58,23 @@ const ListResults = (props) => {
       className="article-list"
     >
       {articleData.map((article) => (
-        <div key={article.id}>
-          <ListItem
+        <MuiBox key={article.id}>
+          <MuiListItem
             style={{ padding: '0px 10px 0px 10px' }}
             secondaryAction={
-              <IconButton
+              <MuiIconButton
                 edge="end"
-                aria-label="delete"
-                onClick={downloadAction()}
+                aria-label="download"
+                onClick={downloadAction(article.title, article.link)}
               >
-                <DownloadIcon />
-              </IconButton>
+                <MuiDownloadIcon />
+              </MuiIconButton>
             }
           >
-            <ListItemText
+            <MuiListItemText
               style={{ fontSize: '12px' }}
               primary={
-                <Typography
+                <MuiTypography
                   type="body1"
                   style={{
                     fontWeight: '500',
@@ -79,37 +82,37 @@ const ListResults = (props) => {
                     fontSize: '14px',
                   }}
                 >
-                  <a
-                    href="/"
+                  <MuiLink
+                    className="link"
                     onClick={(event) => {
                       event.preventDefault();
-                      openModal(article.title, true);
+                      openModal(article.title, article.link);
                     }}
                     style={{ textDecoration: 'none' }}
                   >
                     {article.title}
-                  </a>
-                </Typography>
+                  </MuiLink>
+                </MuiTypography>
               }
               secondary={
-                <div style={{ width: '90%', margin: '0px' }}>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
+                <MuiTypography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  <MuiBox style={{ width: '90%', margin: '0px' }}>
                     {article.date} | {article.author} <br />
                     {article.summary}
-                  </Typography>
-                </div>
+                  </MuiBox>
+                </MuiTypography>
               }
             />
-          </ListItem>
-          <Divider />
-        </div>
+          </MuiListItem>
+          <MuiDivider />
+        </MuiBox>
       ))}
-    </List>
+    </MuiList>
   );
 };
 

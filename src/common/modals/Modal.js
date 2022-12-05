@@ -7,74 +7,92 @@ import MuiCard from '@mui/material/Card';
 import MuiCardHeader from '@mui/material/CardHeader';
 import MuiDivider from '@mui/material/Divider';
 import MuiCardContent from '@mui/material/CardContent';
+import MuiIconButton from '@mui/material/IconButton';
+import MuiCloseIcon from '@mui/icons-material/Close';
+// import MuiCloseIcon from '@mui/icons/Close';
 
 import Form from '../forms/Form';
+import Embed from '../forms/Embed';
 
 let supportedComponents = {
   Form: Form,
+  Embed: Embed,
 };
 
 const Modal = (props) => {
   // Get content component based on componentName
   let Component = supportedComponents[props.content.componentName];
 
+  let componentStyle =
+    props.content.componentName === 'Embed'
+      ? { width: '800px' }
+      : { width: '520px' };
+  console.log(props.content.componentName);
   return (
-    <>
-      <MuiModal
+    <MuiModal
+      sx={{
+        '> .MuiBox-root': {
+          width: '520px',
+          maxWidth: 'calc(100% - 100px)',
+        },
+      }}
+      open={props.open}
+      onClose={props.handleClose}
+      keepMounted
+    >
+      <MuiBox
         sx={{
-          '> .MuiBox-root': {
-            width: '520px',
-            maxWidth: 'calc(100% - 100px)',
-          },
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          ...props.styles,
         }}
-        open={props.open}
-        onClose={props.handleClose}
-        keepMounted
+        {...props.opts}
+        id={props.id}
+        className={props.classes}
+        style={componentStyle}
       >
-        <MuiBox
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            ...props.styles,
-          }}
-          {...props.opts}
-          id={props.id}
-          className={props.classes}
-        >
-          <MuiCard>
-            <MuiCardHeader
-              sx={{
-                fontSize: '1.25rem',
-                fontWeight: 500,
-                ...props.header.styles,
-              }}
-              {...props.header.opts}
-              id={props.header.id}
-              className={props.header.classes}
-              title={props.header.name}
-              disableTypography={true}
-            ></MuiCardHeader>
-            <MuiDivider></MuiDivider>
-            <MuiCardContent
-              sx={{
-                padding: '16px 24px',
-                ...props.content.styles,
-              }}
-              {...props.content.opts}
-              id={props.content.id}
-              className={props.content.classes}
-            >
-              <Component
-                {...props.content}
-                modalClose={props.handleClose}
-              ></Component>
-            </MuiCardContent>
-          </MuiCard>
-        </MuiBox>
-      </MuiModal>
-    </>
+        <MuiCard style={componentStyle}>
+          <MuiCardHeader
+            sx={{
+              fontSize: '1.25rem',
+              fontWeight: 500,
+              ...props.header.styles,
+            }}
+            {...props.header.opts}
+            id={props.header.id}
+            className={props.header.classes}
+            title={props.header.name}
+            disableTypography={true}
+            action={
+              <MuiIconButton
+                onClick={props.handleClose}
+                className="close-button"
+              >
+                <MuiCloseIcon />
+              </MuiIconButton>
+            }
+          ></MuiCardHeader>
+          <MuiDivider></MuiDivider>
+          <MuiCardContent
+            sx={{
+              padding: '16px 24px',
+              ...props.content.styles,
+            }}
+            {...props.content.opts}
+            id={props.content.id}
+            className={props.content.classes}
+            style={componentStyle}
+          >
+            <Component
+              {...props.content}
+              cancelCallback={props.handleClose}
+            ></Component>
+          </MuiCardContent>
+        </MuiCard>
+      </MuiBox>
+    </MuiModal>
   );
 };
 
@@ -95,10 +113,14 @@ Modal.propTypes = {
   content: PropTypes.shape({
     styles: PropTypes.object,
     opts: PropTypes.object,
+    iframeProps: PropTypes.object,
     id: PropTypes.string,
     classes: PropTypes.string,
     componentName: PropTypes.string.isRequired,
   }).isRequired,
+  cancelCallback: PropTypes.func,
+  submitCallback: PropTypes.func,
+  modalClose: PropTypes.func,
 };
 
 export default Modal;

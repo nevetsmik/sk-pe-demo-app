@@ -267,6 +267,42 @@ export default {
               },
             },
           },
+          {
+            styles: {
+              backgroundColor: '#1DA259',
+              '&:hover': {
+                backgroundColor: '#1a9150',
+              },
+            },
+            opts: {
+              variant: 'contained',
+            },
+            id: 'article-embed',
+            classes: '',
+            componentName: 'Button',
+            alignment: 'right',
+            type: 'Modal',
+            name: 'Embed Modal',
+            header: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              name: 'Christmas Cookie Recipe',
+            },
+            content: {
+              styles: { width: '900px', height: '700px' },
+              opts: {},
+              iframeProps: {
+                src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
+                title: 'Christmas Cookie Recipe',
+              },
+              id: '',
+              classes: '',
+              componentName: 'Embed',
+              contents: [],
+            },
+          },
         ],
       },
     ],
