@@ -67,6 +67,14 @@ export default {
     visitor: {
       acmeVersion: 3,
     },
+    location: {
+      transforms: [
+        {
+          attr: 'search',
+          action: 'Clear',
+        },
+      ],
+    },
   },
   background: {
     styles: {

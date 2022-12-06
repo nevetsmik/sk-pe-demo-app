@@ -96,5 +96,8 @@ function initPendo(config, visitorInfo) {
       ...config?.account,
       ...visitorInfo.account,
     },
+    location: {
+      ...config?.location,
+    },
   });
 }
