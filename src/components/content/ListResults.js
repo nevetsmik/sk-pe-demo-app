@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import MuiList from '@mui/material/List';
@@ -15,10 +15,10 @@ import Modal from '../../common/modals/Modal';
 
 const ListResults = (props) => {
   // Get padding to determine height
-  const ref = useRef(null);
-  const [padding, setPadding] = useState(0);
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const parentStyles = getComputedStyle(ref.current.parentElement);
     const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
     const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
@@ -26,9 +26,9 @@ const ListResults = (props) => {
   });
 
   // Fetch table data
-  const [articleData, setArticleData] = useState([]);
+  const [articleData, setArticleData] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     fetch(props.dataUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -45,7 +45,7 @@ const ListResults = (props) => {
   }
 
   // Handle modal state
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.React.useState(false);
   const handleOpen = (article) => {
     // Call optional open start callback
     if (props.openStartCallback) {
@@ -76,8 +76,8 @@ const ListResults = (props) => {
   };
 
   // Handle current src and title state
-  const [src, setSrc] = React.useState('');
-  const [title, setTitle] = React.useState('');
+  const [src, setSrc] = React.React.useState('');
+  const [title, setTitle] = React.React.useState('');
 
   return (
     <>
