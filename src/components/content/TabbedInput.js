@@ -32,6 +32,18 @@ const TabbedInput = (props) => {
   const availableHeight =
     props.height - props.card_content_vert_padding - containerDim.padding.vert;
 
+  // Handle text area state
+  const [text, setText] = React.useState('');
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
+  // Handle submit button clicked
+  const handleSubmit = () => {
+    setText('');
+  };
+
   return (
     <div
       ref={containerRef}
@@ -107,6 +119,8 @@ const TabbedInput = (props) => {
         minRows={1}
         maxRows={10}
         label="Enter Information"
+        value={text}
+        onChange={handleTextChange}
       ></MuiTextField>
 
       {/* Submit Button */}
@@ -131,6 +145,7 @@ const TabbedInput = (props) => {
             },
           }}
           variant="contained"
+          onClick={handleSubmit}
         >
           Submit
         </MuiButton>
