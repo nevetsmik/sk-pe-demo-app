@@ -10,12 +10,9 @@ import ListItemText from '@mui/material/ListItemText';
 import DynamicIcon from '../../common/DynamicIcon';
 
 const NavListLink = (props) => {
-  // Query params to preserve on link
-  const { search } = useLocation();
-
   return (
     <>
-      <ListItem disablePadding button component={Link} to={props.path + search}>
+      <ListItem disablePadding button component={Link} to={props.path}>
         <ListItemButton sx={{ padding: '5px 40px' }}>
           {props.icon ? (
             <ListItemIcon>

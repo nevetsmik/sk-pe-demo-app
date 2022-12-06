@@ -28,13 +28,14 @@ const QuickInfo = (props) => {
   const [fields, setFields] = React.useState({});
 
   React.useEffect(() => {
-    if (detailId === 'new') {
+    if (detailId === 'new' && searchParams.get('obj')) {
       setFields(JSON.parse(decodeURI(searchParams.get('obj'))));
     } else {
+      let id = detailId === 'new' ? '0' : detailId;
       fetch(`${baseUrl}${detailType}.json`)
         .then((response) => response.json())
         .then((data) => {
-          const entry = data.rows.filter((d) => d.id === detailId)[0];
+          const entry = data.rows.filter((d) => d.id === id)[0];
 
           const details = {};
           for (const key of props.schema[detailType]) {
@@ -44,7 +45,7 @@ const QuickInfo = (props) => {
         })
         .catch((error) => {
           console.log(
-            `Unable to fetch details for detailType: ${detailType} and detailId: ${detailId}`,
+            `Unable to fetch details for detailType: ${detailType} and detailId: ${id}`,
             error
           );
         });

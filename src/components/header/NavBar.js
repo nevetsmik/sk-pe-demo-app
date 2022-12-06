@@ -216,7 +216,7 @@ const NavBar = (props) => {
                 <StyledMenuItem
                   key={d.name}
                   component={Link}
-                  to={d.path + location.search}
+                  to={d.path}
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                 >
