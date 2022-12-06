@@ -45,7 +45,7 @@ const ListResults = (props) => {
   }
 
   // Handle modal state
-  const [open, setOpen] = React.React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = (article) => {
     // Call optional open start callback
     if (props.openStartCallback) {
@@ -76,8 +76,8 @@ const ListResults = (props) => {
   };
 
   // Handle current src and title state
-  const [src, setSrc] = React.React.useState('');
-  const [title, setTitle] = React.React.useState('');
+  const [src, setSrc] = React.useState('');
+  const [title, setTitle] = React.useState('');
 
   return (
     <>
