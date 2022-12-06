@@ -1,3 +1,6 @@
+import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import MuiList from '@mui/material/List';
 import MuiListItem from '@mui/material/ListItem';
 import MuiListItemText from '@mui/material/ListItemText';
@@ -5,10 +8,10 @@ import MuiBox from '@mui/material/Box';
 import MuiIconButton from '@mui/material/IconButton';
 import MuiTypography from '@mui/material/Typography';
 import MuiDivider from '@mui/material/Divider';
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import MuiDownloadIcon from '@mui/icons-material/Download';
 import MuiLink from '@mui/material/Link';
+
+import Modal from '../../common/modals/Modal';
 
 const ListResults = (props) => {
   // Get padding to determine height
@@ -37,88 +40,134 @@ const ListResults = (props) => {
   }, []);
 
   function downloadAction(title, link) {
-    openModal(title, link);
+    // openModal(title, link);
     console.log('Downloading track event here');
   }
 
-  function openModal(title, link) {
-    console.log(title, link);
-    // Show Modal w/ Embed, title=title, link = embed link from json
-  }
+  // Handle modal state
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (article) => {
+    // Call optional open start callback
+    if (props.openStartCallback) {
+      props.openStartCallback();
+    }
+
+    setSrc(article.link);
+    setTitle(article.title);
+    setOpen(true);
+
+    // Call optional open end callback
+    if (props.openEndCallback) {
+      props.openEndCallback();
+    }
+  };
+  const handleClose = () => {
+    // Call optional open start callback
+    if (props.closeStartCallback) {
+      props.closeStartCallback();
+    }
+
+    setOpen(false);
+
+    // Call optional open end callback
+    if (props.closeEndCallback) {
+      props.closeEndCallback();
+    }
+  };
+
+  // Handle current src and title state
+  const [src, setSrc] = React.useState('');
+  const [title, setTitle] = React.useState('');
 
   return (
-    <MuiList
-      ref={ref}
-      style={{
-        height: props.height - padding,
-        width: '100%',
-        maxHeight: '100%',
-        margin: '0px',
-      }}
-      className="article-list"
-    >
-      {articleData.map((article) => (
-        <MuiBox key={article.id}>
-          <MuiListItem
-            style={{ padding: '0px 10px 0px 10px' }}
-            secondaryAction={
-              <MuiIconButton
-                edge="end"
-                aria-label="download"
-                onClick={downloadAction(article.title, article.link)}
-              >
-                <MuiDownloadIcon />
-              </MuiIconButton>
-            }
-          >
-            <MuiListItemText
-              style={{ fontSize: '12px' }}
-              primary={
-                <MuiTypography
-                  type="body1"
-                  style={{
-                    fontWeight: '500',
-                    color: '#000048',
-                    fontSize: '14px',
-                  }}
+    <>
+      <Modal
+        open={open}
+        handleClose={handleClose}
+        header={props.modal.header}
+        content={{ ...props.modal.content, src: src, title: title }}
+      ></Modal>
+      <MuiList
+        ref={ref}
+        style={{
+          height: props.height - padding,
+          width: '100%',
+          maxHeight: '100%',
+          margin: '0px',
+        }}
+        className="article-list"
+      >
+        {articleData.map((article) => (
+          <MuiBox key={article.id}>
+            <MuiListItem
+              style={{ padding: '0px 10px 0px 10px' }}
+              secondaryAction={
+                <MuiIconButton
+                  edge="end"
+                  aria-label="download"
+                  onClick={downloadAction(article.title, article.link)}
                 >
-                  <MuiLink
-                    className="link"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      openModal(article.title, article.link);
+                  <MuiDownloadIcon />
+                </MuiIconButton>
+              }
+            >
+              <MuiListItemText
+                style={{ fontSize: '12px' }}
+                primary={
+                  <MuiTypography
+                    type="body1"
+                    style={{
+                      fontWeight: '500',
+                      color: '#000048',
+                      fontSize: '14px',
                     }}
-                    style={{ textDecoration: 'none' }}
                   >
-                    {article.title}
-                  </MuiLink>
-                </MuiTypography>
-              }
-              secondary={
-                <MuiTypography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  <MuiBox style={{ width: '90%', margin: '0px' }}>
-                    {article.date} | {article.author} <br />
-                    {article.summary}
-                  </MuiBox>
-                </MuiTypography>
-              }
-            />
-          </MuiListItem>
-          <MuiDivider />
-        </MuiBox>
-      ))}
-    </MuiList>
+                    <MuiLink
+                      sx={{
+                        cursor: 'pointer',
+                      }}
+                      className="link"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleOpen(article);
+                      }}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      {article.title}
+                    </MuiLink>
+                  </MuiTypography>
+                }
+                secondary={
+                  <MuiTypography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    <MuiBox style={{ width: '90%', margin: '0px' }}>
+                      {article.date} | {article.author} <br />
+                      {article.summary}
+                    </MuiBox>
+                  </MuiTypography>
+                }
+              />
+            </MuiListItem>
+            <MuiDivider />
+          </MuiBox>
+        ))}
+      </MuiList>
+    </>
   );
 };
 
 ListResults.propTypes = {
-  dataUrl: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
+  dataUrl: PropTypes.string.isRequired,
+  modal: PropTypes.object.isRequired,
+  openStartCallback: PropTypes.func,
+  openEndCallback: PropTypes.func,
+  closeStartCallback: PropTypes.func,
+  closeEndCallback: PropTypes.func,
 };
 
 export default ListResults;

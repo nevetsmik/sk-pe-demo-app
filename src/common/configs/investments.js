@@ -267,42 +267,42 @@ export default {
               },
             },
           },
-          {
-            styles: {
-              backgroundColor: '#1DA259',
-              '&:hover': {
-                backgroundColor: '#1a9150',
-              },
-            },
-            opts: {
-              variant: 'contained',
-            },
-            id: 'article-embed',
-            classes: '',
-            componentName: 'Button',
-            alignment: 'right',
-            type: 'Modal',
-            name: 'Embed Modal',
-            header: {
-              styles: {},
-              opts: {},
-              id: '',
-              classes: '',
-              name: 'Christmas Cookie Recipe',
-            },
-            content: {
-              styles: { width: '900px', height: '700px' },
-              opts: {},
-              iframeProps: {
-                src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
-                title: 'Christmas Cookie Recipe',
-              },
-              id: '',
-              classes: '',
-              componentName: 'Embed',
-              contents: [],
-            },
-          },
+          // {
+          //   styles: {
+          //     backgroundColor: '#1DA259',
+          //     '&:hover': {
+          //       backgroundColor: '#1a9150',
+          //     },
+          //   },
+          //   opts: {
+          //     variant: 'contained',
+          //   },
+          //   id: 'article-embed',
+          //   classes: '',
+          //   componentName: 'Button',
+          //   alignment: 'right',
+          //   type: 'Modal',
+          //   name: 'Embed Modal',
+          //   header: {
+          //     styles: {},
+          //     opts: {},
+          //     id: '',
+          //     classes: '',
+          //     name: 'Christmas Cookie Recipe',
+          //   },
+          //   content: {
+          //     styles: { width: '900px', height: '700px' },
+          //     opts: {},
+          //     iframeProps: {
+          //       src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
+          //       title: 'Christmas Cookie Recipe',
+          //     },
+          //     id: '',
+          //     classes: '',
+          //     componentName: 'Embed',
+          //     contents: [],
+          //   },
+          // },
         ],
       },
     ],
@@ -353,6 +353,36 @@ export default {
                         styles: {},
                         opts: {
                           dataUrl: '/investments/articles/healthcare.json',
+                          modal: {
+                            styles: {
+                              backgroundColor: '#1DA259',
+                              '&:hover': {
+                                backgroundColor: '#1a9150',
+                              },
+                            },
+                            opts: {
+                              variant: 'contained',
+                            },
+                            id: 'article-embed',
+                            classes: '',
+                            header: {
+                              styles: {},
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              name: 'Christmas Cookie Recipe',
+                            },
+                            content: {
+                              styles: { width: '900px', height: '700px' },
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              componentName: 'Embed',
+                              // src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
+                              // title: 'Christmas Cookie Recipe',
+                              contents: [],
+                            },
+                          },
                         },
                         id: '',
                         classes: '',
@@ -365,84 +395,84 @@ export default {
                   },
                 ],
               },
-              {
-                styles: {},
-                opts: {
-                  item: true,
-                  xs: 12,
-                  sm: 6,
-                  lg: 4,
-                },
-                id: '',
-                classes: '',
-                componentName: 'Grid',
-                contents: [
-                  {
-                    styles: {},
-                    opts: {
-                      height: 1,
-                      header: {
-                        styles: {},
-                        opts: {},
-                        id: '',
-                        classes: '',
-                        name: 'Healthcare',
-                      },
-                      content: {
-                        styles: {},
-                        opts: {
-                          dataUrl: '/investments/articles/healthcare.json',
-                        },
-                        id: '',
-                        classes: '',
-                        type: 'ListResults',
-                      },
-                    },
-                    id: '',
-                    classes: '',
-                    componentName: 'ContentTile',
-                  },
-                ],
-              },
-              {
-                styles: {},
-                opts: {
-                  item: true,
-                  xs: 12,
-                  sm: 6,
-                  lg: 4,
-                },
-                id: '',
-                classes: '',
-                componentName: 'Grid',
-                contents: [
-                  {
-                    styles: { paddingTop: '10px' },
-                    opts: {
-                      height: 1,
-                      header: {
-                        styles: {},
-                        opts: {},
-                        id: '',
-                        classes: '',
-                        name: 'Education',
-                      },
-                      content: {
-                        styles: { paddingTop: '10px' },
-                        opts: {
-                          dataUrl: '/investments/articles/healthcare.json',
-                        },
-                        id: '',
-                        classes: 'find-me',
-                        type: 'ListResults',
-                      },
-                    },
-                    id: '',
-                    classes: '',
-                    componentName: 'ContentTile',
-                  },
-                ],
-              },
+              // {
+              //   styles: {},
+              //   opts: {
+              //     item: true,
+              //     xs: 12,
+              //     sm: 6,
+              //     lg: 4,
+              //   },
+              //   id: '',
+              //   classes: '',
+              //   componentName: 'Grid',
+              //   contents: [
+              //     {
+              //       styles: {},
+              //       opts: {
+              //         height: 1,
+              //         header: {
+              //           styles: {},
+              //           opts: {},
+              //           id: '',
+              //           classes: '',
+              //           name: 'Healthcare',
+              //         },
+              //         content: {
+              //           styles: {},
+              //           opts: {
+              //             dataUrl: '/investments/articles/healthcare.json',
+              //           },
+              //           id: '',
+              //           classes: '',
+              //           type: 'ListResults',
+              //         },
+              //       },
+              //       id: '',
+              //       classes: '',
+              //       componentName: 'ContentTile',
+              //     },
+              //   ],
+              // },
+              // {
+              //   styles: {},
+              //   opts: {
+              //     item: true,
+              //     xs: 12,
+              //     sm: 6,
+              //     lg: 4,
+              //   },
+              //   id: '',
+              //   classes: '',
+              //   componentName: 'Grid',
+              //   contents: [
+              //     {
+              //       styles: { paddingTop: '10px' },
+              //       opts: {
+              //         height: 1,
+              //         header: {
+              //           styles: {},
+              //           opts: {},
+              //           id: '',
+              //           classes: '',
+              //           name: 'Education',
+              //         },
+              //         content: {
+              //           styles: { paddingTop: '10px' },
+              //           opts: {
+              //             dataUrl: '/investments/articles/healthcare.json',
+              //           },
+              //           id: '',
+              //           classes: 'find-me',
+              //           type: 'ListResults',
+              //         },
+              //       },
+              //       id: '',
+              //       classes: '',
+              //       componentName: 'ContentTile',
+              //     },
+              //   ],
+              // },
             ],
           },
         ],

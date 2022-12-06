@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiBox from '@mui/material/Box';
 
 const Embed = (props) => {
   return (
     <iframe
-      src={props.iframeProps.src}
-      title={props.iframeProps.title}
+      src={props.src}
+      title={props.title}
       width="100%"
       height="100%"
     ></iframe>
@@ -14,10 +13,8 @@ const Embed = (props) => {
 };
 
 Embed.propTypes = {
-  iframeProps: PropTypes.shape({
-    src: PropTypes.string,
-    title: PropTypes.string,
-  }).isRequired,
+  src: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default Embed;
