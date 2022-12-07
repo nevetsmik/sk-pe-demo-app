@@ -12,6 +12,7 @@ import Table from './Table';
 import QuickInfo from './QuickInfo';
 import TabbedInput from './TabbedInput';
 import Timeline from './Timeline';
+import ListResults from './ListResults';
 
 // Create object of supported content types to be rendered in tile
 const supportedComponents = {
@@ -20,6 +21,7 @@ const supportedComponents = {
   QuickInfo: QuickInfo,
   TabbedInput: TabbedInput,
   Timeline: Timeline,
+  ListResults: ListResults,
 };
 
 const ContentTile = (props) => {
