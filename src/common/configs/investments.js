@@ -104,16 +104,16 @@ export default {
           type: 'route',
           path: '/',
         },
-        {
-          name: 'Debt Portal',
-          type: 'route',
-          path: '/debt',
-        },
-        {
-          name: 'Equity Portal',
-          type: 'route',
-          path: '/equity',
-        },
+        // {
+        //   name: 'Debt Portal',
+        //   type: 'route',
+        //   path: '/debt',
+        // },
+        // {
+        //   name: 'Equity Portal',
+        //   type: 'route',
+        //   path: '/equity',
+        // },
       ],
     },
     appBars: [
@@ -149,12 +149,14 @@ export default {
             name: 'Subscribe to Research',
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
-              updateAddNewLabels();
+              // updateAddNewLabels();
 
               // Add '/new' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               pendo.location.setUrl(
-                baseUrl.slice(-1) === '/' ? `${baseUrl}new` : `${baseUrl}/new`
+                baseUrl.slice(-1) === '/'
+                  ? `${baseUrl}subscribe`
+                  : `${baseUrl}/subscribe`
               );
             },
             closeEndCallback: () => {
@@ -178,37 +180,51 @@ export default {
                 {
                   styles: {},
                   opts: {},
-                  id: 'add-new-select-type',
+                  id: 'subscription-options-select',
                   classes: '',
                   componentName: 'Select',
-                  label: 'Type',
+                  label: 'Subscription Options',
                   options: [
                     {
-                      name: 'Account',
-                      value: 'Account',
+                      name: 'All Research Updates',
+                      value: 'All Research Updates',
                     },
                     {
-                      name: 'Contact',
-                      value: 'Contact',
+                      name: 'Healthcare Updates Only',
+                      value: 'Healthcare Updates Only',
                     },
                     {
-                      name: 'Opportunity',
-                      value: 'Opportunity',
+                      name: 'Education Updates Only',
+                      value: 'Education Updates Only',
                     },
                   ],
                   default: () => {
                     // Dynamically assign default based on path
-                    const path = window.location.pathname;
-
-                    if (path.includes('accounts')) {
-                      return 'Account';
-                    } else if (path.includes('contacts')) {
-                      return 'Contact';
-                    } else {
-                      return 'Opportunity';
-                    }
+                    return 'All Research Updates';
                   },
-                  changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'subscription-frequency-select',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Frequency',
+                  options: [
+                    {
+                      name: 'Daily',
+                      value: 'Daily',
+                    },
+                    {
+                      name: 'Weekly',
+                      value: 'Weekly',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    return 'Daily';
+                  },
+                  // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
                 {
                   styles: {},
@@ -216,7 +232,7 @@ export default {
                   id: 'add-new-text-field-0',
                   classes: '',
                   componentName: 'TextField',
-                  label: 'Name',
+                  label: 'Email',
                 },
                 {
                   styles: {},
@@ -224,85 +240,15 @@ export default {
                   id: 'add-new-text-field-1',
                   classes: '',
                   componentName: 'TextField',
-                  label: 'Default',
-                },
-                {
-                  styles: {},
-                  opts: {},
-                  id: 'add-new-text-field-2',
-                  classes: '',
-                  componentName: 'TextField',
-                  label: 'Default',
+                  label: 'Name',
                 },
               ],
               submitCallback: function () {
-                // Get details from DOM and place in local storage
-                const type = document.getElementById(
-                  'add-new-select-type'
-                ).innerText;
-
-                const newDetails = {};
-                for (let i = 0; i < 3; i++) {
-                  newDetails[
-                    document.getElementById(
-                      `add-new-text-field-${i}-label`
-                    ).innerText
-                  ] = document.getElementById(`add-new-text-field-${i}`).value;
-                }
-                console.log(newDetails);
-
-                window.localStorage.setItem(
-                  '_acmeNewDetails',
-                  JSON.stringify(newDetails)
-                );
-
                 // Go to relevant details page
-                if (type === 'Account') {
-                  window.location.href = `${window.location.origin}/accounts/new/details`;
-                } else if (type === 'Contact') {
-                  window.location.href = `${window.location.origin}/contacts/new/details`;
-                } else {
-                  window.location.href = `${window.location.origin}/opportunities/new/details`;
-                }
+                window.location.href = `${window.location.origin}/?app=investments`;
               },
             },
           },
-          // {
-          //   styles: {
-          //     backgroundColor: '#1DA259',
-          //     '&:hover': {
-          //       backgroundColor: '#1a9150',
-          //     },
-          //   },
-          //   opts: {
-          //     variant: 'contained',
-          //   },
-          //   id: 'article-embed',
-          //   classes: '',
-          //   componentName: 'Button',
-          //   alignment: 'right',
-          //   type: 'Modal',
-          //   name: 'Embed Modal',
-          //   header: {
-          //     styles: {},
-          //     opts: {},
-          //     id: '',
-          //     classes: '',
-          //     name: 'Christmas Cookie Recipe',
-          //   },
-          //   content: {
-          //     styles: { width: '900px', height: '700px' },
-          //     opts: {},
-          //     iframeProps: {
-          //       src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
-          //       title: 'Christmas Cookie Recipe',
-          //     },
-          //     id: '',
-          //     classes: '',
-          //     componentName: 'Embed',
-          //     contents: [],
-          //   },
-          // },
         ],
       },
     ],
@@ -352,14 +298,9 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/investments/articles/healthcare.json',
+                          dataUrl: '/investments/articles/all_articles.json',
                           modal: {
-                            styles: {
-                              backgroundColor: '#1DA259',
-                              '&:hover': {
-                                backgroundColor: '#1a9150',
-                              },
-                            },
+                            styles: {},
                             opts: {
                               variant: 'contained',
                             },
@@ -370,7 +311,7 @@ export default {
                               opts: {},
                               id: '',
                               classes: '',
-                              name: 'Christmas Cookie Recipe',
+                              name: '',
                             },
                             content: {
                               styles: { width: '900px', height: '700px' },
@@ -378,8 +319,6 @@ export default {
                               id: '',
                               classes: '',
                               componentName: 'Embed',
-                              // src: 'https://drive.google.com/file/d/1MtGB57UleosmKNPHknEaBk7DDcTnUso6/preview',
-                              // title: 'Christmas Cookie Recipe',
                               contents: [],
                             },
                           },
@@ -395,84 +334,132 @@ export default {
                   },
                 ],
               },
-              // {
-              //   styles: {},
-              //   opts: {
-              //     item: true,
-              //     xs: 12,
-              //     sm: 6,
-              //     lg: 4,
-              //   },
-              //   id: '',
-              //   classes: '',
-              //   componentName: 'Grid',
-              //   contents: [
-              //     {
-              //       styles: {},
-              //       opts: {
-              //         height: 1,
-              //         header: {
-              //           styles: {},
-              //           opts: {},
-              //           id: '',
-              //           classes: '',
-              //           name: 'Healthcare',
-              //         },
-              //         content: {
-              //           styles: {},
-              //           opts: {
-              //             dataUrl: '/investments/articles/healthcare.json',
-              //           },
-              //           id: '',
-              //           classes: '',
-              //           type: 'ListResults',
-              //         },
-              //       },
-              //       id: '',
-              //       classes: '',
-              //       componentName: 'ContentTile',
-              //     },
-              //   ],
-              // },
-              // {
-              //   styles: {},
-              //   opts: {
-              //     item: true,
-              //     xs: 12,
-              //     sm: 6,
-              //     lg: 4,
-              //   },
-              //   id: '',
-              //   classes: '',
-              //   componentName: 'Grid',
-              //   contents: [
-              //     {
-              //       styles: { paddingTop: '10px' },
-              //       opts: {
-              //         height: 1,
-              //         header: {
-              //           styles: {},
-              //           opts: {},
-              //           id: '',
-              //           classes: '',
-              //           name: 'Education',
-              //         },
-              //         content: {
-              //           styles: { paddingTop: '10px' },
-              //           opts: {
-              //             dataUrl: '/investments/articles/healthcare.json',
-              //           },
-              //           id: '',
-              //           classes: 'find-me',
-              //           type: 'ListResults',
-              //         },
-              //       },
-              //       id: '',
-              //       classes: '',
-              //       componentName: 'ContentTile',
-              //     },
-              //   ],
-              // },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  sm: 6,
+                  lg: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 1,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Healthcare',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          dataUrl:
+                            '/investments/articles/healthcare_articles.json',
+                          modal: {
+                            styles: {},
+                            opts: {
+                              variant: 'contained',
+                            },
+                            id: 'article-embed',
+                            classes: '',
+                            header: {
+                              styles: {},
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              name: '',
+                            },
+                            content: {
+                              styles: { width: '900px', height: '700px' },
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              componentName: 'Embed',
+                              contents: [],
+                            },
+                          },
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'ListResults',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  sm: 6,
+                  lg: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 1,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Education',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          dataUrl:
+                            '/investments/articles/education_articles.json',
+                          modal: {
+                            styles: {},
+                            opts: {
+                              variant: 'contained',
+                            },
+                            id: 'article-embed',
+                            classes: '',
+                            header: {
+                              styles: {},
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              name: 'Default',
+                            },
+                            content: {
+                              styles: { width: '900px', height: '700px' },
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              componentName: 'Embed',
+                              contents: [],
+                            },
+                          },
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'ListResults',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
             ],
           },
         ],

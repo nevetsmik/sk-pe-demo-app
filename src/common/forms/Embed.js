@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MuiCircularProgress from '@mui/material/CircularProgress';
+
 const Embed = (props) => {
   return (
     <iframe

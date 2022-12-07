@@ -24,9 +24,9 @@ const Modal = (props) => {
 
   let componentStyle =
     props.content.componentName === 'Embed'
-      ? { width: '800px' }
+      ? { width: '900px' }
       : { width: '520px' };
-  console.log(props.content.componentName);
+
   return (
     <MuiModal
       sx={{

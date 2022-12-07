@@ -40,7 +40,6 @@ const ListResults = (props) => {
   }, []);
 
   function downloadAction(title, link) {
-    // openModal(title, link);
     console.log('Downloading track event here');
   }
 
@@ -84,7 +83,7 @@ const ListResults = (props) => {
       <Modal
         open={open}
         handleClose={handleClose}
-        header={props.modal.header}
+        header={{ ...props.modal.header, name: title }}
         content={{ ...props.modal.content, src: src, title: title }}
       ></Modal>
       <MuiList
@@ -94,6 +93,7 @@ const ListResults = (props) => {
           width: '100%',
           maxHeight: '100%',
           margin: '0px',
+          paddingTop: '0px',
         }}
         className="article-list"
       >
@@ -105,7 +105,9 @@ const ListResults = (props) => {
                 <MuiIconButton
                   edge="end"
                   aria-label="download"
-                  onClick={downloadAction(article.title, article.link)}
+                  onClick={() => {
+                    downloadAction(article.title, article.link);
+                  }}
                 >
                   <MuiDownloadIcon />
                 </MuiIconButton>
@@ -131,7 +133,7 @@ const ListResults = (props) => {
                         event.preventDefault();
                         handleOpen(article);
                       }}
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: 'none', color: ' #000080' }}
                     >
                       {article.title}
                     </MuiLink>
