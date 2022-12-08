@@ -35,6 +35,7 @@ const updateAddNewLabels = (event) => {
 export default {
   styles: {
     display: 'flex',
+    lineHeight: '2',
   },
   opts: {},
   id: '',
@@ -289,7 +290,7 @@ export default {
                     opts: {
                       height: 1,
                       header: {
-                        styles: {},
+                        styles: { fontWeight: '600', fontSize: '1.1rem' },
                         opts: {},
                         id: '',
                         classes: '',
@@ -299,8 +300,13 @@ export default {
                         styles: {},
                         opts: {
                           dataUrl: '/investments/articles/all_articles.json',
+                          buttonStyles: {
+                            backgroundColor: '#1DA259',
+                            color: 'white',
+                          },
                           modal: {
                             styles: {},
+
                             opts: {
                               variant: 'contained',
                             },
@@ -351,7 +357,7 @@ export default {
                     opts: {
                       height: 1,
                       header: {
-                        styles: {},
+                        styles: { fontWeight: '600', fontSize: '1.1rem' },
                         opts: {},
                         id: '',
                         classes: '',
@@ -362,6 +368,10 @@ export default {
                         opts: {
                           dataUrl:
                             '/investments/articles/healthcare_articles.json',
+                          buttonStyles: {
+                            backgroundColor: '#1DA259',
+                            color: 'white',
+                          },
                           modal: {
                             styles: {},
                             opts: {
@@ -414,7 +424,7 @@ export default {
                     opts: {
                       height: 1,
                       header: {
-                        styles: {},
+                        styles: { fontWeight: '600', fontSize: '1.1rem' },
                         opts: {},
                         id: '',
                         classes: '',
@@ -425,6 +435,10 @@ export default {
                         opts: {
                           dataUrl:
                             '/investments/articles/education_articles.json',
+                          buttonStyles: {
+                            backgroundColor: '#1DA259',
+                            color: 'white',
+                          },
                           modal: {
                             styles: {},
                             opts: {

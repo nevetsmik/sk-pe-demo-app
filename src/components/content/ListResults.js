@@ -108,6 +108,7 @@ const ListResults = (props) => {
                   onClick={() => {
                     downloadAction(article.title, article.link);
                   }}
+                  style={{ ...props.buttonStyles }}
                 >
                   <MuiDownloadIcon />
                 </MuiIconButton>
@@ -133,7 +134,11 @@ const ListResults = (props) => {
                         event.preventDefault();
                         handleOpen(article);
                       }}
-                      style={{ textDecoration: 'none', color: ' #000080' }}
+                      style={{
+                        textDecoration: 'none',
+                        color: ' #000080',
+                        fontSize: '16px',
+                      }}
                     >
                       {article.title}
                     </MuiLink>
@@ -146,9 +151,17 @@ const ListResults = (props) => {
                     variant="body2"
                     color="text.primary"
                   >
-                    <MuiBox style={{ width: '90%', margin: '0px' }}>
-                      {article.date} | {article.author} <br />
-                      {article.summary}
+                    <MuiBox style={{ width: '85%', margin: '0px' }}>
+                      <MuiBox
+                        className="article-author"
+                        style={{ fontWeight: '500' }}
+                      >
+                        {article.author}
+                      </MuiBox>
+                      <MuiBox className="article-date">{article.date}</MuiBox>
+                      <MuiBox className="article-summary">
+                        {article.summary}
+                      </MuiBox>
                     </MuiBox>
                   </MuiTypography>
                 }
@@ -170,6 +183,7 @@ ListResults.propTypes = {
   openEndCallback: PropTypes.func,
   closeStartCallback: PropTypes.func,
   closeEndCallback: PropTypes.func,
+  buttonStyles: PropTypes.object,
 };
 
 export default ListResults;
