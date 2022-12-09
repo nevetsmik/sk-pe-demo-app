@@ -71,7 +71,22 @@ export default {
       transforms: [
         {
           attr: 'search',
-          action: 'Clear',
+          action: 'ExcludeKeys',
+          data: [
+            'obj',
+            'disablePendo',
+            'apiKey',
+            'visitor',
+            'account',
+            'accountBasedVisitor',
+            'role',
+            'team',
+            'title',
+            'quotaAttainment',
+            'region',
+            'office',
+            'system',
+          ],
         },
       ],
     },
