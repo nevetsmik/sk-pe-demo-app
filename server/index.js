@@ -1,9 +1,6 @@
 const path = require('path');
 const express = require('express');
 const expressStaticGzip = require('express-static-gzip');
-// const bodyParser = require('body-parser');
-// const multer = require('multer');
-// const upload = multer();
 
 // Create express app
 const app = express();
@@ -40,16 +37,22 @@ app.use(
       },
     ],
     orderPreference: ['br', 'gz'],
+    serveStatic: {
+      lastModified: false,
+      etag: false,
+      setHeaders: (res, path) => {
+        // Turn off caching completely for index.html
+        if (path.indexOf('index.html') !== -1) {
+          res.set('Cache-Control', 'no-store');
+        }
+      },
+    },
   })
 );
 
 // Catch all for routes
 app.get('/*', (req, res) => {
-  // May not be necessary, but set cache control headers on response
-  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-  res.header('Expires', '-1');
-  res.header('Pragma', 'no-cache');
-  res.sendFile(path.join(__dirname, '..', 'build/index.html'));
+  res.sendFile(path.join(__dirname, '..', 'build/index.html'), {});
 });
 
 // Start server
