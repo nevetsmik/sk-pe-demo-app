@@ -3,9 +3,9 @@ import investmentsConfig from './configs/investments.js';
 
 // Return config based on current URL
 export function determineConfig() {
-  // If on localhost, use url param
+  // If not on pendoexperience
   let app;
-  if (window.location.hostname === 'localhost') {
+  if (!window.location.hostname.includes('pendoexperience.io')) {
     app = new URLSearchParams(window.location.search).get('app');
   }
   // Else, use subdomain
