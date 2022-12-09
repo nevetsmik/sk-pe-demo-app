@@ -108,7 +108,14 @@ const ListResults = (props) => {
                   onClick={() => {
                     downloadAction(article.title, article.link);
                   }}
-                  style={{ ...props.buttonStyles }}
+                  sx={{
+                    backgroundColor: '#1DA259',
+                    '&:hover': {
+                      backgroundColor: '#1a9150',
+                    },
+                    color: 'white',
+                    ...props.buttonStyles,
+                  }}
                 >
                   <MuiDownloadIcon />
                 </MuiIconButton>

@@ -300,10 +300,7 @@ export default {
                         styles: {},
                         opts: {
                           dataUrl: '/investments/articles/all_articles.json',
-                          buttonStyles: {
-                            backgroundColor: '#1DA259',
-                            color: 'white',
-                          },
+                          buttonStyles: {},
                           modal: {
                             styles: {},
 
@@ -368,10 +365,7 @@ export default {
                         opts: {
                           dataUrl:
                             '/investments/articles/healthcare_articles.json',
-                          buttonStyles: {
-                            backgroundColor: '#1DA259',
-                            color: 'white',
-                          },
+                          buttonStyles: {},
                           modal: {
                             styles: {},
                             opts: {
@@ -435,10 +429,7 @@ export default {
                         opts: {
                           dataUrl:
                             '/investments/articles/education_articles.json',
-                          buttonStyles: {
-                            backgroundColor: '#1DA259',
-                            color: 'white',
-                          },
+                          buttonStyles: {},
                           modal: {
                             styles: {},
                             opts: {
