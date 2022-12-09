@@ -62,7 +62,21 @@ const Modal = (props) => {
             {...props.header.opts}
             id={props.header.id}
             className={props.header.classes}
-            title={props.header.name}
+            title={
+              <MuiBox
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'start',
+                  alignItems: 'center',
+                  '> *:first-of-type': {
+                    marginRight: '20px',
+                  },
+                }}
+              >
+                <MuiBox>{props.header.name}</MuiBox>
+                {props.header.button || ''}
+              </MuiBox>
+            }
             disableTypography={true}
             action={
               <MuiIconButton
@@ -108,6 +122,7 @@ Modal.propTypes = {
     id: PropTypes.string,
     classes: PropTypes.string,
     name: PropTypes.string.isRequired,
+    button: PropTypes.object,
   }).isRequired,
   content: PropTypes.shape({
     styles: PropTypes.object,
