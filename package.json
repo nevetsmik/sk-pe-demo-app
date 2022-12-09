@@ -28,7 +28,9 @@
     "start:client": "serve -s build",
     "start:dev": "react-scripts start",
     "build": "react-scripts build && compress-cra",
-    "postinstall": "(cd server && npm install); npm run build"
+    "postinstall": "(cd server && npm install); npm run build",
+    "deploy:prod": "gcloud app deploy app.yaml",
+    "deploy:staging": "gcloud app deploy app.staging.yaml"
   },
   "browserslist": {
     "production": [
