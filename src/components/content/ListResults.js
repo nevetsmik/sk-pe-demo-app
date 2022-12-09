@@ -10,12 +10,92 @@ import MuiTypography from '@mui/material/Typography';
 import MuiDivider from '@mui/material/Divider';
 import MuiDownloadIcon from '@mui/icons-material/Download';
 import MuiLink from '@mui/material/Link';
+import MuiPortal from '@mui/material/Portal';
 import MuiSnackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 import getDimensions from '../../common/getDimensions';
 import Modal from '../../common/modals/Modal';
-import { Download } from '@mui/icons-material';
+
+const DownloadButton = (props) => {
+  // Handle snackbar state
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [alertSeverity, setAlertSeverity] = React.useState('success');
+  const [alertMessage, setAlertMessage] = React.useState('Download succeeded!');
+  const handleSnackbarOpen = (severity, message) => {
+    setAlertSeverity(severity);
+    setAlertMessage(message);
+    setSnackbarOpen(true);
+  };
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  // Handle download button click
+  function downloadAction(metadata) {
+    console.log('Executing track event with metadata: ', metadata);
+    // Send download initiated track event
+    pendo.track('Download Initiated', metadata);
+
+    // Randomly determine if fail or success
+    if (Math.random() < 0.95) {
+      pendo.track('Download Succeeded', metadata);
+      handleSnackbarOpen('success', 'Download succeeded!');
+    } else {
+      pendo.track('Download Failed', metadata);
+      handleSnackbarOpen('error', 'Download failed. Please try again later.');
+    }
+  }
+
+  return (
+    <>
+      <MuiPortal>
+        <MuiSnackbar
+          open={snackbarOpen}
+          onClose={handleSnackbarClose}
+          autoHideDuration={4000}
+        >
+          <MuiAlert
+            onClose={handleSnackbarClose}
+            severity={alertSeverity}
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            {alertMessage}
+          </MuiAlert>
+        </MuiSnackbar>
+      </MuiPortal>
+      <MuiIconButton
+        edge="end"
+        aria-label="download"
+        onClick={() => {
+          downloadAction({
+            title: props.title,
+            src: props.src,
+            srcComponent: props.srcComponent,
+          });
+        }}
+        sx={{
+          backgroundColor: '#1DA259',
+          '&:hover': {
+            backgroundColor: '#1a9150',
+          },
+          color: 'white',
+          ...props.buttonStyles,
+        }}
+      >
+        <MuiDownloadIcon />
+      </MuiIconButton>
+    </>
+  );
+};
+
+DownloadButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  srcComponent: PropTypes.string.isRequired,
+  buttonStyles: PropTypes.object,
+};
 
 const ListResults = (props) => {
   // Resize handler for container
@@ -34,32 +114,6 @@ const ListResults = (props) => {
         console.error(`Failed to load data from ${props.dataUrl}`)
       );
   }, []);
-
-  // Handle download button click
-  function downloadAction(title, link) {
-    // Send download initiated track event
-    pendo.track('Download Initiated', {
-      title: title,
-      link: link,
-    });
-
-    // Randomly determine if fail or success
-    if (Math.random() < 0.75) {
-      pendo.track('Download Succeeded', {
-        title: title,
-        link: link,
-      });
-
-      handleSnackbarOpen('success', 'Download succeeded!');
-    } else {
-      pendo.track('Download Failed', {
-        title: title,
-        link: link,
-      });
-
-      handleSnackbarOpen('error', 'Download failed. Please try again later.');
-    }
-  }
 
   // Handle modal state
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -92,43 +146,9 @@ const ListResults = (props) => {
     }
   };
 
-  // Handle snackbar state
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [alertSeverity, setAlertSeverity] = React.useState('success');
-  const [alertMessage, setAlertMessage] = React.useState('Download succeeded!');
-  const handleSnackbarOpen = (severity, message) => {
-    setAlertSeverity(severity);
-    setAlertMessage(message);
-    setSnackbarOpen(true);
-  };
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
-
   // Handle current src and title state
   const [src, setSrc] = React.useState('');
   const [title, setTitle] = React.useState('');
-
-  // Download button (used in list item and in modal header)
-  const DownloadButton = (
-    <MuiIconButton
-      edge="end"
-      aria-label="download"
-      onClick={(article) => {
-        downloadAction(article.title, article.link);
-      }}
-      sx={{
-        backgroundColor: '#1DA259',
-        '&:hover': {
-          backgroundColor: '#1a9150',
-        },
-        color: 'white',
-        ...props.buttonStyles,
-      }}
-    >
-      <MuiDownloadIcon />
-    </MuiIconButton>
-  );
 
   const availableHeight =
     props.height - props.card_content_vert_padding - containerDim.padding.vert;
@@ -141,25 +161,16 @@ const ListResults = (props) => {
         header={{
           ...props.modal.header,
           name: title,
-          button: DownloadButton,
+          button: (
+            <DownloadButton
+              title={title}
+              src={src}
+              srcComponent={'Article Viewer'}
+            ></DownloadButton>
+          ),
         }}
         content={{ ...props.modal.content, src: src, title: title }}
       ></Modal>
-      <MuiSnackbar
-        open={snackbarOpen}
-        onClose={handleSnackbarClose}
-        autoHideDuration={4000}
-      >
-        <MuiAlert
-          onClose={handleSnackbarClose}
-          severity={alertSeverity}
-          elevation={6}
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          {alertMessage}
-        </MuiAlert>
-      </MuiSnackbar>
       <MuiBox
         ref={containerRef}
         sx={{
@@ -180,7 +191,14 @@ const ListResults = (props) => {
             <MuiBox key={article.id}>
               <MuiListItem
                 style={{ padding: '0px 10px 0px 10px' }}
-                secondaryAction={DownloadButton}
+                secondaryAction={
+                  <DownloadButton
+                    title={article.title}
+                    src={article.link}
+                    srcComponent={'Article List'}
+                    buttonStyles={props.buttonStyles}
+                  ></DownloadButton>
+                }
               >
                 <MuiListItemText
                   style={{ fontSize: '12px' }}
