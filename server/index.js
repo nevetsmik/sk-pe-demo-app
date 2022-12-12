@@ -51,8 +51,12 @@ app.use(
 );
 
 // Catch all for routes
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build/index.html'), {});
+app.get('/*', async (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  return res.sendFile(path.join(__dirname, '..', 'build/index.html'), {
+    lastModified: false,
+    etag: false,
+  });
 });
 
 // Start server
