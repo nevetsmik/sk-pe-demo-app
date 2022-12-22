@@ -1,4 +1,2 @@
-# [START gae_quickstart_yaml]
-service: pe-demo-app-staging
 runtime: nodejs16
-# [END gae_quickstart_yaml]
+service: pe-demo-app-staging
