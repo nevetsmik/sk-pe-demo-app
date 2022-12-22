@@ -21,6 +21,7 @@ const Embed = (props) => {
       <MuiBox
         sx={{
           display: iframeLoaded ? 'initial' : 'none',
+          border: 'none',
         }}
       >
         <iframe
@@ -29,6 +30,7 @@ const Embed = (props) => {
           onLoad={handleIframeLoad}
           width="100%"
           height="100%"
+          style={{ border: 'none' }}
         ></iframe>
       </MuiBox>
       <MuiBox
@@ -39,7 +41,7 @@ const Embed = (props) => {
         }}
       >
         <MuiCircularProgress
-          size={200}
+          size={100}
           sx={{
             color: 'rgb(225, 227, 230)',
           }}
@@ -52,6 +54,7 @@ const Embed = (props) => {
 Embed.propTypes = {
   src: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  styles: PropTypes.object,
 };
 
 export default Embed;

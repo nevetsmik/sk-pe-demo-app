@@ -13,6 +13,8 @@ import QuickInfo from './QuickInfo';
 import TabbedInput from './TabbedInput';
 import Timeline from './Timeline';
 import ListResults from './ListResults';
+import Text from './Text';
+import Embed from '../../common/forms/Embed.js';
 
 // Create object of supported content types to be rendered in tile
 const supportedComponents = {
@@ -22,6 +24,8 @@ const supportedComponents = {
   TabbedInput: TabbedInput,
   Timeline: Timeline,
   ListResults: ListResults,
+  Text: Text,
+  Embed: Embed,
 };
 
 const ContentTile = (props) => {
@@ -62,7 +66,11 @@ const ContentTile = (props) => {
   return (
     <MuiCard
       ref={cardRef}
-      sx={{ margin: '8px', borderRadius: '5px', ...props.styles }}
+      sx={{
+        margin: '8px',
+        borderRadius: '5px',
+        ...props.sx,
+      }}
       {...props.opts}
       id={props.id}
       className={props.classes}
@@ -80,8 +88,12 @@ const ContentTile = (props) => {
         title={props.header.name}
         disableTypography={true}
       ></MuiCardHeader>
-      <MuiDivider />
-      <MuiCardContent ref={cardContentRef} sx={{ overflowY: 'auto' }}>
+      <MuiDivider style={props.header.divider} />
+      <MuiCardContent
+        ref={cardContentRef}
+        sx={{ overflowY: 'auto' }}
+        style={{ ...props.sx }}
+      >
         <Content
           sx={{ ...props.content.styles }}
           {...props.content.opts}
@@ -105,7 +117,7 @@ const ContentTile = (props) => {
 };
 
 ContentTile.propTypes = {
-  styles: PropTypes.object,
+  sx: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,
@@ -116,6 +128,7 @@ ContentTile.propTypes = {
     id: PropTypes.string,
     classes: PropTypes.string,
     name: PropTypes.string.isRequired,
+    divider: PropTypes.object,
   }).isRequired,
   content: PropTypes.shape({
     styles: PropTypes.object,
