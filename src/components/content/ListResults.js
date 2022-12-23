@@ -75,6 +75,7 @@ const DownloadButton = (props) => {
             srcComponent: props.srcComponent,
           });
         }}
+        className="download-button"
         sx={{
           backgroundColor: '#1DA259',
           '&:hover': {
@@ -190,13 +191,15 @@ const ListResults = (props) => {
           {articleData.map((article) => (
             <MuiBox key={article.id}>
               <MuiListItem
-                style={{ padding: '0px 10px 0px 10px' }}
+                style={{ padding: '0px 0px 0px 10px' }}
                 secondaryAction={
                   <DownloadButton
                     title={article.title}
                     src={article.link}
                     srcComponent={'Article List'}
-                    buttonStyles={props.buttonStyles}
+                    buttonStyles={{
+                      ...props.buttonStyles,
+                    }}
                   ></DownloadButton>
                 }
               >
@@ -223,7 +226,7 @@ const ListResults = (props) => {
                         style={{
                           textDecoration: 'none',
                           color: ' #000080',
-                          fontSize: '16px',
+                          fontSize: '14px',
                         }}
                       >
                         {article.title}
@@ -240,11 +243,16 @@ const ListResults = (props) => {
                       <MuiBox style={{ width: '85%', margin: '0px' }}>
                         <MuiBox
                           className="article-author"
-                          style={{ fontWeight: '500' }}
+                          style={{ fontWeight: '500', fontSize: '12px' }}
                         >
                           {article.author}
                         </MuiBox>
-                        <MuiBox className="article-date">{article.date}</MuiBox>
+                        <MuiBox
+                          className="article-date"
+                          style={{ fontSize: '12px' }}
+                        >
+                          {article.date}
+                        </MuiBox>
                         <MuiBox className="article-summary">
                           {article.summary}
                         </MuiBox>
