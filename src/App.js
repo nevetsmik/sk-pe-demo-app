@@ -6,7 +6,7 @@ import MuiBox from '@mui/material/Box';
 import MuiCssBaseline from '@mui/material/CssBaseline';
 import {
   ThemeProvider as MuiThemeProvider,
-  createTheme as MuiCreateTheme,
+  createTheme as muiCreateTheme,
 } from '@mui/material/styles';
 
 import getDimensions from './common/getDimensions';
@@ -17,7 +17,7 @@ import Footer from './components/footer/Footer';
 
 const App = (props) => {
   // Global theme provider
-  const theme = MuiCreateTheme({
+  const theme = muiCreateTheme({
     typography: {
       fontFamily: ['"Sora"', 'sans-serif'].join(','),
     },
