@@ -270,7 +270,7 @@ export default {
                         opts: {
                           header: 'Hello there!',
                           subheader:
-                            'Meet the new acmeInvestments Research Portal, here to serve all of your research needs. Stay up to date and make informed decisions with a carefully curated research portfolio tailored just to you.',
+                            'Meet the new acmeInvestments Research Portal, here to serve all of your research needs. Stay up to date and make informed decisions with a carefully curated research portfolio tailored to you.',
                           text: '',
                           headerStyle: {},
                           subheaderStyle: {},
@@ -667,7 +667,7 @@ export default {
                   {
                     styles: {},
                     opts: {
-                      height: 0.65,
+                      height: 1.1,
                       header: {
                         styles: { height: '45px' },
                         opts: {},
