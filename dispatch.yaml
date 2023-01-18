@@ -1,0 +1,12 @@
+dispatch:
+  # Landing Page
+  - url: 'www.pendoexperience.io/*'
+    service: default
+
+  # Acme CRM
+  - url: 'crm.pendoexperience.io/*'
+    service: pe-demo-app
+
+  # Acme Investments
+  - url: 'investments.pendoexperience.io/*'
+    service: pe-demo-app
