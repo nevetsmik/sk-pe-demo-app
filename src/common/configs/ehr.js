@@ -5,34 +5,34 @@ import { Link } from 'react-router-dom';
 const updateAddNewLabels = (event) => {
   // Dynamically change text field labels based on type
   let labels = [
-    { accounts: 'Name', contacts: 'Name', opportunities: 'Name' },
+    { providers: 'Name', physicians: 'Name', patients: 'Name' },
     {
-      accounts: 'Rep',
-      contacts: 'Email',
-      opportunities: 'Contact',
+      providers: 'Rep',
+      physicians: 'Email',
+      patients: 'Physician',
     },
     {
-      accounts: 'Territory',
-      contacts: 'Phone #',
-      opportunities: 'ARR',
+      providers: 'Deductible',
+      physicians: 'Phone #',
+      patients: 'Reason for Visit',
     },
   ];
 
   let selectedValue =
     event?.target?.value ||
-    document.getElementById('add-new-select-type').nextElementSibling.value;
+    document.getElementById('create-select-type').nextElementSibling.value;
 
   labels.forEach((d, i) => {
     // Label text
-    document.getElementById(`add-new-text-field-${i}-label`).innerText =
+    document.getElementById(`create-text-field-${i}-label`).innerText =
       labels[i][selectedValue];
     // Child span that sets width of text when focused
     document.getElementById(
-      `add-new-text-field-${i}`
+      `create-text-field-${i}`
     ).nextElementSibling.children[0].children[0].innerText =
       labels[i][selectedValue];
     // Input name attribute
-    document.getElementById(`add-new-text-field-${i}`).name =
+    document.getElementById(`create-text-field-${i}`).name =
       labels[i][selectedValue];
   });
 };
@@ -44,24 +44,18 @@ export default {
   opts: {},
   id: '',
   classes: '',
-  favicon: '/crm/logos/main.ico',
+  favicon: '/ehr/logos/main.ico',
   pendoConfig: {
-    apiKey: '74924fb4-e18c-42b1-664b-47ed918c3a45',
-    additionalApiKeys: [
-      '758434d6-672f-4326-4db4-64412a4af191', // Pendo Experience Sandbox
-      'bada3d2f-3371-418a-6711-c9ed5af6d466', // Pendo - Onboarding
-      '9a491f59-cc46-43e2-4c67-179d36c5d03b', // Pendo Free Sample Data (US prod)
-      'b2cb409b-391e-4505-71ef-f35a6ba59b9f', // (Demo) Digital Adaoption - SFDC
-      'aafdb96f-d3f0-4704-59a1-912a146e228c', // sr$2A - d44B! (Custom Demo Sub)
-    ],
+    apiKey: '1e7a2098-5550-4136-7db7-37fa8541cf1b',
+    additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {
       if (!urlParams.get('apiKey')) {
-        // Zendesk widget script
-        const script = document.createElement('script');
-        script.id = 'ze-snippet';
-        script.src =
-          'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
-        document.head.appendChild(script);
+        // // Zendesk widget script
+        // const script = document.createElement('script');
+        // script.id = 'ze-snippet';
+        // script.src =
+        //   'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
+        // document.head.appendChild(script);
       }
     },
     visitor: {
@@ -96,6 +90,8 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
+      filter:
+        'brightness(0) saturate(100%) invert(13%) sepia(7%) saturate(463%) hue-rotate(236deg) brightness(95%) contrast(88%)',
     },
     opts: {},
     id: '',
@@ -115,11 +111,11 @@ export default {
         {
           styles: {},
           opts: {},
-          id: 'crm-title',
+          id: 'ehr-title',
           classes: '',
           componentName: 'NavTitle',
           alignment: 'left',
-          name: 'CRM',
+          name: 'EHR',
         },
         {
           styles: {},
@@ -145,40 +141,24 @@ export default {
       ],
       navItems: [
         {
-          name: 'Dashboard',
+          name: 'Overview',
           type: 'route',
           path: '/',
         },
         {
-          name: 'Accounts',
+          name: 'Providers',
           type: 'route',
-          path: '/accounts',
+          path: '/providers',
         },
         {
-          name: 'Contacts',
+          name: 'Physicians',
           type: 'route',
-          path: '/contacts',
+          path: '/physicians',
         },
         {
-          name: 'Opportunities',
+          name: 'Patients',
           type: 'route',
-          path: '/opportunities',
-        },
-        {
-          name: 'Mobile',
-          type: 'custom',
-          callback: () => {
-            const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
-            const osVersion = '15.5';
-            const device = 'iphone12promax';
-            const deviceColor = 'black';
-            const scale = 75;
-
-            window.open(
-              `https://appetize.io/app/${publicKey}?osVersion=${osVersion}&device=${device}&deviceColor=${deviceColor}&scale=${scale}&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
-              '_blank'
-            );
-          },
+          path: '/patients',
         },
       ],
     },
@@ -189,14 +169,14 @@ export default {
         id: '',
         classes: '',
         contents: [
-          {
-            styles: {},
-            opts: {},
-            id: 'search-bar',
-            classes: '',
-            componentName: 'NavSearch',
-            alignment: 'left',
-          },
+          // {
+          //   styles: {},
+          //   opts: {},
+          //   id: 'search-bar',
+          //   classes: '',
+          //   componentName: 'NavSearch',
+          //   alignment: 'left',
+          // },
           {
             styles: {
               backgroundColor: '#1DA259',
@@ -207,12 +187,12 @@ export default {
             opts: {
               variant: 'contained',
             },
-            id: 'add-new',
+            id: 'create',
             classes: '',
             componentName: 'Button',
             alignment: 'right',
             type: 'Modal',
-            name: 'Add New',
+            name: 'Create Record',
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
@@ -222,7 +202,7 @@ export default {
               opts: {},
               id: '',
               classes: '',
-              name: 'Add New',
+              name: 'Create Record',
             },
             content: {
               styles: {},
@@ -234,36 +214,34 @@ export default {
                 {
                   styles: {},
                   opts: {},
-                  id: 'add-new-select-type',
+                  id: 'create-select-type',
                   classes: '',
                   componentName: 'Select',
                   label: 'Type',
                   options: [
                     {
-                      name: 'Account',
-                      value: 'accounts',
+                      name: 'Provider',
+                      value: 'providers',
                     },
                     {
-                      name: 'Contact',
-                      value: 'contacts',
+                      name: 'Physician',
+                      value: 'physicians',
                     },
                     {
-                      name: 'Opportunity',
-                      value: 'opportunities',
+                      name: 'Patient',
+                      value: 'patients',
                     },
                   ],
                   default: () => {
                     // Dynamically assign default based on path
-                    return (
-                      window.location.pathname.split('/')[1] || 'opportunities'
-                    );
+                    return window.location.pathname.split('/')[1] || 'patients';
                   },
                   changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
                 {
                   styles: {},
                   opts: {},
-                  id: 'add-new-text-field-0',
+                  id: 'create-text-field-0',
                   classes: '',
                   componentName: 'TextField',
                   label: 'Default',
@@ -271,7 +249,7 @@ export default {
                 {
                   styles: {},
                   opts: {},
-                  id: 'add-new-text-field-1',
+                  id: 'create-text-field-1',
                   classes: '',
                   componentName: 'TextField',
                   label: 'Default',
@@ -279,7 +257,7 @@ export default {
                 {
                   styles: {},
                   opts: {},
-                  id: 'add-new-text-field-2',
+                  id: 'create-text-field-2',
                   classes: '',
                   componentName: 'TextField',
                   label: 'Default',
@@ -288,13 +266,13 @@ export default {
               submitCallback: function (event, navigate) {
                 // Get details from DOM and use to navigate to new details page
                 let url = `/${
-                  document.getElementById('add-new-select-type')
+                  document.getElementById('create-select-type')
                     .nextElementSibling.value
                 }/new/details?obj={`;
 
                 // Store form fields as query params
                 for (let i = 0; i < 3; i++) {
-                  let el = document.getElementById(`add-new-text-field-${i}`);
+                  let el = document.getElementById(`create-text-field-${i}`);
                   url += `${i ? ',' : ''}"${encodeURIComponent(
                     el.name
                   )}":"${encodeURIComponent(el.value)}"`;
@@ -366,7 +344,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Forecast',
+                                name: 'Patient Visits this Quarter',
                               },
                               content: {
                                 styles: {},
@@ -391,11 +369,10 @@ export default {
                                       {
                                         fill: true,
 
-                                        label: 'Forecast in $',
+                                        label: 'Count of Patient Visits',
                                         data: [
-                                          45000, 98000, 147000, 265000, 467000,
-                                          487000, 603000, 1020000, 1150000,
-                                          1230000, 1640000, 2460000,
+                                          10, 8, 5, 15, 10, 11, 8, 9, 7, 19, 13,
+                                          11,
                                         ],
                                         backgroundColor: hexToRGBA(
                                           '#0d88e6',
@@ -420,23 +397,11 @@ export default {
                                       legend: {
                                         display: false,
                                       },
-                                      tooltip: {
-                                        callbacks: {
-                                          label: function (context) {
-                                            return (
-                                              '$' + context.raw / 1000000 + 'm'
-                                            );
-                                          },
-                                        },
-                                      },
+                                      tooltip: {},
                                     },
                                     scales: {
                                       y: {
-                                        ticks: {
-                                          callback: function (value) {
-                                            return '$' + value / 1000000 + 'm';
-                                          },
-                                        },
+                                        ticks: {},
                                       },
                                     },
                                   },
@@ -468,7 +433,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Quota Attainment',
+                                name: 'Billing Amount by Physician',
                               },
                               content: {
                                 styles: {},
@@ -476,16 +441,16 @@ export default {
                                   type: 'Bar',
                                   data: {
                                     labels: [
-                                      'Mona',
-                                      'Felix',
-                                      'Jess',
-                                      'Ravi',
-                                      'Kam',
-                                      'Walter',
+                                      '31422',
+                                      '54995',
+                                      '20293',
+                                      '35930',
+                                      '25999',
+                                      '20293',
                                     ],
                                     datasets: [
                                       {
-                                        label: 'Attained',
+                                        label: 'Collected',
                                         data: [
                                           30000, 135000, 47000, 25000, 56000,
                                           55000,
@@ -505,7 +470,7 @@ export default {
                                         ),
                                       },
                                       {
-                                        label: 'Remaining',
+                                        label: 'Outstanding',
                                         data: [
                                           20000, 15000, 33000, 40000, 44000,
                                           65000,
@@ -529,6 +494,10 @@ export default {
                                   opts: {
                                     maintainAspectRatio: false,
                                     plugins: {
+                                      legend: {
+                                        display: true,
+                                        position: 'bottom',
+                                      },
                                       tooltip: {
                                         callbacks: {
                                           label: function (context) {
@@ -581,7 +550,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Pipeline',
+                                name: 'Reason for Visit',
                               },
                               content: {
                                 styles: {},
@@ -589,15 +558,15 @@ export default {
                                   type: 'Doughnut',
                                   data: {
                                     labels: [
-                                      'Qual',
-                                      'Sol Pres.',
-                                      'Sol Acc.',
-                                      'Proposal',
-                                      'Pending',
+                                      '434 - Physical',
+                                      '239 - Prescription',
+                                      '109 - Lab',
+                                      '304 - Clinical',
+                                      '898 - Acute',
                                     ],
                                     datasets: [
                                       {
-                                        data: [300, 250, 200, 150, 100],
+                                        data: [0.75, 0.1, 0.08, 0.04, 0.03],
                                         backgroundColor: [
                                           hexToRGBA('#f1416c', 0.7),
                                           hexToRGBA('#7239ea', 0.7),
@@ -625,6 +594,12 @@ export default {
                                   },
                                   opts: {
                                     maintainAspectRatio: false,
+                                    plugins: {
+                                      legend: {
+                                        display: true,
+                                        position: 'right',
+                                      },
+                                    },
                                   },
                                 },
                                 id: '',
@@ -662,26 +637,26 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Open Opportunities',
+                        name: "Today's Patients",
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/ehr/tableData/patients.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <a href={`/opportunities/${params.id}/details`}>
+                                <a href={`/patients/${params.id}/details`}>
                                   {params.formattedValue}
                                 </a>
                               ),
                             },
                             {
-                              field: 'account',
-                              headerName: 'Account',
+                              field: 'physician_code',
+                              headerName: 'Physician',
                               flex: 1,
                             },
                           ],
@@ -702,8 +677,8 @@ export default {
         ],
       },
       {
-        name: 'Accounts',
-        route: '/accounts',
+        name: 'Providers',
+        route: '/providers',
         contents: [
           {
             styles: {},
@@ -733,41 +708,26 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Accounts',
+                        name: 'Providers',
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/accounts.json',
+                          dataUrl: '/ehr/tableData/providers.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               renderCell: (params) => (
-                                <Link to={`/accounts/${params.id}/details`}>
+                                <Link to={`/providers/${params.id}/details`}>
                                   {params.formattedValue}
                                 </Link>
                               ),
                               flex: 1,
                             },
                             {
-                              field: 'rep',
-                              headerName: 'Rep',
-                              flex: 1,
-                            },
-                            {
-                              field: 'territory',
-                              headerName: 'Territory',
-                              flex: 1,
-                            },
-                            {
-                              field: 'industry',
-                              headerName: 'Industry',
-                              flex: 1,
-                            },
-                            {
-                              field: 'address',
-                              headerName: 'Address',
+                              field: 'region',
+                              headerName: 'Region',
                               flex: 3,
                             },
                           ],
@@ -788,8 +748,8 @@ export default {
         ],
       },
       {
-        name: 'Contacts',
-        route: '/contacts',
+        name: 'Physicians',
+        route: '/physicians',
         contents: [
           {
             styles: {},
@@ -819,26 +779,26 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Contacts',
+                        name: 'Physicians',
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/contacts.json',
+                          dataUrl: '/ehr/tableData/physicians.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <Link to={`/contacts/${params.id}/details`}>
+                                <Link to={`/physicians/${params.id}/details`}>
                                   {params.formattedValue}
                                 </Link>
                               ),
                             },
                             {
-                              field: 'account',
-                              headerName: 'Account',
+                              field: 'title',
+                              headerName: 'Title',
                               flex: 1,
                             },
                             {
@@ -852,8 +812,8 @@ export default {
                               flex: 1,
                             },
                             {
-                              field: 'title',
-                              headerName: 'Title',
+                              field: 'code',
+                              headerName: 'Code',
                               flex: 1,
                             },
                           ],
@@ -875,7 +835,7 @@ export default {
       },
       {
         name: 'Opportunities',
-        route: '/opportunities',
+        route: '/patients',
         contents: [
           {
             styles: {},
@@ -910,38 +870,36 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/ehr/tableData/patients.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <Link
-                                  to={`/opportunities/${params.id}/details`}
-                                >
+                                <Link to={`/patients/${params.id}/details`}>
                                   {params.formattedValue}
                                 </Link>
                               ),
                             },
                             {
-                              field: 'account',
-                              headerName: 'Account',
+                              field: 'provider',
+                              headerName: 'Provider',
                               flex: 1,
                             },
                             {
-                              field: 'contact',
-                              headerName: 'Contact',
+                              field: 'physician_code',
+                              headerName: 'Physician',
                               flex: 1,
                             },
                             {
-                              field: 'rep',
-                              headerName: 'Rep',
+                              field: 'phone',
+                              headerName: 'Phone',
                               flex: 1,
                             },
                             {
-                              field: 'arr',
-                              headerName: 'ARR',
+                              field: 'deductible',
+                              headerName: 'Deductible',
                               flex: 1,
                             },
                           ],
@@ -1002,12 +960,12 @@ export default {
                         styles: {},
                         opts: {
                           schema: {
-                            accounts: ['name', 'rep', 'territory'],
-                            contacts: ['name', 'email', 'phone'],
-                            opportunities: ['name', 'contact', 'arr'],
+                            providers: ['name', 'region'],
+                            physicians: ['name', 'title', 'code'],
+                            patients: ['name', 'physician', 'provider'],
                           },
-                          baseUrl: '/crm/tableData/',
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
+                          baseUrl: '/ehr/tableData/',
                         },
                         id: '',
                         classes: '',
@@ -1042,7 +1000,7 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Activity Tracker',
+                        name: 'New Entry',
                       },
                       content: {
                         styles: {},
@@ -1086,7 +1044,7 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Timeline',
+                        name: 'History',
                       },
                       content: {
                         styles: {},
@@ -1094,27 +1052,27 @@ export default {
                           entries: [
                             {
                               icon: 'NoteAlt',
-                              text: 'Waiting on approval from Jane (CEO) on SaaS approved vendor agreement, aiming for December 31, 2020 close date.',
+                              text: 'Waiting on signed forms from patient.',
                             },
-                            {
-                              icon: 'Email',
-                              text: 'Sent follow up email to re-engage.',
-                            },
+                            // {
+                            //   icon: 'Email',
+                            //   text: 'Sent follow up email to re-engage.',
+                            // },
                             {
                               icon: 'Phone',
-                              text: 'Had a phone conversation discussing next steps.',
+                              text: 'Had a phone conversation discussing medical concerns.',
                             },
                             {
                               icon: 'Build',
-                              text: 'Had a troubleshooting conversation with David, Sales Engineer. Resolved.',
+                              text: 'Resolved issue on billing for patient.',
                             },
                             {
                               icon: 'CheckBox',
-                              text: 'Demo Complete.',
+                              text: 'Visit completed.',
                             },
                             {
                               icon: 'CalendarToday',
-                              text: 'Demo Scheduled November 15, 2020.',
+                              text: 'Visit requested November 15, 2020.',
                             },
                           ],
                         },

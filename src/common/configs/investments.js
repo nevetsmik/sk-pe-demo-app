@@ -70,20 +70,20 @@ export default {
       ],
       navItems: [
         {
-          name: 'Research',
+          name: 'Investments',
           type: 'route',
           path: '/',
         },
-        // {
-        //   name: 'Debt Portal',
-        //   type: 'route',
-        //   path: '/debt',
-        // },
-        // {
-        //   name: 'Equity Portal',
-        //   type: 'route',
-        //   path: '/equity',
-        // },
+        {
+          name: 'Research',
+          type: 'route',
+          path: '/research',
+        },
+        {
+          name: 'Banking',
+          type: 'route',
+          path: '/banking',
+        },
       ],
     },
     appBars: [
@@ -230,8 +230,400 @@ export default {
     classes: '',
     routes: [
       {
-        name: 'Research',
+        name: 'Investments',
         route: '/',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 8,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      container: true,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 12,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {},
+                                opts: {},
+                                id: '',
+                                classes: '',
+                                name: 'Portfolio Performance',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  type: 'Bar',
+                                  data: {
+                                    labels: [
+                                      'Jan',
+                                      'Feb',
+                                      'Mar',
+                                      'Apr',
+                                      'May',
+                                      'June',
+                                      'July',
+                                      'Aug',
+                                      'Sept',
+                                      'Oct',
+                                      'Nov',
+                                      'Dec',
+                                    ],
+                                    datasets: [
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          4500, 0, 0, 1230, 1600, 1700, 1800,
+                                          13000, 12000, 19000, 22000, 24000,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#5ad45a',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          0,
+                                          -3000,
+                                          -660,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          ,
+                                          0,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#b30000',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                    ],
+                                  },
+                                  opts: {
+                                    maintainAspectRatio: false,
+                                    responsive: true,
+                                    plugins: {
+                                      legend: {
+                                        display: false,
+                                      },
+                                    },
+                                    scales: {
+                                      x: {
+                                        stacked: true,
+                                      },
+                                      y: {
+                                        stacked: true,
+                                        suggestedMin: -4000,
+                                        suggestedMax: 5000,
+                                        ticks: {
+                                          callback: function (
+                                            value,
+                                            index,
+                                            ticks
+                                          ) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'Chart',
+                              },
+                            },
+                            id: 'forecast-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 12, md: 6 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {},
+                                opts: {},
+                                id: '',
+                                classes: '',
+                                name: 'Individual Funds - YTD',
+                              },
+
+                              content: {
+                                styles: {},
+                                opts: {
+                                  type: 'Bar',
+                                  data: {
+                                    labels: [
+                                      'PNO-123',
+                                      'PNO-456',
+                                      'PNO-789',
+                                      'AL-564',
+                                      'RB-681',
+                                      'EL-378',
+                                    ],
+                                    datasets: [
+                                      {
+                                        label: 'Performance YTD',
+                                        data: [
+                                          135000, 56000, 55000, 47000, 30000,
+                                          25000,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#0D88E6',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0D88E6', 0.9),
+                                        hoverBackgroundColor: hexToRGBA(
+                                          '#0D88E6',
+                                          0.9
+                                        ),
+                                        hoverBorderColor: hexToRGBA(
+                                          '#0D88E6',
+                                          1
+                                        ),
+                                      },
+                                    ],
+                                  },
+
+                                  opts: {
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                      legend: {
+                                        position: 'bottom',
+                                      },
+                                    },
+                                    scales: {
+                                      x: {
+                                        stacked: true,
+                                      },
+                                      y: {
+                                        stacked: true,
+                                        suggestedMax: 150000,
+                                        ticks: {
+                                          callback: function (
+                                            value,
+                                            index,
+                                            ticks
+                                          ) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'Chart',
+                              },
+                            },
+                            id: 'fund-performance',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 12, md: 6 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {
+                                  height: '45px',
+                                },
+                                opts: {},
+                                id: '',
+                                classes: 'research-header',
+                                name: 'Research',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  dataUrl:
+                                    '/investments/articles/all_articles.json',
+                                  buttonStyles: {},
+                                  modal: {
+                                    styles: {},
+
+                                    opts: {
+                                      variant: 'contained',
+                                    },
+                                    id: 'article-embed',
+                                    classes: '',
+                                    header: {
+                                      styles: {},
+                                      opts: {},
+                                      id: '',
+                                      classes: '',
+                                      name: '',
+                                    },
+                                    content: {
+                                      styles: {
+                                        width: '900px',
+                                        height: '700px',
+                                      },
+                                      opts: {},
+                                      id: '',
+                                      classes: '',
+                                      componentName: 'Embed',
+                                      contents: [],
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'ListResults',
+                              },
+                            },
+                            id: '',
+                            classes: 'content-tile-education',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 1,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'My Clients',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          dataUrl:
+                            '/investments/tableData/investment_clients.json',
+                          columns: [
+                            {
+                              field: 'name',
+                              headerName: 'Name',
+                              flex: 1,
+                              renderCell: (params) => (
+                                <a href={`/clients/${params.id}/details`}>
+                                  {params.formattedValue}
+                                </a>
+                              ),
+                            },
+                            {
+                              field: 'email',
+                              headerName: 'Email',
+                              flex: 1,
+                            },
+                          ],
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'Table',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Research',
+        route: '/research',
         contents: [
           {
             styles: {},
@@ -338,12 +730,12 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-1-header',
-                                    name: 'Current Events',
+                                    name: 'Pricing Page Teardown',
                                   },
                                   content: {
                                     styles: { minHeight: '150px' },
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/JDLgf2nGeKw',
+                                      src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
                                       title: 'LIVE: NBC News NOW - Dec. 21',
                                     },
                                     id: '',
@@ -723,182 +1115,527 @@ export default {
           },
         ],
       },
-      // {
-      //   name: 'Debt Portal',
-      //   route: '/debt',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 1,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Accounts',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {
-      //                     dataUrl: '/crm/tableData/accounts.json',
-      //                     columns: [
-      //                       {
-      //                         field: 'name',
-      //                         headerName: 'Name',
-      //                         renderCell: (params) => (
-      //                           <a
-      //                             href={`${window.location.origin}/accounts/${params.id}/details`}
-      //                           >
-      //                             {params.formattedValue}
-      //                           </a>
-      //                         ),
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'rep',
-      //                         headerName: 'Rep',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'territory',
-      //                         headerName: 'Territory',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'industry',
-      //                         headerName: 'Industry',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'address',
-      //                         headerName: 'Address',
-      //                         flex: 3,
-      //                       },
-      //                     ],
-      //                   },
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Table',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'Equity',
-      //   route: '/equity',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 1,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Contacts',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {
-      //                     dataUrl: '/crm/tableData/contacts.json',
-      //                     columns: [
-      //                       {
-      //                         field: 'name',
-      //                         headerName: 'Name',
-      //                         flex: 1,
-      //                         renderCell: (params) => (
-      //                           <a
-      //                             href={`${window.location.origin}/contacts/${params.id}/details`}
-      //                           >
-      //                             {params.formattedValue}
-      //                           </a>
-      //                         ),
-      //                       },
-      //                       {
-      //                         field: 'account',
-      //                         headerName: 'Account',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'email',
-      //                         headerName: 'Email',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'phone',
-      //                         headerName: 'Phone',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'title',
-      //                         headerName: 'Title',
-      //                         flex: 1,
-      //                       },
-      //                     ],
-      //                   },
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Table',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
+      {
+        name: 'Banking',
+        route: '/banking',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 8,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 1,
+                      header: {
+                        styles: { display: 'none' },
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: '',
+                        divider: { display: 'none' },
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          header: 'Hello there!',
+                          subheader:
+                            'Welcome to the AcmeInvestments Banking Portal!',
+                          text: '',
+                          headerStyle: {},
+                          subheaderStyle: {},
+                          textStyle: {},
+                        },
+                        id: '',
+                        classes: 'welcome-message-text',
+                        type: 'Text',
+                      },
+                    },
+                    id: 'welcome-message',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                  {
+                    styles: {},
+                    opts: {
+                      container: true,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Text boxes
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 3,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              item: true,
+                              xs: 12,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$122,345',
+                                      subheader: '',
+                                      text: 'Total Wealth',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#1f9c1f',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-1',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 3,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              item: true,
+                              xs: 12,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$159,168',
+                                      subheader: '',
+                                      text: 'Total Assets',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#1f9c1f',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-2',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 3,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              item: true,
+                              xs: 12,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '-1.08%/$1,223',
+                                      subheader: '',
+                                      text: "Today's Change",
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#bf3026',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-3',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 3,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              item: true,
+                              xs: 12,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$36,823',
+                                      subheader: '',
+                                      text: 'Total Liabilities',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#bf3026',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-3',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      // Portfolio Performance Chart
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 12, md: 12 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.6,
+                              header: {
+                                styles: {},
+                                opts: {},
+                                id: '',
+                                classes: '',
+                                name: 'Portfolio Performance',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  type: 'Bar',
+                                  data: {
+                                    labels: [
+                                      'Jan',
+                                      'Feb',
+                                      'Mar',
+                                      'Apr',
+                                      'May',
+                                      'June',
+                                      'July',
+                                      'Aug',
+                                      'Sept',
+                                      'Oct',
+                                      'Nov',
+                                      'Dec',
+                                    ],
+                                    datasets: [
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          4500, 0, 0, 1230, 1600, 1700, 1800,
+                                          13000, 12000, 19000, 22000, 24000,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#5ad45a',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          0,
+                                          -3000,
+                                          -660,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          ,
+                                          0,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#b30000',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                    ],
+                                  },
+                                  opts: {
+                                    maintainAspectRatio: false,
+                                    responsive: true,
+                                    plugins: {
+                                      legend: {
+                                        display: false,
+                                      },
+                                    },
+                                    scales: {
+                                      x: {
+                                        stacked: true,
+                                      },
+                                      y: {
+                                        stacked: true,
+                                        suggestedMin: -4000,
+                                        suggestedMax: 5000,
+                                        ticks: {
+                                          callback: function (
+                                            value,
+                                            index,
+                                            ticks
+                                          ) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'Chart',
+                              },
+                            },
+                            id: 'forecast-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+
+              // Recommended for You
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.25,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Recommended for You',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          dataUrl: '/investments/articles/all_articles.json',
+                          buttonStyles: {},
+                          modal: {
+                            styles: {},
+
+                            opts: {
+                              variant: 'contained',
+                            },
+                            id: 'article-embed',
+                            classes: '',
+                            header: {
+                              styles: {},
+                              opts: {},
+                              id: '',
+                              classes: 'recommended-header',
+                              name: '',
+                            },
+                            content: {
+                              styles: {
+                                width: '900px',
+                                height: '700px',
+                              },
+                              opts: {},
+                              id: '',
+                              classes: '',
+                              componentName: 'Embed',
+                              contents: [],
+                            },
+                          },
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'ListResults',
+                      },
+                    },
+                    id: '',
+                    classes: 'content-tile-recommended',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+
       // {
       //   name: 'Details',
       //   route: '/:detailType/:detailId/details',

@@ -44,24 +44,18 @@ export default {
   opts: {},
   id: '',
   classes: '',
-  favicon: '/crm/logos/main.ico',
+  favicon: '/a11y/logos/main.ico',
   pendoConfig: {
-    apiKey: '74924fb4-e18c-42b1-664b-47ed918c3a45',
-    additionalApiKeys: [
-      '758434d6-672f-4326-4db4-64412a4af191', // Pendo Experience Sandbox
-      'bada3d2f-3371-418a-6711-c9ed5af6d466', // Pendo - Onboarding
-      '9a491f59-cc46-43e2-4c67-179d36c5d03b', // Pendo Free Sample Data (US prod)
-      'b2cb409b-391e-4505-71ef-f35a6ba59b9f', // (Demo) Digital Adaoption - SFDC
-      'aafdb96f-d3f0-4704-59a1-912a146e228c', // sr$2A - d44B! (Custom Demo Sub)
-    ],
+    apiKey: '9af61f36-fbce-4e92-7c80-62946d1fbb1d',
+    additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {
       if (!urlParams.get('apiKey')) {
-        // Zendesk widget script
-        const script = document.createElement('script');
-        script.id = 'ze-snippet';
-        script.src =
-          'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
-        document.head.appendChild(script);
+        // // Zendesk widget script
+        // const script = document.createElement('script');
+        // script.id = 'ze-snippet';
+        // script.src =
+        //   'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
+        // document.head.appendChild(script);
       }
     },
     visitor: {
@@ -96,6 +90,8 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
+      filter:
+        'brightness(0) saturate(100%) invert(16%) sepia(14%) saturate(7364%) hue-rotate(262deg) brightness(89%) contrast(97%)',
     },
     opts: {},
     id: '',
@@ -115,11 +111,11 @@ export default {
         {
           styles: {},
           opts: {},
-          id: 'crm-title',
+          id: 'a11y-title',
           classes: '',
           componentName: 'NavTitle',
           alignment: 'left',
-          name: 'CRM',
+          name: 'A11Y',
         },
         {
           styles: {},
@@ -163,22 +159,6 @@ export default {
           name: 'Opportunities',
           type: 'route',
           path: '/opportunities',
-        },
-        {
-          name: 'Mobile',
-          type: 'custom',
-          callback: () => {
-            const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
-            const osVersion = '15.5';
-            const device = 'iphone12promax';
-            const deviceColor = 'black';
-            const scale = 75;
-
-            window.open(
-              `https://appetize.io/app/${publicKey}?osVersion=${osVersion}&device=${device}&deviceColor=${deviceColor}&scale=${scale}&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
-              '_blank'
-            );
-          },
         },
       ],
     },
@@ -667,7 +647,7 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/a11y/tableData/opportunities.json',
                           columns: [
                             {
                               field: 'name',
@@ -738,7 +718,7 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/accounts.json',
+                          dataUrl: '/a11y/tableData/accounts.json',
                           columns: [
                             {
                               field: 'name',
@@ -824,7 +804,7 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/contacts.json',
+                          dataUrl: '/a11y/tableData/contacts.json',
                           columns: [
                             {
                               field: 'name',
@@ -910,7 +890,7 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/a11y/tableData/opportunities.json',
                           columns: [
                             {
                               field: 'name',
@@ -1006,8 +986,8 @@ export default {
                             contacts: ['name', 'email', 'phone'],
                             opportunities: ['name', 'contact', 'arr'],
                           },
-                          baseUrl: '/crm/tableData/',
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
+                          baseUrl: '/a11y/tableData/',
                         },
                         id: '',
                         classes: '',

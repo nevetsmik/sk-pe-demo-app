@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 const updateAddNewLabels = (event) => {
   // Dynamically change text field labels based on type
   let labels = [
-    { accounts: 'Name', contacts: 'Name', opportunities: 'Name' },
+    { accounts: 'Name', representatives: 'Name', claims: 'Account' },
     {
-      accounts: 'Rep',
-      contacts: 'Email',
-      opportunities: 'Contact',
+      accounts: 'Representative',
+      representatives: 'Email',
+      claims: 'Representative',
     },
     {
       accounts: 'Territory',
-      contacts: 'Phone #',
-      opportunities: 'ARR',
+      representatives: 'Phone #',
+      claims: 'Amount',
     },
   ];
 
@@ -44,25 +44,19 @@ export default {
   opts: {},
   id: '',
   classes: '',
-  favicon: '/crm/logos/main.ico',
+  favicon: '/insurance/logos/main.ico',
   pendoConfig: {
-    apiKey: '74924fb4-e18c-42b1-664b-47ed918c3a45',
-    additionalApiKeys: [
-      '758434d6-672f-4326-4db4-64412a4af191', // Pendo Experience Sandbox
-      'bada3d2f-3371-418a-6711-c9ed5af6d466', // Pendo - Onboarding
-      '9a491f59-cc46-43e2-4c67-179d36c5d03b', // Pendo Free Sample Data (US prod)
-      'b2cb409b-391e-4505-71ef-f35a6ba59b9f', // (Demo) Digital Adaoption - SFDC
-      'aafdb96f-d3f0-4704-59a1-912a146e228c', // sr$2A - d44B! (Custom Demo Sub)
-    ],
+    apiKey: 'c533ab73-a019-481d-69fb-8d73adc816bf',
+    additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {
-      if (!urlParams.get('apiKey')) {
-        // Zendesk widget script
-        const script = document.createElement('script');
-        script.id = 'ze-snippet';
-        script.src =
-          'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
-        document.head.appendChild(script);
-      }
+      // if (!urlParams.get('apiKey')) {
+      //   // Zendesk widget script
+      //   const script = document.createElement('script');
+      //   script.id = 'ze-snippet';
+      //   script.src =
+      //     'https://static.zdassets.com/ekr/snippet.js?key=95aa7acb-d169-4ca7-bff8-dcb94bd4b1f1';
+      //   document.head.appendChild(script);
+      // }
     },
     visitor: {
       acmeVersion: 3,
@@ -96,6 +90,8 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
+      filter:
+        'brightness(0) saturate(100%) invert(10%) sepia(82%) saturate(1181%) hue-rotate(79deg) brightness(96%) contrast(92%)',
     },
     opts: {},
     id: '',
@@ -115,11 +111,11 @@ export default {
         {
           styles: {},
           opts: {},
-          id: 'crm-title',
+          id: 'insurance-title',
           classes: '',
           componentName: 'NavTitle',
           alignment: 'left',
-          name: 'CRM',
+          name: 'Insurance',
         },
         {
           styles: {},
@@ -145,7 +141,7 @@ export default {
       ],
       navItems: [
         {
-          name: 'Dashboard',
+          name: 'Overview',
           type: 'route',
           path: '/',
         },
@@ -155,30 +151,14 @@ export default {
           path: '/accounts',
         },
         {
-          name: 'Contacts',
+          name: 'Representatives',
           type: 'route',
-          path: '/contacts',
+          path: '/representatives',
         },
         {
-          name: 'Opportunities',
+          name: 'Claims',
           type: 'route',
-          path: '/opportunities',
-        },
-        {
-          name: 'Mobile',
-          type: 'custom',
-          callback: () => {
-            const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
-            const osVersion = '15.5';
-            const device = 'iphone12promax';
-            const deviceColor = 'black';
-            const scale = 75;
-
-            window.open(
-              `https://appetize.io/app/${publicKey}?osVersion=${osVersion}&device=${device}&deviceColor=${deviceColor}&scale=${scale}&params={"visitorId":"${pendo.visitorId}","accountId":"${pendo.accountId}"}`,
-              '_blank'
-            );
-          },
+          path: '/claims',
         },
       ],
     },
@@ -199,9 +179,9 @@ export default {
           },
           {
             styles: {
-              backgroundColor: '#1DA259',
+              backgroundColor: '#ffc700',
               '&:hover': {
-                backgroundColor: '#1a9150',
+                backgroundColor: '#dbac00',
               },
             },
             opts: {
@@ -212,7 +192,7 @@ export default {
             componentName: 'Button',
             alignment: 'right',
             type: 'Modal',
-            name: 'Add New',
+            name: 'New +',
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
@@ -222,7 +202,7 @@ export default {
               opts: {},
               id: '',
               classes: '',
-              name: 'Add New',
+              name: 'New Record',
             },
             content: {
               styles: {},
@@ -244,19 +224,17 @@ export default {
                       value: 'accounts',
                     },
                     {
-                      name: 'Contact',
-                      value: 'contacts',
+                      name: 'Representative',
+                      value: 'representatives',
                     },
                     {
-                      name: 'Opportunity',
-                      value: 'opportunities',
+                      name: 'Claim',
+                      value: 'claims',
                     },
                   ],
                   default: () => {
                     // Dynamically assign default based on path
-                    return (
-                      window.location.pathname.split('/')[1] || 'opportunities'
-                    );
+                    return window.location.pathname.split('/')[1] || 'claims';
                   },
                   changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
@@ -366,7 +344,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Forecast',
+                                name: 'Total Claim Amount',
                               },
                               content: {
                                 styles: {},
@@ -391,7 +369,7 @@ export default {
                                       {
                                         fill: true,
 
-                                        label: 'Forecast in $',
+                                        label: 'Total Claim Amount in $',
                                         data: [
                                           45000, 98000, 147000, 265000, 467000,
                                           487000, 603000, 1020000, 1150000,
@@ -446,7 +424,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: 'forecast-card',
+                            id: 'claim-amount-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -468,7 +446,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Quota Attainment',
+                                name: 'Claim Completion by Representative',
                               },
                               content: {
                                 styles: {},
@@ -559,7 +537,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: 'quota-card',
+                            id: 'completion-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -581,7 +559,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Pipeline',
+                                name: 'Claim Status',
                               },
                               content: {
                                 styles: {},
@@ -589,15 +567,14 @@ export default {
                                   type: 'Doughnut',
                                   data: {
                                     labels: [
-                                      'Qual',
-                                      'Sol Pres.',
-                                      'Sol Acc.',
-                                      'Proposal',
+                                      'New',
+                                      'Open',
                                       'Pending',
+                                      'Closed',
                                     ],
                                     datasets: [
                                       {
-                                        data: [300, 250, 200, 150, 100],
+                                        data: [300, 250, 200, 150],
                                         backgroundColor: [
                                           hexToRGBA('#f1416c', 0.7),
                                           hexToRGBA('#7239ea', 0.7),
@@ -632,7 +609,7 @@ export default {
                                 type: 'Chart',
                               },
                             },
-                            id: 'pipeline-card',
+                            id: 'status-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -662,26 +639,26 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Open Opportunities',
+                        name: 'Open Claims',
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/insurance/tableData/claims.json',
                           columns: [
                             {
-                              field: 'name',
-                              headerName: 'Name',
+                              field: 'account',
+                              headerName: 'Account',
                               flex: 1,
                               renderCell: (params) => (
-                                <a href={`/opportunities/${params.id}/details`}>
+                                <a href={`/claims/${params.id}/details`}>
                                   {params.formattedValue}
                                 </a>
                               ),
                             },
                             {
-                              field: 'account',
-                              headerName: 'Account',
+                              field: 'amount',
+                              headerName: 'Amount',
                               flex: 1,
                             },
                           ],
@@ -738,7 +715,7 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/accounts.json',
+                          dataUrl: '/insurance/tableData/accounts.json',
                           columns: [
                             {
                               field: 'name',
@@ -752,7 +729,7 @@ export default {
                             },
                             {
                               field: 'rep',
-                              headerName: 'Rep',
+                              headerName: 'Representative',
                               flex: 1,
                             },
                             {
@@ -764,11 +741,6 @@ export default {
                               field: 'industry',
                               headerName: 'Industry',
                               flex: 1,
-                            },
-                            {
-                              field: 'address',
-                              headerName: 'Address',
-                              flex: 3,
                             },
                           ],
                         },
@@ -788,8 +760,8 @@ export default {
         ],
       },
       {
-        name: 'Contacts',
-        route: '/contacts',
+        name: 'Representatives',
+        route: '/representatives',
         contents: [
           {
             styles: {},
@@ -819,27 +791,24 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Contacts',
+                        name: 'Representatives',
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/contacts.json',
+                          dataUrl: '/insurance/tableData/representatives.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <Link to={`/contacts/${params.id}/details`}>
+                                <Link
+                                  to={`/representatives/${params.id}/details`}
+                                >
                                   {params.formattedValue}
                                 </Link>
                               ),
-                            },
-                            {
-                              field: 'account',
-                              headerName: 'Account',
-                              flex: 1,
                             },
                             {
                               field: 'email',
@@ -856,6 +825,11 @@ export default {
                               headerName: 'Title',
                               flex: 1,
                             },
+                            {
+                              field: 'region',
+                              headerName: 'Region',
+                              flex: 1,
+                            },
                           ],
                         },
                         id: '',
@@ -874,8 +848,8 @@ export default {
         ],
       },
       {
-        name: 'Opportunities',
-        route: '/opportunities',
+        name: 'Claims',
+        route: '/claims',
         contents: [
           {
             styles: {},
@@ -905,21 +879,19 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Opportunities',
+                        name: 'Claims',
                       },
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl: '/crm/tableData/opportunities.json',
+                          dataUrl: '/insurance/tableData/claims.json',
                           columns: [
                             {
-                              field: 'name',
-                              headerName: 'Name',
+                              field: 'id',
+                              headerName: 'Number',
                               flex: 1,
                               renderCell: (params) => (
-                                <Link
-                                  to={`/opportunities/${params.id}/details`}
-                                >
+                                <Link to={`/claims/${params.id}/details`}>
                                   {params.formattedValue}
                                 </Link>
                               ),
@@ -930,18 +902,18 @@ export default {
                               flex: 1,
                             },
                             {
-                              field: 'contact',
-                              headerName: 'Contact',
-                              flex: 1,
-                            },
-                            {
                               field: 'rep',
-                              headerName: 'Rep',
+                              headerName: 'Representative',
                               flex: 1,
                             },
                             {
-                              field: 'arr',
-                              headerName: 'ARR',
+                              field: 'amount',
+                              headerName: 'Amount',
+                              flex: 1,
+                            },
+                            {
+                              field: 'claim_date',
+                              headerName: 'Claim Date',
                               flex: 1,
                             },
                           ],
@@ -1003,11 +975,11 @@ export default {
                         opts: {
                           schema: {
                             accounts: ['name', 'rep', 'territory'],
-                            contacts: ['name', 'email', 'phone'],
-                            opportunities: ['name', 'contact', 'arr'],
+                            representatives: ['name', 'email', 'phone'],
+                            claims: ['account', 'representative', 'amount'],
                           },
-                          baseUrl: '/crm/tableData/',
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
+                          baseUrl: '/insurance/tableData/',
                         },
                         id: '',
                         classes: '',
@@ -1094,27 +1066,19 @@ export default {
                           entries: [
                             {
                               icon: 'NoteAlt',
-                              text: 'Waiting on approval from Jane (CEO) on SaaS approved vendor agreement, aiming for December 31, 2020 close date.',
-                            },
-                            {
-                              icon: 'Email',
-                              text: 'Sent follow up email to re-engage.',
-                            },
-                            {
-                              icon: 'Phone',
-                              text: 'Had a phone conversation discussing next steps.',
+                              text: 'Waiting on signed agreement from client.',
                             },
                             {
                               icon: 'Build',
-                              text: 'Had a troubleshooting conversation with David, Sales Engineer. Resolved.',
+                              text: 'Resolved issue on quote for client.',
                             },
                             {
                               icon: 'CheckBox',
-                              text: 'Demo Complete.',
+                              text: 'Quote completed.',
                             },
                             {
                               icon: 'CalendarToday',
-                              text: 'Demo Scheduled November 15, 2020.',
+                              text: 'Quote requested November 15, 2020.',
                             },
                           ],
                         },

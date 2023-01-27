@@ -15,6 +15,7 @@ import Timeline from './Timeline';
 import ListResults from './ListResults';
 import Text from './Text';
 import Embed from '../../common/forms/Embed.js';
+import ButtonArray from './ButtonArray';
 
 // Create object of supported content types to be rendered in tile
 const supportedComponents = {
@@ -26,6 +27,7 @@ const supportedComponents = {
   ListResults: ListResults,
   Text: Text,
   Embed: Embed,
+  ButtonArray: ButtonArray,
 };
 
 const ContentTile = (props) => {

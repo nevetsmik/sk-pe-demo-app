@@ -8,10 +8,12 @@ import MuiButton from '@mui/material/Button';
 
 import Select from './Select';
 import TextField from './TextField';
+import RadioGroup from './RadioGroup';
 
 const supportedComponents = {
   Select: Select,
   TextField: TextField,
+  RadioGroup: RadioGroup,
 };
 
 const Form = (props) => {
