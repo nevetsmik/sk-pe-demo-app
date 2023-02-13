@@ -1131,9 +1131,7 @@ export default {
               {
                 styles: {},
                 opts: {
-                  item: true,
-                  xs: 12,
-                  lg: 8,
+                  container: true,
                 },
                 id: '',
                 classes: '',
@@ -1142,61 +1140,74 @@ export default {
                   {
                     styles: {},
                     opts: {
-                      height: 1,
-                      header: {
-                        styles: { display: 'none' },
-                        opts: {},
-                        id: '',
-                        classes: '',
-                        name: '',
-                        divider: { display: 'none' },
-                      },
-                      content: {
-                        styles: {},
-                        opts: {
-                          header: 'Hello there!',
-                          subheader:
-                            'Welcome to the AcmeInvestments Banking Portal!',
-                          text: '',
-                          headerStyle: {},
-                          subheaderStyle: {},
-                          textStyle: {},
-                        },
-                        id: '',
-                        classes: 'welcome-message-text',
-                        type: 'Text',
-                      },
-                    },
-                    id: 'welcome-message',
-                    classes: '',
-                    componentName: 'ContentTile',
-                  },
-                  {
-                    styles: {},
-                    opts: {
-                      container: true,
+                      item: true,
+                      xs: 12,
+                      lg: 8,
                     },
                     id: '',
                     classes: '',
                     componentName: 'Grid',
                     contents: [
-                      // Text boxes
+                      // Top Left
                       {
                         styles: {},
                         opts: {
-                          item: true,
-                          xs: 3,
+                          container: true,
                         },
                         id: '',
                         classes: '',
                         componentName: 'Grid',
                         contents: [
+                          // Welcome message
                           {
                             styles: {},
                             opts: {
                               item: true,
                               xs: 12,
                             },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: 'Hello there!',
+                                      subheader:
+                                        'Welcome to the AcmeInvestments Banking Portal!',
+                                      text: '',
+                                      headerStyle: {},
+                                      subheaderStyle: {},
+                                      textStyle: {},
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'welcome-message',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+
+                          // Tiles
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 3, md: 3 },
                             id: '',
                             classes: '',
                             componentName: 'Grid',
@@ -1240,24 +1251,9 @@ export default {
                               },
                             ],
                           },
-                        ],
-                      },
-                      {
-                        styles: {},
-                        opts: {
-                          item: true,
-                          xs: 3,
-                        },
-                        id: '',
-                        classes: '',
-                        componentName: 'Grid',
-                        contents: [
                           {
                             styles: {},
-                            opts: {
-                              item: true,
-                              xs: 12,
-                            },
+                            opts: { item: true, xs: 3, md: 3 },
                             id: '',
                             classes: '',
                             componentName: 'Grid',
@@ -1301,24 +1297,9 @@ export default {
                               },
                             ],
                           },
-                        ],
-                      },
-                      {
-                        styles: {},
-                        opts: {
-                          item: true,
-                          xs: 3,
-                        },
-                        id: '',
-                        classes: '',
-                        componentName: 'Grid',
-                        contents: [
                           {
                             styles: {},
-                            opts: {
-                              item: true,
-                              xs: 12,
-                            },
+                            opts: { item: true, xs: 3, md: 3 },
                             id: '',
                             classes: '',
                             componentName: 'Grid',
@@ -1362,24 +1343,9 @@ export default {
                               },
                             ],
                           },
-                        ],
-                      },
-                      {
-                        styles: {},
-                        opts: {
-                          item: true,
-                          xs: 3,
-                        },
-                        id: '',
-                        classes: '',
-                        componentName: 'Grid',
-                        contents: [
                           {
                             styles: {},
-                            opts: {
-                              item: true,
-                              xs: 12,
-                            },
+                            opts: { item: true, xs: 3, md: 3 },
                             id: '',
                             classes: '',
                             componentName: 'Grid',
@@ -1425,137 +1391,207 @@ export default {
                           },
                         ],
                       },
-                      // Portfolio Performance Chart
+                    ],
+                  },
+                  {
+                    styles: {},
+                    opts: {
+                      item: true,
+                      xs: 12,
+                      lg: 4,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Right side top
                       {
                         styles: {},
-                        opts: { item: true, xs: 12, md: 12 },
+                        opts: {
+                          height: 1,
+                          header: {
+                            styles: {},
+                            opts: {},
+                            id: '',
+                            classes: '',
+                            name: 'Take Action',
+                          },
+                          content: {
+                            styles: {},
+                            options: { labels: ['Help', 'Me'] },
+                            opts: {},
+                            id: '',
+                            classes: '',
+                            type: 'ButtonArray',
+                          },
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'ContentTile',
+                      },
+                    ],
+                  },
+                  {
+                    styles: {},
+                    opts: {
+                      item: true,
+                      xs: 12,
+                      lg: 12,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Bottom
+                      {
+                        styles: {},
+                        opts: {
+                          container: true,
+                        },
                         id: '',
                         classes: '',
                         componentName: 'Grid',
                         contents: [
+                          // Portfolio Performance Chart
                           {
                             styles: {},
-                            opts: {
-                              height: 0.6,
-                              header: {
-                                styles: {},
-                                opts: {},
-                                id: '',
-                                classes: '',
-                                name: 'Portfolio Performance',
-                              },
-                              content: {
+                            opts: { item: true, xs: 12, md: 12 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
                                 styles: {},
                                 opts: {
-                                  type: 'Bar',
-                                  data: {
-                                    labels: [
-                                      'Jan',
-                                      'Feb',
-                                      'Mar',
-                                      'Apr',
-                                      'May',
-                                      'June',
-                                      'July',
-                                      'Aug',
-                                      'Sept',
-                                      'Oct',
-                                      'Nov',
-                                      'Dec',
-                                    ],
-                                    datasets: [
-                                      {
-                                        fill: true,
-                                        label: 'Performance ($)',
-                                        data: [
-                                          4500, 0, 0, 1230, 1600, 1700, 1800,
-                                          13000, 12000, 19000, 22000, 24000,
-                                        ],
-                                        backgroundColor: hexToRGBA(
-                                          '#5ad45a',
-                                          0.75
-                                        ),
-                                        borderColor: hexToRGBA('#0d88e6', 0.9),
-                                        pointBackgroundColor: hexToRGBA(
-                                          '#0d88e6',
-                                          0.8
-                                        ),
-                                        pointBorderColor: hexToRGBA(
-                                          '#0d88e6',
-                                          1
-                                        ),
-                                      },
-                                      {
-                                        fill: true,
-                                        label: 'Performance ($)',
-                                        data: [
-                                          0,
-                                          -3000,
-                                          -660,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          0,
-                                          ,
-                                          0,
-                                        ],
-                                        backgroundColor: hexToRGBA(
-                                          '#b30000',
-                                          0.75
-                                        ),
-                                        borderColor: hexToRGBA('#0d88e6', 0.9),
-                                        pointBackgroundColor: hexToRGBA(
-                                          '#0d88e6',
-                                          0.8
-                                        ),
-                                        pointBorderColor: hexToRGBA(
-                                          '#0d88e6',
-                                          1
-                                        ),
-                                      },
-                                    ],
+                                  height: 0.55,
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Portfolio Performance',
                                   },
-                                  opts: {
-                                    maintainAspectRatio: false,
-                                    responsive: true,
-                                    plugins: {
-                                      legend: {
-                                        display: false,
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      type: 'Bar',
+                                      data: {
+                                        labels: [
+                                          'Jan',
+                                          'Feb',
+                                          'Mar',
+                                          'Apr',
+                                          'May',
+                                          'June',
+                                          'July',
+                                          'Aug',
+                                          'Sept',
+                                          'Oct',
+                                          'Nov',
+                                          'Dec',
+                                        ],
+                                        datasets: [
+                                          {
+                                            fill: true,
+                                            label: 'Performance ($)',
+                                            data: [
+                                              4500, 0, 0, 1230, 1600, 1700,
+                                              1800, 13000, 12000, 19000, 22000,
+                                              24000,
+                                            ],
+                                            backgroundColor: hexToRGBA(
+                                              '#5ad45a',
+                                              0.75
+                                            ),
+                                            borderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.9
+                                            ),
+                                            pointBackgroundColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.8
+                                            ),
+                                            pointBorderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              1
+                                            ),
+                                          },
+                                          {
+                                            fill: true,
+                                            label: 'Performance ($)',
+                                            data: [
+                                              0,
+                                              -3000,
+                                              -660,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              ,
+                                              0,
+                                            ],
+                                            backgroundColor: hexToRGBA(
+                                              '#b30000',
+                                              0.75
+                                            ),
+                                            borderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.9
+                                            ),
+                                            pointBackgroundColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.8
+                                            ),
+                                            pointBorderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              1
+                                            ),
+                                          },
+                                        ],
                                       },
-                                    },
-                                    scales: {
-                                      x: {
-                                        stacked: true,
-                                      },
-                                      y: {
-                                        stacked: true,
-                                        suggestedMin: -4000,
-                                        suggestedMax: 5000,
-                                        ticks: {
-                                          callback: function (
-                                            value,
-                                            index,
-                                            ticks
-                                          ) {
-                                            return '$' + value / 1000 + 'k';
+                                      opts: {
+                                        maintainAspectRatio: false,
+                                        responsive: true,
+                                        plugins: {
+                                          legend: {
+                                            display: false,
+                                          },
+                                        },
+                                        scales: {
+                                          x: {
+                                            stacked: true,
+                                          },
+                                          y: {
+                                            stacked: true,
+                                            suggestedMin: -4000,
+                                            suggestedMax: 5000,
+                                            ticks: {
+                                              callback: function (
+                                                value,
+                                                index,
+                                                ticks
+                                              ) {
+                                                return '$' + value / 1000 + 'k';
+                                              },
+                                            },
                                           },
                                         },
                                       },
                                     },
+                                    id: '',
+                                    classes: '',
+                                    type: 'Chart',
                                   },
                                 },
-                                id: '',
+                                id: 'forecast-card',
                                 classes: '',
-                                type: 'Chart',
+                                componentName: 'ContentTile',
                               },
-                            },
-                            id: 'forecast-card',
-                            classes: '',
-                            componentName: 'ContentTile',
+                            ],
                           },
                         ],
                       },
@@ -1563,203 +1599,10 @@ export default {
                   },
                 ],
               },
-
-              // Recommended for You
-              {
-                styles: {},
-                opts: {
-                  item: true,
-                  xs: 12,
-                  lg: 4,
-                },
-                id: '',
-                classes: '',
-                componentName: 'Grid',
-                contents: [
-                  {
-                    styles: {},
-                    opts: {
-                      height: 0.25,
-                      header: {
-                        styles: {},
-                        opts: {},
-                        id: '',
-                        classes: '',
-                        name: 'Recommended for You',
-                      },
-                      content: {
-                        styles: {},
-                        opts: {
-                          dataUrl: '/investments/articles/all_articles.json',
-                          buttonStyles: {},
-                          modal: {
-                            styles: {},
-
-                            opts: {
-                              variant: 'contained',
-                            },
-                            id: 'article-embed',
-                            classes: '',
-                            header: {
-                              styles: {},
-                              opts: {},
-                              id: '',
-                              classes: 'recommended-header',
-                              name: '',
-                            },
-                            content: {
-                              styles: {
-                                width: '900px',
-                                height: '700px',
-                              },
-                              opts: {},
-                              id: '',
-                              classes: '',
-                              componentName: 'Embed',
-                              contents: [],
-                            },
-                          },
-                        },
-                        id: '',
-                        classes: '',
-                        type: 'ListResults',
-                      },
-                    },
-                    id: '',
-                    classes: 'content-tile-recommended',
-                    componentName: 'ContentTile',
-                  },
-                ],
-              },
             ],
           },
         ],
       },
-
-      // {
-      //   name: 'Details',
-      //   route: '/:detailType/:detailId/details',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //             md: 4,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Quick Information',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'QuickInfo',
-      //                 },
-      //               },
-      //               id: 'quick-info',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //             md: 8,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Activity Tracker',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'TabbedInput',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Timeline',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Timeline',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
     ],
   },
   footer: {

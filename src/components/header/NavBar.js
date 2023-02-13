@@ -124,13 +124,13 @@ const NavBar = (props) => {
   const StyledMenuItem = muiStyled(MuiMenuItem)(({ theme }) => ({
     borderRadius: '5px',
     '&.Mui-selected': {
-      backgroundColor: 'rgba(0, 0, 0, 0.08)',
+      backgroundColor: 'rgba(0, 0, 0, 0.15)',
     },
     '&.Mui-selected:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.14)',
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.14)',
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
   }));
 
@@ -219,6 +219,7 @@ const NavBar = (props) => {
                   to={d.path}
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
+                  // tabIndex="0"
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
@@ -229,6 +230,7 @@ const NavBar = (props) => {
                   key={d.name}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   onClick={d.callback}
+                  // tabIndex="0"
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>

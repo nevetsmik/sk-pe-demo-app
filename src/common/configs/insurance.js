@@ -58,9 +58,7 @@ export default {
       //   document.head.appendChild(script);
       // }
     },
-    visitor: {
-      acmeVersion: 3,
-    },
+    visitor: {},
     location: {
       transforms: [
         {
@@ -90,8 +88,6 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
-      filter:
-        'brightness(0) saturate(100%) invert(10%) sepia(82%) saturate(1181%) hue-rotate(79deg) brightness(96%) contrast(92%)',
     },
     opts: {},
     id: '',
@@ -179,9 +175,9 @@ export default {
           },
           {
             styles: {
-              backgroundColor: '#ffc700',
+              backgroundColor: '#1DA259',
               '&:hover': {
-                backgroundColor: '#dbac00',
+                backgroundColor: '#1a9150',
               },
             },
             opts: {

@@ -28,7 +28,11 @@ const Graph = (props) => {
 
   return (
     <div ref={ref} style={{ height: props.height - padding, width: '100%' }}>
-      <Chart data={props.data} options={props.opts}></Chart>
+      <Chart
+        data={props.data}
+        options={props.opts}
+        // tabIndex="0"
+      ></Chart>
     </div>
   );
 };

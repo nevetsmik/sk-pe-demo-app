@@ -58,9 +58,7 @@ export default {
         // document.head.appendChild(script);
       }
     },
-    visitor: {
-      acmeVersion: 3,
-    },
+    visitor: {},
     location: {
       transforms: [
         {
@@ -90,8 +88,6 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
-      filter:
-        'brightness(0) saturate(100%) invert(13%) sepia(7%) saturate(463%) hue-rotate(236deg) brightness(95%) contrast(88%)',
     },
     opts: {},
     id: '',

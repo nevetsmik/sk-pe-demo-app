@@ -80,6 +80,7 @@ const Form = (props) => {
           }}
           variant="contained"
           onClick={handleCancel}
+          aria-label="Cancel"
         >
           Cancel
         </MuiButton>
@@ -96,6 +97,7 @@ const Form = (props) => {
           }}
           variant="contained"
           onClick={handleSubmit}
+          aria-label="Close"
         >
           Submit
         </MuiButton>

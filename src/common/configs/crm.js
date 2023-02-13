@@ -170,7 +170,7 @@ export default {
           callback: () => {
             const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
             const osVersion = '15.5';
-            const device = 'iphone12promax';
+            const device = 'iphone13promax';
             const deviceColor = 'black';
             const scale = 75;
 
@@ -299,7 +299,6 @@ export default {
                     el.name
                   )}":"${encodeURIComponent(el.value)}"`;
                 }
-
                 navigate(`${url}}`);
               },
             },

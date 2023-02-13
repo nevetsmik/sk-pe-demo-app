@@ -46,7 +46,7 @@ export default {
   classes: '',
   favicon: '/a11y/logos/main.ico',
   pendoConfig: {
-    apiKey: '9af61f36-fbce-4e92-7c80-62946d1fbb1d',
+    apiKey: 'e15c8ca4-0b31-44ca-5a2f-ec158955b4e1',
     additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {
       if (!urlParams.get('apiKey')) {
@@ -58,9 +58,7 @@ export default {
         // document.head.appendChild(script);
       }
     },
-    visitor: {
-      acmeVersion: 3,
-    },
+    visitor: {},
     location: {
       transforms: [
         {
@@ -90,12 +88,10 @@ export default {
       backgroundImage: 'url("/common/images/header-bg.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: '105% 300px',
-      filter:
-        'brightness(0) saturate(100%) invert(16%) sepia(14%) saturate(7364%) hue-rotate(262deg) brightness(89%) contrast(97%)',
     },
     opts: {},
     id: '',
-    classes: '',
+    classes: 'background-image',
   },
   header: {
     styles: {},
@@ -110,8 +106,8 @@ export default {
       contents: [
         {
           styles: {},
-          opts: {},
-          id: 'a11y-title',
+          opts: { 'aria-label': 'navigation-title' },
+          id: 'a11y-site-title',
           classes: '',
           componentName: 'NavTitle',
           alignment: 'left',
@@ -119,7 +115,7 @@ export default {
         },
         {
           styles: {},
-          opts: {},
+          opts: { 'aria-label': 'contact-label' },
           id: 'help-button',
           classes: '',
           componentName: 'Button',
