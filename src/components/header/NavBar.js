@@ -219,7 +219,7 @@ const NavBar = (props) => {
                   to={d.path}
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
-                  // tabIndex="0"
+                  tabIndex={0}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
@@ -230,7 +230,7 @@ const NavBar = (props) => {
                   key={d.name}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   onClick={d.callback}
-                  // tabIndex="0"
+                  tabIndex={0}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>

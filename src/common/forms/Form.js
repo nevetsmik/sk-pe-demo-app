@@ -38,6 +38,11 @@ const Form = (props) => {
       props.submitCallback(event, navigate);
     }
 
+    // follow cancel callback to close modal
+    if (props.cancelCallback) {
+      props.cancelCallback(event, navigate);
+    }
+
     // Call optional modal close function
     if (props.modalClose) {
       props.modalClose();

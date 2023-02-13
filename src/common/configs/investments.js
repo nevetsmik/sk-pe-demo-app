@@ -736,7 +736,7 @@ export default {
                                     styles: { minHeight: '150px' },
                                     opts: {
                                       src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
-                                      title: 'LIVE: NBC News NOW - Dec. 21',
+                                      title: 'Pricing Page Teardown',
                                     },
                                     id: '',
                                     classes: 'video-1',
@@ -780,14 +780,13 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-2-header',
-                                    name: 'Recent Releases',
+                                    name: 'Culture in 4 Minutes',
                                   },
                                   content: {
                                     styles: {},
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/e6aizfamG2g',
-                                      title:
-                                        'The biggest risk to stocks in 2023, according to Wall Street banks',
+                                      src: 'https://fast.wistia.net/embed/iframe/5wlrbhu5mp',
+                                      title: 'Company Culture in 4 Minutes',
                                       styles: { height: '160px' },
                                     },
                                     id: '',
@@ -832,14 +831,13 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-3-header',
-                                    name: 'Just for Fun',
+                                    name: 'Financial Services Podcast',
                                   },
                                   content: {
                                     styles: {},
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/iszwuX1AK6A',
-                                      title:
-                                        'The Wolf of Wall Street Official Trailer',
+                                      src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
+                                      title: 'Financial Services Podcast',
                                     },
                                     id: '',
                                     classes: 'video-3',
