@@ -1,23 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MuiBox from '@mui/material/Box';
+import MuiList from '@mui/material/List';
 import Button from '../../common/buttons/Button';
 
 const ButtonArray = (props) => {
-  console.log('Buttons!');
-
   return (
-    <MuiBox>
-      {/* {props.options.map((d, i) => ( */}
-      <Button
-        styles={{ ...props.styles }}
-        id=""
-        classes=""
-        type="Modal"
-      ></Button>
-      {/* ))} */}
-    </MuiBox>
+    <MuiList>
+      {props.contents.map((d) => (
+        <Button key={d.name} {...d}></Button>
+      ))}
+    </MuiList>
   );
 };
 
@@ -27,30 +20,20 @@ ButtonArray.propTypes = {
   options: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,
+  contents: PropTypes.arrayOf(
+    PropTypes.shape({
+      styles: PropTypes.object,
+      opts: PropTypes.object,
+      id: PropTypes.string,
+      classes: PropTypes.string,
+      type: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      openStartCallback: PropTypes.func,
+      closeEndCallback: PropTypes.func,
+      header: PropTypes.object.isRequired,
+      content: PropTypes.object,
+    })
+  ).isRequired,
 };
 
 export default ButtonArray;
-
-// example input to button:
-// {
-//   styles: {},
-//   opts: {},
-//   id: 'help-button',
-//   classes: '',
-//   componentName: 'Button',
-//   alignment: 'right',
-//   type: 'Link',
-//   icon: 'ContactSupport',
-//   tooltipText: 'Go to Help Center',
-//   href: 'https://support.pendo.io/hc/en-us',
-//   target: '_blank',
-// },
-
-//   styles: PropTypes.object,
-//   opts: PropTypes.object,
-//   id: PropTypes.string,
-//   classes: PropTypes.string,
-//   type: PropTypes.string.isRequired,
-//   icon: PropTypes.string,
-//   name: PropTypes.string,
-//   tooltipText: PropTypes.string,

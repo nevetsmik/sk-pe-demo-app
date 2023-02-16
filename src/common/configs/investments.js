@@ -1,6 +1,24 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
+// Need way to reliably get research/investments/banking out of URL in both prod and dev
+// URL examples: https://investments.pendoexperience.io/
+// https://investments.pendoexperience.io/banking
+// https://localhost:3000/?app=investments
+// https://localhost:3000/banking?app=investments
+
+let page;
+
+if (window.location.hostname === 'localhost') {
+  page = window.location.href.split('/')[3].split('?')[0];
+} else {
+  page = window.location.href.split('/')[3];
+}
+
+page = page === '' ? 'investments' : page;
+
+// possible outcomes: "", banking, ?app=investments, banking?app=investments
+
 export default {
   styles: {
     display: 'flex',
@@ -101,12 +119,14 @@ export default {
             componentName: 'NavSearch',
             alignment: 'left',
           },
+          // Research Button
           {
             styles: {
               backgroundColor: '#1DA259',
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
+              display: page === 'research' ? 'inherit' : 'none',
             },
             opts: {
               variant: 'contained',
@@ -211,6 +231,130 @@ export default {
                   classes: '',
                   componentName: 'TextField',
                   label: 'Name',
+                },
+              ],
+              submitCallback: function () {
+                // Go to relevant details page
+                window.location.href = `${window.location.origin}/?app=investments`;
+              },
+            },
+          },
+          // Investments Button
+          {
+            styles: {
+              backgroundColor: '#1DA259',
+              '&:hover': {
+                backgroundColor: '#1a9150',
+              },
+              display: page === 'investments' ? 'inherit' : 'none',
+            },
+            opts: {
+              variant: 'contained',
+            },
+            id: 'subscribe-form-launch',
+            classes: '',
+            componentName: 'Button',
+            alignment: 'right',
+            type: 'Modal',
+            name: 'Investments',
+            openStartCallback: () => {
+              // Set dynamic labels for add new form before it is rendered
+              // updateAddNewLabels();
+
+              // Add '/new' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              pendo.location.setUrl(
+                baseUrl.slice(-1) === '/'
+                  ? `${baseUrl}manage`
+                  : `${baseUrl}/manage`
+              );
+            },
+            closeEndCallback: () => {
+              // Return to using browser url on form closed
+              pendo.location.useBrowserUrl();
+            },
+            header: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              name: 'Change Allocation',
+            },
+            content: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              componentName: 'Form',
+              contents: [
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'account-select',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Select Account',
+                  options: [
+                    {
+                      name: 'Retirement Account',
+                      value: 'Retirement Account',
+                    },
+                    {
+                      name: 'Rainy Day Fund',
+                      value: 'Rainy Day Fund',
+                    },
+                    {
+                      name: 'Big Purchase Fund',
+                      value: 'Big Purchase Fund',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    return 'Retirement Account';
+                  },
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'amount-to-move',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Amount to Change',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'subscribe-text-name',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Name',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'change-date-select',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Frequency',
+                  options: [
+                    {
+                      name: 'Today',
+                      value: 'Today',
+                    },
+                    {
+                      name: 'Tomorrow',
+                      value: 'Tomorrow',
+                    },
+                    {
+                      name: '7 Days from Now',
+                      value: '7 Days from Now',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    return 'Today';
+                  },
+                  // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
               ],
               submitCallback: function () {
@@ -1141,6 +1285,7 @@ export default {
                       item: true,
                       xs: 12,
                       lg: 8,
+                      height: 0.5,
                     },
                     id: '',
                     classes: '',
@@ -1162,6 +1307,7 @@ export default {
                             opts: {
                               item: true,
                               xs: 12,
+                              height: 1,
                             },
                             id: '',
                             classes: '',
@@ -1170,7 +1316,7 @@ export default {
                               {
                                 styles: {},
                                 opts: {
-                                  height: 0.25,
+                                  height: 1,
                                   header: {
                                     styles: { display: 'none' },
                                     opts: {},
@@ -1397,6 +1543,7 @@ export default {
                       item: true,
                       xs: 12,
                       lg: 4,
+                      height: 0.5,
                     },
                     id: '',
                     classes: '',
@@ -1408,16 +1555,381 @@ export default {
                         opts: {
                           height: 1,
                           header: {
-                            styles: {},
+                            styles: { height: '45px' },
                             opts: {},
                             id: '',
                             classes: '',
                             name: 'Take Action',
                           },
                           content: {
-                            styles: {},
-                            options: { labels: ['Help', 'Me'] },
-                            opts: {},
+                            styles: { paddingBottom: '16px' },
+                            options: {},
+                            opts: {
+                              contents: [
+                                // Add External Account
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '10px',
+                                  },
+                                  opts: {},
+                                  id: 'add-external-form-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Add External Account',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}new`
+                                        : `${baseUrl}/new`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Subscribe',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'external-account-type-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Type',
+                                        options: [
+                                          {
+                                            name: 'Checking',
+                                            value: 'Checking',
+                                          },
+                                          {
+                                            name: 'Savings',
+                                            value: 'Savings',
+                                          },
+                                          {
+                                            name: 'Investment',
+                                            value: 'Investments',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Checking';
+                                        },
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-frequency-sync-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Sync Frequency',
+                                        options: [
+                                          {
+                                            name: 'Hourly',
+                                            value: 'Hourly',
+                                          },
+                                          {
+                                            name: 'Daily',
+                                            value: 'Daily',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Hourly';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'institution-name',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Institution Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-name-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Account Nickname',
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                                // Change Allocation
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '10px',
+                                  },
+                                  opts: {},
+                                  id: 'change-allocation-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Change Allocation',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}change`
+                                        : `${baseUrl}/change`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Change Allocation',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Select Account',
+                                        options: [
+                                          {
+                                            name: 'Retirement Account',
+                                            value: 'Retirement Account',
+                                          },
+                                          {
+                                            name: 'Rainy Day Fund',
+                                            value: 'Rainy Day Fund',
+                                          },
+                                          {
+                                            name: 'Big Purchase Fund',
+                                            value: 'Big Purchase Fund',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Retirement Account';
+                                        },
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'amount-to-move',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Amount to Change',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'subscribe-text-name',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'change-date-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Frequency',
+                                        options: [
+                                          {
+                                            name: 'Today',
+                                            value: 'Today',
+                                          },
+                                          {
+                                            name: 'Tomorrow',
+                                            value: 'Tomorrow',
+                                          },
+                                          {
+                                            name: '7 Days from Now',
+                                            value: '7 Days from Now',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Today';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                                // Set Up New Credit Card
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '0px',
+                                  },
+                                  opts: {},
+                                  id: 'cc-setup-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Set Up Credit Card',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}setup`
+                                        : `${baseUrl}/setup`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Set Up Credit Card',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'name-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'phone-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Contact Phone Number',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'email-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Email',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'preferred-contact-method-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Preferred Contact Method',
+                                        options: [
+                                          {
+                                            name: 'Phone',
+                                            value: 'Phone',
+                                          },
+                                          {
+                                            name: 'Email',
+                                            value: 'Email',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Phone';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: { row: true },
+                                        id: 'setup-options-select',
+                                        classes: '',
+                                        componentName: 'RadioGroup',
+                                        label: 'Type',
+                                        options: [
+                                          {
+                                            name: 'Unlimited',
+                                            value: 'Unlimited',
+                                          },
+                                          {
+                                            name: 'Premium Select',
+                                            value: 'Premium Select',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Premium Select';
+                                        },
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                              ],
+                            },
                             id: '',
                             classes: '',
                             type: 'ButtonArray',
@@ -1435,6 +1947,7 @@ export default {
                       item: true,
                       xs: 12,
                       lg: 12,
+                      height: 0.5,
                     },
                     id: '',
                     classes: '',
@@ -1461,7 +1974,7 @@ export default {
                               {
                                 styles: {},
                                 opts: {
-                                  height: 0.55,
+                                  height: 0.5,
                                   header: {
                                     styles: {},
                                     opts: {},

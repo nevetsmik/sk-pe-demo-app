@@ -32,7 +32,8 @@ const RadioGroup = (props) => {
       <MuiFormControl>
         <MuiFormLabel id={`${props.id}-label`}>{props.label}</MuiFormLabel>
         <MuiRadioGroup
-          {...props.direction}
+          // {...addIns}
+          row={props.opts.row ? true : false}
           sx={{ ...props.styles }}
           {...props.opts}
           id={props.id}
@@ -61,7 +62,6 @@ RadioGroup.propTypes = {
   id: PropTypes.string,
   classes: PropTypes.string,
   label: PropTypes.string.isRequired,
-  direction: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
