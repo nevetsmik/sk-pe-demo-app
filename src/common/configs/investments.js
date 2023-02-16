@@ -1,6 +1,24 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
+// Need way to reliably get research/investments/banking out of URL in both prod and dev
+// URL examples: https://investments.pendoexperience.io/
+// https://investments.pendoexperience.io/banking
+// https://localhost:3000/?app=investments
+// https://localhost:3000/banking?app=investments
+
+let page;
+
+if (window.location.hostname === 'localhost') {
+  page = window.location.href.split('/')[3].split('?')[0];
+} else {
+  page = window.location.href.split('/')[3];
+}
+
+page = page === '' ? 'investments' : page;
+
+// possible outcomes: "", banking, ?app=investments, banking?app=investments
+
 export default {
   styles: {
     display: 'flex',
@@ -70,20 +88,20 @@ export default {
       ],
       navItems: [
         {
-          name: 'Research',
+          name: 'Investments',
           type: 'route',
           path: '/',
         },
-        // {
-        //   name: 'Debt Portal',
-        //   type: 'route',
-        //   path: '/debt',
-        // },
-        // {
-        //   name: 'Equity Portal',
-        //   type: 'route',
-        //   path: '/equity',
-        // },
+        {
+          name: 'Research',
+          type: 'route',
+          path: '/research',
+        },
+        {
+          name: 'Banking',
+          type: 'route',
+          path: '/banking',
+        },
       ],
     },
     appBars: [
@@ -101,12 +119,14 @@ export default {
             componentName: 'NavSearch',
             alignment: 'left',
           },
+          // Research Button
           {
             styles: {
               backgroundColor: '#1DA259',
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
+              display: page === 'research' ? 'inherit' : 'none',
             },
             opts: {
               variant: 'contained',
@@ -219,6 +239,130 @@ export default {
               },
             },
           },
+          // Investments Button
+          {
+            styles: {
+              backgroundColor: '#1DA259',
+              '&:hover': {
+                backgroundColor: '#1a9150',
+              },
+              display: page === 'investments' ? 'inherit' : 'none',
+            },
+            opts: {
+              variant: 'contained',
+            },
+            id: 'subscribe-form-launch',
+            classes: '',
+            componentName: 'Button',
+            alignment: 'right',
+            type: 'Modal',
+            name: 'Investments',
+            openStartCallback: () => {
+              // Set dynamic labels for add new form before it is rendered
+              // updateAddNewLabels();
+
+              // Add '/new' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              pendo.location.setUrl(
+                baseUrl.slice(-1) === '/'
+                  ? `${baseUrl}manage`
+                  : `${baseUrl}/manage`
+              );
+            },
+            closeEndCallback: () => {
+              // Return to using browser url on form closed
+              pendo.location.useBrowserUrl();
+            },
+            header: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              name: 'Change Allocation',
+            },
+            content: {
+              styles: {},
+              opts: {},
+              id: '',
+              classes: '',
+              componentName: 'Form',
+              contents: [
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'account-select',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Select Account',
+                  options: [
+                    {
+                      name: 'Retirement Account',
+                      value: 'Retirement Account',
+                    },
+                    {
+                      name: 'Rainy Day Fund',
+                      value: 'Rainy Day Fund',
+                    },
+                    {
+                      name: 'Big Purchase Fund',
+                      value: 'Big Purchase Fund',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    return 'Retirement Account';
+                  },
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'amount-to-move',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Amount to Change',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'subscribe-text-name',
+                  classes: '',
+                  componentName: 'TextField',
+                  label: 'Name',
+                },
+                {
+                  styles: {},
+                  opts: {},
+                  id: 'change-date-select',
+                  classes: '',
+                  componentName: 'Select',
+                  label: 'Frequency',
+                  options: [
+                    {
+                      name: 'Today',
+                      value: 'Today',
+                    },
+                    {
+                      name: 'Tomorrow',
+                      value: 'Tomorrow',
+                    },
+                    {
+                      name: '7 Days from Now',
+                      value: '7 Days from Now',
+                    },
+                  ],
+                  default: () => {
+                    // Dynamically assign default based on path
+                    return 'Today';
+                  },
+                  // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                },
+              ],
+              submitCallback: function () {
+                // Go to relevant details page
+                window.location.href = `${window.location.origin}/?app=investments`;
+              },
+            },
+          },
         ],
       },
     ],
@@ -230,8 +374,400 @@ export default {
     classes: '',
     routes: [
       {
-        name: 'Research',
+        name: 'Investments',
         route: '/',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 8,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      container: true,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      {
+                        styles: {},
+                        opts: {
+                          item: true,
+                          xs: 12,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {},
+                                opts: {},
+                                id: '',
+                                classes: '',
+                                name: 'Portfolio Performance',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  type: 'Bar',
+                                  data: {
+                                    labels: [
+                                      'Jan',
+                                      'Feb',
+                                      'Mar',
+                                      'Apr',
+                                      'May',
+                                      'June',
+                                      'July',
+                                      'Aug',
+                                      'Sept',
+                                      'Oct',
+                                      'Nov',
+                                      'Dec',
+                                    ],
+                                    datasets: [
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          4500, 0, 0, 1230, 1600, 1700, 1800,
+                                          13000, 12000, 19000, 22000, 24000,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#5ad45a',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                      {
+                                        fill: true,
+                                        label: 'Performance ($)',
+                                        data: [
+                                          0,
+                                          -3000,
+                                          -660,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          ,
+                                          0,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#b30000',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0d88e6', 0.9),
+                                        pointBackgroundColor: hexToRGBA(
+                                          '#0d88e6',
+                                          0.8
+                                        ),
+                                        pointBorderColor: hexToRGBA(
+                                          '#0d88e6',
+                                          1
+                                        ),
+                                      },
+                                    ],
+                                  },
+                                  opts: {
+                                    maintainAspectRatio: false,
+                                    responsive: true,
+                                    plugins: {
+                                      legend: {
+                                        display: false,
+                                      },
+                                    },
+                                    scales: {
+                                      x: {
+                                        stacked: true,
+                                      },
+                                      y: {
+                                        stacked: true,
+                                        suggestedMin: -4000,
+                                        suggestedMax: 5000,
+                                        ticks: {
+                                          callback: function (
+                                            value,
+                                            index,
+                                            ticks
+                                          ) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'Chart',
+                              },
+                            },
+                            id: 'forecast-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 12, md: 6 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {},
+                                opts: {},
+                                id: '',
+                                classes: '',
+                                name: 'Individual Funds - YTD',
+                              },
+
+                              content: {
+                                styles: {},
+                                opts: {
+                                  type: 'Bar',
+                                  data: {
+                                    labels: [
+                                      'PNO-123',
+                                      'PNO-456',
+                                      'PNO-789',
+                                      'AL-564',
+                                      'RB-681',
+                                      'EL-378',
+                                    ],
+                                    datasets: [
+                                      {
+                                        label: 'Performance YTD',
+                                        data: [
+                                          135000, 56000, 55000, 47000, 30000,
+                                          25000,
+                                        ],
+                                        backgroundColor: hexToRGBA(
+                                          '#0D88E6',
+                                          0.75
+                                        ),
+                                        borderColor: hexToRGBA('#0D88E6', 0.9),
+                                        hoverBackgroundColor: hexToRGBA(
+                                          '#0D88E6',
+                                          0.9
+                                        ),
+                                        hoverBorderColor: hexToRGBA(
+                                          '#0D88E6',
+                                          1
+                                        ),
+                                      },
+                                    ],
+                                  },
+
+                                  opts: {
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                      legend: {
+                                        position: 'bottom',
+                                      },
+                                    },
+                                    scales: {
+                                      x: {
+                                        stacked: true,
+                                      },
+                                      y: {
+                                        stacked: true,
+                                        suggestedMax: 150000,
+                                        ticks: {
+                                          callback: function (
+                                            value,
+                                            index,
+                                            ticks
+                                          ) {
+                                            return '$' + value / 1000 + 'k';
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'Chart',
+                              },
+                            },
+                            id: 'fund-performance',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 12, md: 6 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.5,
+                              header: {
+                                styles: {
+                                  height: '45px',
+                                },
+                                opts: {},
+                                id: '',
+                                classes: 'research-header',
+                                name: 'Research',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  dataUrl:
+                                    '/investments/articles/all_articles.json',
+                                  buttonStyles: {},
+                                  modal: {
+                                    styles: {},
+
+                                    opts: {
+                                      variant: 'contained',
+                                    },
+                                    id: 'article-embed',
+                                    classes: '',
+                                    header: {
+                                      styles: {},
+                                      opts: {},
+                                      id: '',
+                                      classes: '',
+                                      name: '',
+                                    },
+                                    content: {
+                                      styles: {
+                                        width: '900px',
+                                        height: '700px',
+                                      },
+                                      opts: {},
+                                      id: '',
+                                      classes: '',
+                                      componentName: 'Embed',
+                                      contents: [],
+                                    },
+                                  },
+                                },
+                                id: '',
+                                classes: '',
+                                type: 'ListResults',
+                              },
+                            },
+                            id: '',
+                            classes: 'content-tile-education',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  lg: 4,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 1,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'My Clients',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          dataUrl:
+                            '/investments/tableData/investment_clients.json',
+                          columns: [
+                            {
+                              field: 'name',
+                              headerName: 'Name',
+                              flex: 1,
+                              renderCell: (params) => (
+                                <a href={`/clients/${params.id}/details`}>
+                                  {params.formattedValue}
+                                </a>
+                              ),
+                            },
+                            {
+                              field: 'email',
+                              headerName: 'Email',
+                              flex: 1,
+                            },
+                          ],
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'Table',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Research',
+        route: '/research',
         contents: [
           {
             styles: {},
@@ -338,13 +874,13 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-1-header',
-                                    name: 'Current Events',
+                                    name: 'Pricing Page Teardown',
                                   },
                                   content: {
                                     styles: { minHeight: '150px' },
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/JDLgf2nGeKw',
-                                      title: 'LIVE: NBC News NOW - Dec. 21',
+                                      src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
+                                      title: 'Pricing Page Teardown',
                                     },
                                     id: '',
                                     classes: 'video-1',
@@ -388,14 +924,13 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-2-header',
-                                    name: 'Recent Releases',
+                                    name: 'Culture in 4 Minutes',
                                   },
                                   content: {
                                     styles: {},
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/e6aizfamG2g',
-                                      title:
-                                        'The biggest risk to stocks in 2023, according to Wall Street banks',
+                                      src: 'https://fast.wistia.net/embed/iframe/5wlrbhu5mp',
+                                      title: 'Company Culture in 4 Minutes',
                                       styles: { height: '160px' },
                                     },
                                     id: '',
@@ -440,14 +975,13 @@ export default {
                                     opts: {},
                                     id: '',
                                     classes: 'video-3-header',
-                                    name: 'Just for Fun',
+                                    name: 'Financial Services Podcast',
                                   },
                                   content: {
                                     styles: {},
                                     opts: {
-                                      src: 'https://www.youtube.com/embed/iszwuX1AK6A',
-                                      title:
-                                        'The Wolf of Wall Street Official Trailer',
+                                      src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
+                                      title: 'Financial Services Podcast',
                                     },
                                     id: '',
                                     classes: 'video-3',
@@ -723,306 +1257,863 @@ export default {
           },
         ],
       },
-      // {
-      //   name: 'Debt Portal',
-      //   route: '/debt',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 1,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Accounts',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {
-      //                     dataUrl: '/crm/tableData/accounts.json',
-      //                     columns: [
-      //                       {
-      //                         field: 'name',
-      //                         headerName: 'Name',
-      //                         renderCell: (params) => (
-      //                           <a
-      //                             href={`${window.location.origin}/accounts/${params.id}/details`}
-      //                           >
-      //                             {params.formattedValue}
-      //                           </a>
-      //                         ),
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'rep',
-      //                         headerName: 'Rep',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'territory',
-      //                         headerName: 'Territory',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'industry',
-      //                         headerName: 'Industry',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'address',
-      //                         headerName: 'Address',
-      //                         flex: 3,
-      //                       },
-      //                     ],
-      //                   },
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Table',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'Equity',
-      //   route: '/equity',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 1,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Contacts',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {
-      //                     dataUrl: '/crm/tableData/contacts.json',
-      //                     columns: [
-      //                       {
-      //                         field: 'name',
-      //                         headerName: 'Name',
-      //                         flex: 1,
-      //                         renderCell: (params) => (
-      //                           <a
-      //                             href={`${window.location.origin}/contacts/${params.id}/details`}
-      //                           >
-      //                             {params.formattedValue}
-      //                           </a>
-      //                         ),
-      //                       },
-      //                       {
-      //                         field: 'account',
-      //                         headerName: 'Account',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'email',
-      //                         headerName: 'Email',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'phone',
-      //                         headerName: 'Phone',
-      //                         flex: 1,
-      //                       },
-      //                       {
-      //                         field: 'title',
-      //                         headerName: 'Title',
-      //                         flex: 1,
-      //                       },
-      //                     ],
-      //                   },
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Table',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'Details',
-      //   route: '/:detailType/:detailId/details',
-      //   contents: [
-      //     {
-      //       styles: {},
-      //       opts: {
-      //         container: true,
-      //       },
-      //       id: '',
-      //       classes: '',
-      //       componentName: 'Grid',
-      //       contents: [
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //             md: 4,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Quick Information',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'QuickInfo',
-      //                 },
-      //               },
-      //               id: 'quick-info',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //             md: 8,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Activity Tracker',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'TabbedInput',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //         {
-      //           styles: {},
-      //           opts: {
-      //             item: true,
-      //             xs: 12,
-      //           },
-      //           id: '',
-      //           classes: '',
-      //           componentName: 'Grid',
-      //           contents: [
-      //             {
-      //               styles: {},
-      //               opts: {
-      //                 height: 0.5,
-      //                 header: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   name: 'Timeline',
-      //                 },
-      //                 content: {
-      //                   styles: {},
-      //                   opts: {},
-      //                   id: '',
-      //                   classes: '',
-      //                   type: 'Timeline',
-      //                 },
-      //               },
-      //               id: '',
-      //               classes: '',
-      //               componentName: 'ContentTile',
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
+      {
+        name: 'Banking',
+        route: '/banking',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  container: true,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      item: true,
+                      xs: 12,
+                      lg: 8,
+                      height: 0.5,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Top Left
+                      {
+                        styles: {},
+                        opts: {
+                          container: true,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          // Welcome message
+                          {
+                            styles: {},
+                            opts: {
+                              item: true,
+                              xs: 12,
+                              height: 1,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 1,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: 'Hello there!',
+                                      subheader:
+                                        'Welcome to the AcmeInvestments Banking Portal!',
+                                      text: '',
+                                      headerStyle: {},
+                                      subheaderStyle: {},
+                                      textStyle: {},
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'welcome-message',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+
+                          // Tiles
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 3, md: 3 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$122,345',
+                                      subheader: '',
+                                      text: 'Total Wealth',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#1f9c1f',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-1',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 3, md: 3 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$159,168',
+                                      subheader: '',
+                                      text: 'Total Assets',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#1f9c1f',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-2',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 3, md: 3 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '-1.08%/$1,223',
+                                      subheader: '',
+                                      text: "Today's Change",
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#bf3026',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-3',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 3, md: 3 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.25,
+                                  header: {
+                                    styles: { display: 'none' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: '$36,823',
+                                      subheader: '',
+                                      text: 'Total Liabilities',
+                                      headerStyle: {
+                                        textAlign: 'center',
+                                        color: '#bf3026',
+                                      },
+                                      subheaderStyle: {},
+                                      textStyle: {
+                                        textAlign: 'center',
+                                        fontWeight: '700',
+                                      },
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
+                                },
+                                id: 'figure-3',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    styles: {},
+                    opts: {
+                      item: true,
+                      xs: 12,
+                      lg: 4,
+                      height: 0.5,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Right side top
+                      {
+                        styles: {},
+                        opts: {
+                          height: 1,
+                          header: {
+                            styles: { height: '45px' },
+                            opts: {},
+                            id: '',
+                            classes: '',
+                            name: 'Take Action',
+                          },
+                          content: {
+                            styles: { paddingBottom: '16px' },
+                            options: {},
+                            opts: {
+                              contents: [
+                                // Add External Account
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '10px',
+                                  },
+                                  opts: {},
+                                  id: 'add-external-form-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Add External Account',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}new`
+                                        : `${baseUrl}/new`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Subscribe',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'external-account-type-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Type',
+                                        options: [
+                                          {
+                                            name: 'Checking',
+                                            value: 'Checking',
+                                          },
+                                          {
+                                            name: 'Savings',
+                                            value: 'Savings',
+                                          },
+                                          {
+                                            name: 'Investment',
+                                            value: 'Investments',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Checking';
+                                        },
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-frequency-sync-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Sync Frequency',
+                                        options: [
+                                          {
+                                            name: 'Hourly',
+                                            value: 'Hourly',
+                                          },
+                                          {
+                                            name: 'Daily',
+                                            value: 'Daily',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Hourly';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'institution-name',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Institution Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-name-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Account Nickname',
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                                // Change Allocation
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '10px',
+                                  },
+                                  opts: {},
+                                  id: 'change-allocation-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Change Allocation',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}change`
+                                        : `${baseUrl}/change`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Change Allocation',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'account-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Select Account',
+                                        options: [
+                                          {
+                                            name: 'Retirement Account',
+                                            value: 'Retirement Account',
+                                          },
+                                          {
+                                            name: 'Rainy Day Fund',
+                                            value: 'Rainy Day Fund',
+                                          },
+                                          {
+                                            name: 'Big Purchase Fund',
+                                            value: 'Big Purchase Fund',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Retirement Account';
+                                        },
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'amount-to-move',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Amount to Change',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'subscribe-text-name',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'change-date-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Frequency',
+                                        options: [
+                                          {
+                                            name: 'Today',
+                                            value: 'Today',
+                                          },
+                                          {
+                                            name: 'Tomorrow',
+                                            value: 'Tomorrow',
+                                          },
+                                          {
+                                            name: '7 Days from Now',
+                                            value: '7 Days from Now',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Today';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                                // Set Up New Credit Card
+                                {
+                                  styles: {
+                                    backgroundColor: '#1DA259',
+                                    '&:hover': {
+                                      backgroundColor: '#1a9150',
+                                    },
+                                    color: '#ffffff',
+                                    width: '100%',
+                                    marginBottom: '0px',
+                                  },
+                                  opts: {},
+                                  id: 'cc-setup-launch',
+                                  classes: '',
+                                  type: 'Modal',
+                                  name: 'Set Up Credit Card',
+                                  openStartCallback: () => {
+                                    // Set dynamic labels for add new form before it is rendered
+                                    // updateAddNewLabels();
+
+                                    // Add '/new' to url using pendo location api when add new form open
+                                    let baseUrl = pendo.location.getHref();
+                                    pendo.location.setUrl(
+                                      baseUrl.slice(-1) === '/'
+                                        ? `${baseUrl}setup`
+                                        : `${baseUrl}/setup`
+                                    );
+                                  },
+                                  closeEndCallback: () => {
+                                    // Return to using browser url on form closed
+                                    pendo.location.useBrowserUrl();
+                                  },
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Set Up Credit Card',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    componentName: 'Form',
+                                    contents: [
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'name-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Name',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'phone-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Contact Phone Number',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'email-entry-field',
+                                        classes: '',
+                                        componentName: 'TextField',
+                                        label: 'Email',
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: {},
+                                        id: 'preferred-contact-method-select',
+                                        classes: '',
+                                        componentName: 'Select',
+                                        label: 'Preferred Contact Method',
+                                        options: [
+                                          {
+                                            name: 'Phone',
+                                            value: 'Phone',
+                                          },
+                                          {
+                                            name: 'Email',
+                                            value: 'Email',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Phone';
+                                        },
+                                        // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                                      },
+                                      {
+                                        styles: {},
+                                        opts: { row: true },
+                                        id: 'setup-options-select',
+                                        classes: '',
+                                        componentName: 'RadioGroup',
+                                        label: 'Type',
+                                        options: [
+                                          {
+                                            name: 'Unlimited',
+                                            value: 'Unlimited',
+                                          },
+                                          {
+                                            name: 'Premium Select',
+                                            value: 'Premium Select',
+                                          },
+                                        ],
+                                        default: () => {
+                                          // Dynamically assign default based on path
+                                          return 'Premium Select';
+                                        },
+                                      },
+                                    ],
+                                    submitCallback: function () {
+                                      // Go to relevant details page
+                                      window.location.href = `${window.location.origin}/?app=investments`;
+                                    },
+                                  },
+                                },
+                              ],
+                            },
+                            id: '',
+                            classes: '',
+                            type: 'ButtonArray',
+                          },
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'ContentTile',
+                      },
+                    ],
+                  },
+                  {
+                    styles: {},
+                    opts: {
+                      item: true,
+                      xs: 12,
+                      lg: 12,
+                      height: 0.5,
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'Grid',
+                    contents: [
+                      // Bottom
+                      {
+                        styles: {},
+                        opts: {
+                          container: true,
+                        },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          // Portfolio Performance Chart
+                          {
+                            styles: {},
+                            opts: { item: true, xs: 12, md: 12 },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
+                                styles: {},
+                                opts: {
+                                  height: 0.5,
+                                  header: {
+                                    styles: {},
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: 'Portfolio Performance',
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      type: 'Bar',
+                                      data: {
+                                        labels: [
+                                          'Jan',
+                                          'Feb',
+                                          'Mar',
+                                          'Apr',
+                                          'May',
+                                          'June',
+                                          'July',
+                                          'Aug',
+                                          'Sept',
+                                          'Oct',
+                                          'Nov',
+                                          'Dec',
+                                        ],
+                                        datasets: [
+                                          {
+                                            fill: true,
+                                            label: 'Performance ($)',
+                                            data: [
+                                              4500, 0, 0, 1230, 1600, 1700,
+                                              1800, 13000, 12000, 19000, 22000,
+                                              24000,
+                                            ],
+                                            backgroundColor: hexToRGBA(
+                                              '#5ad45a',
+                                              0.75
+                                            ),
+                                            borderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.9
+                                            ),
+                                            pointBackgroundColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.8
+                                            ),
+                                            pointBorderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              1
+                                            ),
+                                          },
+                                          {
+                                            fill: true,
+                                            label: 'Performance ($)',
+                                            data: [
+                                              0,
+                                              -3000,
+                                              -660,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              0,
+                                              ,
+                                              0,
+                                            ],
+                                            backgroundColor: hexToRGBA(
+                                              '#b30000',
+                                              0.75
+                                            ),
+                                            borderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.9
+                                            ),
+                                            pointBackgroundColor: hexToRGBA(
+                                              '#0d88e6',
+                                              0.8
+                                            ),
+                                            pointBorderColor: hexToRGBA(
+                                              '#0d88e6',
+                                              1
+                                            ),
+                                          },
+                                        ],
+                                      },
+                                      opts: {
+                                        maintainAspectRatio: false,
+                                        responsive: true,
+                                        plugins: {
+                                          legend: {
+                                            display: false,
+                                          },
+                                        },
+                                        scales: {
+                                          x: {
+                                            stacked: true,
+                                          },
+                                          y: {
+                                            stacked: true,
+                                            suggestedMin: -4000,
+                                            suggestedMax: 5000,
+                                            ticks: {
+                                              callback: function (
+                                                value,
+                                                index,
+                                                ticks
+                                              ) {
+                                                return '$' + value / 1000 + 'k';
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    id: '',
+                                    classes: '',
+                                    type: 'Chart',
+                                  },
+                                },
+                                id: 'forecast-card',
+                                classes: '',
+                                componentName: 'ContentTile',
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   footer: {

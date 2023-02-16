@@ -1,5 +1,8 @@
 import crmConfig from './configs/crm.js';
 import investmentsConfig from './configs/investments.js';
+import a11yConfig from './configs/a11y.js';
+import insuranceConfig from './configs/insurance.js';
+import ehrConfig from './configs/ehr.js';
 
 // Return config based on current URL
 export function determineConfig() {
@@ -26,4 +29,7 @@ export function determineConfig() {
 let configs = {
   crm: crmConfig,
   investments: investmentsConfig,
+  a11y: a11yConfig,
+  insurance: insuranceConfig,
+  ehr: ehrConfig,
 };

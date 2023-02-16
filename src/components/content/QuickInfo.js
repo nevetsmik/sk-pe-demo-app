@@ -8,8 +8,6 @@ import MuiTypography from '@mui/material/Typography';
 
 import getDimensions from '../../common/getDimensions';
 
-const baseUrl = '/crm/tableData/';
-
 const QuickInfo = (props) => {
   // Url info from router
   const { detailType, detailId } = useParams();
@@ -32,7 +30,7 @@ const QuickInfo = (props) => {
       setFields(JSON.parse(decodeURI(searchParams.get('obj'))));
     } else {
       let id = detailId === 'new' ? '0' : detailId;
-      fetch(`${baseUrl}${detailType}.json`)
+      fetch(`${props.baseUrl}${detailType}.json`)
         .then((response) => response.json())
         .then((data) => {
           const entry = data.rows.filter((d) => d.id === id)[0];
@@ -72,7 +70,7 @@ const QuickInfo = (props) => {
         }}
       >
         <img
-          src="https://www.acmecrm.io/static/media/hex_logo.ec9f114f.png"
+          src={props.src}
           style={{
             maxHeight: `${
               availableHeight -
@@ -107,6 +105,8 @@ QuickInfo.propTypes = {
   height: PropTypes.number.isRequired,
   card_content_vert_padding: PropTypes.number.isRequired,
   schema: PropTypes.object.isRequired,
+  src: PropTypes.string.isRequired,
+  baseUrl: PropTypes.string.isRequired,
 };
 
 export default QuickInfo;

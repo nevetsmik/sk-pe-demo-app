@@ -8,10 +8,12 @@ import MuiButton from '@mui/material/Button';
 
 import Select from './Select';
 import TextField from './TextField';
+import RadioGroup from './RadioGroup';
 
 const supportedComponents = {
   Select: Select,
   TextField: TextField,
+  RadioGroup: RadioGroup,
 };
 
 const Form = (props) => {
@@ -34,6 +36,11 @@ const Form = (props) => {
     // Call optional submit callback
     if (props.submitCallback) {
       props.submitCallback(event, navigate);
+    }
+
+    // follow cancel callback to close modal
+    if (props.cancelCallback) {
+      props.cancelCallback(event, navigate);
     }
 
     // Call optional modal close function
@@ -78,6 +85,7 @@ const Form = (props) => {
           }}
           variant="contained"
           onClick={handleCancel}
+          aria-label="Cancel"
         >
           Cancel
         </MuiButton>
@@ -94,6 +102,7 @@ const Form = (props) => {
           }}
           variant="contained"
           onClick={handleSubmit}
+          aria-label="Close"
         >
           Submit
         </MuiButton>

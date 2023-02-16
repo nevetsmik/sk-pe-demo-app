@@ -10,3 +10,15 @@ dispatch:
   # Acme Investments
   - url: 'investments.pendoexperience.io/*'
     service: pe-demo-app
+
+  # Acme Insurance
+  - url: 'insurance.pendoexperience.io/*'
+    service: pe-demo-app
+
+  # Acme EHR
+  - url: 'ehr.pendoexperience.io/*'
+    service: pe-demo-app
+
+  # Acme A11y
+  - url: 'a11y.pendoexperience.io/*'
+    service: pe-demo-app

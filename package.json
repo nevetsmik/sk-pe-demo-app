@@ -30,7 +30,8 @@
     "build": "react-scripts build && compress-cra",
     "postinstall": "(cd server && npm install); npm run build",
     "deploy:staging": "gcloud app deploy app.staging.yaml --project=pendo-demo-eng",
-    "deploy:prod": "gcloud app deploy app.yaml --project=pendo-demo-eng"
+    "deploy:prod": "gcloud app deploy app.yaml --project=pendo-demo-eng",
+    "update-routes": "gcloud app deploy dispatch.yaml --project=pendo-demo-eng"
   },
   "browserslist": {
     "production": [

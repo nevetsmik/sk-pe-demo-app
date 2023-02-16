@@ -17,6 +17,7 @@ const NavTitle = (props) => {
       {...props.opts}
       id={props.id}
       className={props.classes}
+      tabIndex={0}
     >
       acme
       <MuiTypography

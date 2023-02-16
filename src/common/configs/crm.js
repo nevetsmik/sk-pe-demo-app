@@ -170,7 +170,7 @@ export default {
           callback: () => {
             const publicKey = 'tf0p32w56b0yxw7cx1zv50kxkm';
             const osVersion = '15.5';
-            const device = 'iphone12promax';
+            const device = 'iphone13promax';
             const deviceColor = 'black';
             const scale = 75;
 
@@ -299,7 +299,6 @@ export default {
                     el.name
                   )}":"${encodeURIComponent(el.value)}"`;
                 }
-
                 navigate(`${url}}`);
               },
             },
@@ -1006,6 +1005,8 @@ export default {
                             contacts: ['name', 'email', 'phone'],
                             opportunities: ['name', 'contact', 'arr'],
                           },
+                          baseUrl: '/crm/tableData/',
+                          src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
                         },
                         id: '',
                         classes: '',

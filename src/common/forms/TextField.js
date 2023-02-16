@@ -9,6 +9,7 @@ const TextField = (props) => {
       <MuiTextField
         variant="outlined"
         sx={{ ...props.styles }}
+        error={props.opts.error ? true : false}
         {...props.opts}
         id={props.id}
         className={props.classes}

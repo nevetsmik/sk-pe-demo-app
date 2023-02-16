@@ -15,6 +15,7 @@ import Timeline from './Timeline';
 import ListResults from './ListResults';
 import Text from './Text';
 import Embed from '../../common/forms/Embed.js';
+import ButtonArray from './ButtonArray';
 
 // Create object of supported content types to be rendered in tile
 const supportedComponents = {
@@ -26,6 +27,7 @@ const supportedComponents = {
   ListResults: ListResults,
   Text: Text,
   Embed: Embed,
+  ButtonArray: ButtonArray,
 };
 
 const ContentTile = (props) => {
@@ -74,6 +76,7 @@ const ContentTile = (props) => {
       {...props.opts}
       id={props.id}
       className={props.classes}
+      tabIndex={0}
     >
       <MuiCardHeader
         sx={{
@@ -87,12 +90,14 @@ const ContentTile = (props) => {
         ref={cardHeaderRef}
         title={props.header.name}
         disableTypography={true}
+        tabIndex={0}
       ></MuiCardHeader>
       <MuiDivider style={props.header.divider} />
       <MuiCardContent
         ref={cardContentRef}
         sx={{ overflowY: 'auto' }}
         style={{ ...props.sx }}
+        tabIndex={0}
       >
         <Content
           sx={{ ...props.content.styles }}

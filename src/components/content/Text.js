@@ -39,7 +39,7 @@ Text.propTypes = {
   text: PropTypes.string,
   headerStyle: PropTypes.object,
   subheaderStyle: PropTypes.object,
-  textStyle: PropTypes.string,
+  textStyle: PropTypes.object,
   opts: PropTypes.object,
   height: PropTypes.number,
   styles: PropTypes.object,
