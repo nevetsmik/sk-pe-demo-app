@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 import MuiInputBase from '@mui/material/InputBase';
 import MuiIconButton from '@mui/material/IconButton';
 import MuiSearchIcon from '@mui/icons-material/Search';
+import MuiBox from '@mui/material/Box';
 import { styled as muiStyled, alpha as muiAlpha } from '@mui/material/styles';
 
 const NavSearch = (props) => {
   // Search bar contents
+  const widthValue = props.buttonTextStyle
+    ? 'calc(100% - 120px)'
+    : 'calc(100% - 40px)';
+
   const SearchBar = muiStyled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: '5px',
@@ -21,7 +26,7 @@ const NavSearch = (props) => {
   const StyledInputBase = muiStyled(MuiInputBase)(({ theme }) => ({
     color: 'inherit',
     padding: theme.spacing(0, 1, 0, 1),
-    width: 'calc(100% - 40px)',
+    width: widthValue,
   }));
 
   return (
@@ -32,11 +37,20 @@ const NavSearch = (props) => {
       className={props.classes}
     >
       <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
+        placeholder="Search"
+        inputProps={{ 'aria-label': 'search-input' }}
       />
-      <MuiIconButton color="inherit">
+      <MuiIconButton
+        color="inherit"
+        style={{ borderRadius: '5px' }}
+        aria-label="search-button"
+      >
         <MuiSearchIcon />
+        {props.buttonTextStyle ? (
+          <MuiBox style={props.buttonTextStyle}>Search</MuiBox>
+        ) : (
+          ''
+        )}
       </MuiIconButton>
     </SearchBar>
   );
@@ -44,6 +58,7 @@ const NavSearch = (props) => {
 
 NavSearch.propTypes = {
   styles: PropTypes.object,
+  buttonTextStyle: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,

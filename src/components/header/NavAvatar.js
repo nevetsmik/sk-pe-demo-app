@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MuiIconButton from '@mui/material/IconButton';
+import MuiBox from '@mui/material/Box';
 import MuiAvatar from '@mui/material/Avatar';
 import MuiPersonIcon from '@mui/icons-material/Person';
 import Popover from '@mui/material/Popover';
@@ -30,6 +31,21 @@ const NavAvatar = (props) => {
         className={props.classes}
         onClick={handleClick}
       >
+        {props.label ? (
+          <MuiBox
+            style={{
+              fontSize: '14px',
+              color: 'white',
+              fontWeight: '600',
+              textTransform: 'uppercase',
+              marginRight: '10px',
+            }}
+          >
+            {props.label}
+          </MuiBox>
+        ) : (
+          ''
+        )}
         <MuiAvatar>
           <MuiPersonIcon></MuiPersonIcon>
         </MuiAvatar>
@@ -42,7 +58,7 @@ const NavAvatar = (props) => {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
         transformOrigin={{
           vertical: 'top',
@@ -124,6 +140,7 @@ NavAvatar.propTypes = {
   opts: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,
+  label: PropTypes.string,
   pendoMetadata: PropTypes.object.isRequired,
 };
 

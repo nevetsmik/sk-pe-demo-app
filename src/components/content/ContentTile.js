@@ -59,7 +59,6 @@ const ContentTile = (props) => {
     function handleWindowResize() {
       setWindowHeight(window.innerHeight);
     }
-
     window.addEventListener('resize', handleWindowResize);
   });
 
@@ -78,6 +77,25 @@ const ContentTile = (props) => {
       className={props.classes}
       tabIndex={0}
     >
+      {/* {props.header.display && (
+        <>
+          <MuiCardHeader
+            sx={{
+              fontSize: '1rem',
+              fontWeight: 500,
+              ...props.header.styles,
+            }}
+            {...props.header.opts}
+            id={props.header.id}
+            className={props.header.classes}
+            ref={cardHeaderRef}
+            title={props.header.name}
+            disableTypography={true}
+            tabIndex={0}
+          ></MuiCardHeader>
+          <MuiDivider style={props.header.divider} />
+        </>
+      )} */}
       <MuiCardHeader
         sx={{
           fontSize: '1rem',
@@ -93,6 +111,7 @@ const ContentTile = (props) => {
         tabIndex={0}
       ></MuiCardHeader>
       <MuiDivider style={props.header.divider} />
+
       <MuiCardContent
         ref={cardContentRef}
         sx={{ overflowY: 'auto' }}
@@ -128,6 +147,7 @@ ContentTile.propTypes = {
   classes: PropTypes.string,
   height: PropTypes.number.isRequired,
   header: PropTypes.shape({
+    display: PropTypes.bool,
     styles: PropTypes.object,
     opts: PropTypes.object,
     id: PropTypes.string,

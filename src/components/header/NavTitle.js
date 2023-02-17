@@ -13,19 +13,16 @@ const NavTitle = (props) => {
         ...props.styles,
         paddingLeft: '10px',
         fontWeight: 'bold',
+        marginRight: '20px',
       }}
       {...props.opts}
       id={props.id}
       className={props.classes}
       tabIndex={0}
+      aria-label={`acme ${props.name}`}
     >
       acme
-      <MuiTypography
-        variant="h6"
-        noWrap
-        component="span"
-        sx={{ paddingRight: '20px' }}
-      >
+      <MuiTypography variant="h6" noWrap component="span">
         {props.name}
       </MuiTypography>
     </MuiTypography>

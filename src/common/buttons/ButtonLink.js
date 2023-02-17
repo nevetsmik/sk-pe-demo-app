@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import MuiTooltip from '@mui/material/Tooltip';
 import MuiButton from '@mui/material/Button';
 import MuiIconButton from '@mui/material/IconButton';
+import MuiBox from '@mui/material/Box';
 
 import DynamicIcon from '../DynamicIcon';
 
@@ -23,13 +24,14 @@ const ButtonLink = (props) => {
             href={props.href}
             target={props.target || ''}
           >
+            <MuiBox style={{ ...props.textStyle }}>{props.name}</MuiBox>
             <DynamicIcon icon={props.icon}></DynamicIcon>
           </MuiIconButton>
         ) : (
           <MuiButton
             sx={{
               borderRadius: '5px',
-              padding: '6px 40px',
+              padding: '6px 30px',
               ...props.styles,
             }}
             {...props.opts}
@@ -49,6 +51,7 @@ const ButtonLink = (props) => {
 
 ButtonLink.propTypes = {
   styles: PropTypes.object,
+  textStyle: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,

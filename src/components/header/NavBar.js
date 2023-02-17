@@ -220,6 +220,7 @@ const NavBar = (props) => {
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   tabIndex={0}
+                  aria-label={`${d.name}-navigation`}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
@@ -231,6 +232,7 @@ const NavBar = (props) => {
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   onClick={d.callback}
                   tabIndex={0}
+                  aria-label={`${d.name}-navigation`}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
