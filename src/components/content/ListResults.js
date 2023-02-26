@@ -48,7 +48,7 @@ const DownloadButton = (props) => {
   }
 
   return (
-    <>
+    <MuiBox>
       <MuiPortal>
         <MuiSnackbar
           open={snackbarOpen}
@@ -87,7 +87,7 @@ const DownloadButton = (props) => {
       >
         <MuiDownloadIcon />
       </MuiIconButton>
-    </>
+    </MuiBox>
   );
 };
 
@@ -151,8 +151,21 @@ const ListResults = (props) => {
   const [src, setSrc] = React.useState('');
   const [title, setTitle] = React.useState('');
 
-  const availableHeight =
-    props.height - props.card_content_vert_padding - containerDim.padding.vert;
+  // const availableHeight =
+  //   props.height - props.card_content_vert_padding - containerDim.padding.vert;
+
+  // Get padding to determine height
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
+
+  React.useEffect(() => {
+    const parentStyles = getComputedStyle(
+      ref.current.parentElement.parentElement
+    );
+    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
+    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
+    setPadding(paddingTop + paddingBottom);
+  });
 
   return (
     <>
@@ -170,21 +183,22 @@ const ListResults = (props) => {
             ></DownloadButton>
           ),
         }}
-        content={{ ...props.modal.content, src: src, title: title }}
-      ></Modal>
-      <MuiBox
-        ref={containerRef}
-        sx={{
-          height: availableHeight,
-          width: '100%',
+        content={{
+          ...props.modal.content,
+          src: src,
+          title: title,
         }}
-      >
+      ></Modal>
+      <MuiBox ref={containerRef}>
         <MuiList
+          ref={ref}
           style={{
             width: '100%',
             maxHeight: '100%',
             margin: '0px',
             paddingTop: '0px',
+            height: props.height - padding,
+            width: '100%',
           }}
           className="article-list"
         >

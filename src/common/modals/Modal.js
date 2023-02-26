@@ -100,6 +100,7 @@ const Modal = (props) => {
           >
             <Component
               {...props.content}
+              embedType="Modal"
               cancelCallback={props.handleClose}
             ></Component>
           </MuiCardContent>

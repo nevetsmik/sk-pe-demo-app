@@ -16,12 +16,32 @@ const Embed = (props) => {
     setIframeLoaded(false);
   }, [props.src]);
 
+  // Get padding to determine height
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
+
+  React.useEffect(() => {
+    const parentStyles = getComputedStyle(ref.current.parentElement);
+    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
+    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
+    setPadding(paddingTop + paddingBottom);
+  });
+
+  let availableHeight =
+    props.embedType !== 'Modal' ? props.height - padding : '100%';
+
+  let loadingHeight =
+    props.embedType !== 'Modal' ? props.height - padding : '100px';
+
   return (
     <>
       <MuiBox
+        ref={ref}
         sx={{
           display: iframeLoaded ? 'initial' : 'none',
           border: 'none',
+          padding: 0,
+          margin: 0,
         }}
       >
         <iframe
@@ -29,7 +49,7 @@ const Embed = (props) => {
           title={props.title}
           onLoad={handleIframeLoad}
           width="100%"
-          height="100%"
+          height={availableHeight}
           style={{ border: 'none' }}
         ></iframe>
       </MuiBox>
@@ -41,7 +61,7 @@ const Embed = (props) => {
         }}
       >
         <MuiCircularProgress
-          size={100}
+          size={loadingHeight}
           sx={{
             color: 'rgb(225, 227, 230)',
           }}
@@ -52,9 +72,11 @@ const Embed = (props) => {
 };
 
 Embed.propTypes = {
-  src: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  title: PropTypes.string,
   styles: PropTypes.object,
+  height: PropTypes.number,
+  embedType: PropTypes.string,
 };
 
 export default Embed;

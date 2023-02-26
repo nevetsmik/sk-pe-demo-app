@@ -64,38 +64,20 @@ const ContentTile = (props) => {
 
   // Select content component based on type
   const Content = supportedComponents[props.content.type];
+
   return (
     <MuiCard
       ref={cardRef}
       sx={{
         margin: '8px',
         borderRadius: '5px',
-        ...props.sx,
+        ...props.styles,
       }}
       {...props.opts}
       id={props.id}
       className={props.classes}
       tabIndex={0}
     >
-      {/* {props.header.display && (
-        <>
-          <MuiCardHeader
-            sx={{
-              fontSize: '1rem',
-              fontWeight: 500,
-              ...props.header.styles,
-            }}
-            {...props.header.opts}
-            id={props.header.id}
-            className={props.header.classes}
-            ref={cardHeaderRef}
-            title={props.header.name}
-            disableTypography={true}
-            tabIndex={0}
-          ></MuiCardHeader>
-          <MuiDivider style={props.header.divider} />
-        </>
-      )} */}
       <MuiCardHeader
         sx={{
           fontSize: '1rem',
@@ -110,12 +92,14 @@ const ContentTile = (props) => {
         disableTypography={true}
         tabIndex={0}
       ></MuiCardHeader>
-      <MuiDivider style={props.header.divider} />
+
+      {/* Hide divider if it is a text box */}
+      {Content !== Text ? <MuiDivider style={props.header.divider} /> : ''}
 
       <MuiCardContent
         ref={cardContentRef}
         sx={{ overflowY: 'auto' }}
-        style={{ ...props.sx }}
+        style={{ ...props.styles }}
         tabIndex={0}
       >
         <Content
@@ -123,6 +107,7 @@ const ContentTile = (props) => {
           {...props.content.opts}
           id={props.content.id}
           className={props.content.classes}
+          // height of the Card content (below divider) - subtract padding (16t+24b) to get content height
           height={
             (windowHeight -
               props.header_height -
@@ -141,7 +126,7 @@ const ContentTile = (props) => {
 };
 
 ContentTile.propTypes = {
-  sx: PropTypes.object,
+  styles: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,

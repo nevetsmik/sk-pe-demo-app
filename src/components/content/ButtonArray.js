@@ -5,8 +5,23 @@ import MuiList from '@mui/material/List';
 import Button from '../../common/buttons/Button';
 
 const ButtonArray = (props) => {
+  // Get padding to determine height
+  const ref = React.useRef(null);
+  const [padding, setPadding] = React.useState(0);
+
+  React.useEffect(() => {
+    const parentStyles = getComputedStyle(ref.current.parentElement);
+    const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
+    const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
+    // setPadding(32);
+    setPadding(paddingTop + paddingBottom);
+  });
+
   return (
-    <MuiList>
+    <MuiList
+      ref={ref}
+      style={{ height: props.height - padding, width: '100%' }}
+    >
       {props.contents.map((d) => (
         <Button key={d.name} {...d}></Button>
       ))}
@@ -17,6 +32,7 @@ const ButtonArray = (props) => {
 ButtonArray.propTypes = {
   styles: PropTypes.object,
   opts: PropTypes.object,
+  height: PropTypes.number.isRequired,
   options: PropTypes.object,
   id: PropTypes.string,
   classes: PropTypes.string,

@@ -1,23 +1,18 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
-// Need way to reliably get research/investments/banking out of URL in both prod and dev
-// URL examples: https://investments.pendoexperience.io/
-// https://investments.pendoexperience.io/banking
-// https://localhost:3000/?app=investments
-// https://localhost:3000/banking?app=investments
-
+// pull out what page we're on, either on dev or prod
 let page;
-
-if (window.location.hostname === 'localhost') {
+if (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === 'pe-demo-app-dot-pendo-demo-eng.ue.r.appspot.com'
+) {
   page = window.location.href.split('/')[3].split('?')[0];
 } else {
   page = window.location.href.split('/')[3];
 }
-
+// handle if we're on the default route
 page = page === '' ? 'investments' : page;
-
-// possible outcomes: "", banking, ?app=investments, banking?app=investments
 
 export default {
   styles: {
@@ -787,17 +782,18 @@ export default {
                 classes: '',
                 componentName: 'Grid',
                 contents: [
+                  // Welcome Message
                   {
                     styles: {},
                     opts: {
-                      height: 1,
+                      height: 0.2,
                       header: {
-                        styles: { display: 'none' },
+                        styles: { height: '0px', padding: '0px' },
                         opts: {},
                         id: '',
                         classes: '',
                         name: '',
-                        divider: { display: 'none' },
+                        divider: {},
                       },
                       content: {
                         styles: {},
@@ -841,8 +837,7 @@ export default {
                     classes: '',
                     componentName: 'Grid',
                     contents: [
-                      // Videos
-
+                      // Video 1
                       {
                         styles: {},
                         opts: {
@@ -856,196 +851,153 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              item: true,
-                              xs: 12,
-                            },
-                            id: '',
-                            classes: '',
-                            componentName: 'Grid',
-                            contents: [
-                              {
-                                styles: { minHeight: '175px' },
-                                opts: {
-                                  height: 1,
-                                  header: {
-                                    styles: {},
-                                    opts: {},
-                                    id: '',
-                                    classes: 'video-1-header',
-                                    name: 'Pricing Page Teardown',
-                                  },
-                                  content: {
-                                    styles: { minHeight: '150px' },
-                                    opts: {
-                                      src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
-                                      title: 'Pricing Page Teardown',
-                                    },
-                                    id: '',
-                                    classes: 'video-1',
-                                    type: 'Embed',
-                                  },
-                                },
-                                id: 'video-1-card',
-                                classes: '',
-                                componentName: 'ContentTile',
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                      {
-                        styles: {},
-                        opts: {
-                          item: true,
-                          xs: 4,
-                        },
-                        id: '',
-                        classes: '',
-                        componentName: 'Grid',
-                        contents: [
-                          {
-                            styles: {},
-                            opts: {
-                              item: true,
-                              xs: 12,
-                            },
-                            id: '',
-                            classes: '',
-                            componentName: 'Grid',
-                            contents: [
-                              {
-                                styles: { inHeight: '150px' },
-                                opts: {
-                                  height: 0.5,
-                                  header: {
-                                    styles: {},
-                                    opts: {},
-                                    id: '',
-                                    classes: 'video-2-header',
-                                    name: 'Culture in 4 Minutes',
-                                  },
-                                  content: {
-                                    styles: {},
-                                    opts: {
-                                      src: 'https://fast.wistia.net/embed/iframe/5wlrbhu5mp',
-                                      title: 'Company Culture in 4 Minutes',
-                                      styles: { height: '160px' },
-                                    },
-                                    id: '',
-                                    classes: 'video-2',
-                                    type: 'Embed',
-                                  },
-                                },
-                                id: 'video-2-card',
-                                classes: '',
-                                componentName: 'ContentTile',
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                      {
-                        styles: { minHeight: '175px' },
-                        opts: {
-                          item: true,
-                          xs: 4,
-                        },
-                        id: '',
-                        classes: '',
-                        componentName: 'Grid',
-                        contents: [
-                          {
-                            styles: {},
-                            opts: {
-                              item: true,
-                              xs: 12,
-                            },
-                            id: '',
-                            classes: '',
-                            componentName: 'Grid',
-                            contents: [
-                              {
-                                styles: { minHeight: '150px' },
-                                opts: {
-                                  height: 0.5,
-                                  header: {
-                                    styles: {},
-                                    opts: {},
-                                    id: '',
-                                    classes: 'video-3-header',
-                                    name: 'Financial Services Podcast',
-                                  },
-                                  content: {
-                                    styles: {},
-                                    opts: {
-                                      src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
-                                      title: 'Financial Services Podcast',
-                                    },
-                                    id: '',
-                                    classes: 'video-3',
-                                    type: 'Embed',
-                                  },
-                                },
-                                id: 'video-3-card',
-                                classes: '',
-                                componentName: 'ContentTile',
-                              },
-                            ],
-                          },
-                        ],
-                      },
-
-                      // Topic Header
-                      {
-                        styles: { paddingBottom: '0px' },
-                        opts: {
-                          item: true,
-                          xs: 12,
-                          lg: 12,
-                        },
-                        id: '',
-                        classes: 'find-this',
-                        componentName: 'Grid',
-                        contents: [
-                          {
-                            styles: {
-                              boxShadow: 'none',
-                              backgroundColor: 'transparent',
-                              paddingBottom: '0px',
-                              paddingLeft: '6px',
-                            },
-                            opts: {
-                              height: 0.5,
+                              height: 0.3,
                               header: {
-                                styles: { display: 'none' },
+                                styles: { height: '45px' },
                                 opts: {},
                                 id: '',
-                                classes: 'find-me-2',
-                                name: '',
-                                divider: { display: 'none' },
+                                classes: 'video-1-header',
+                                name: 'Pricing Page Teardown',
                               },
                               content: {
                                 styles: {},
                                 opts: {
-                                  header: '',
-                                  subheader: 'By Topic',
-                                  text: '',
-                                  headerStyle: {},
-                                  subheaderStyle: { fontSize: '18px' },
-                                  textStyle: {},
+                                  src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
+                                  title: 'Pricing Page Teardown',
                                 },
                                 id: '',
-                                classes: '',
-                                type: 'Text',
+                                classes: 'video-1',
+                                type: 'Embed',
                               },
                             },
-                            id: 'topic-header',
+                            id: 'video-1-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
                         ],
                       },
-
+                      // Video 2
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 4 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.3,
+                              header: {
+                                styles: { height: '45px' },
+                                opts: {},
+                                id: '',
+                                classes: 'video-2-header',
+                                name: 'Culture in 4 Minutes',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  src: 'https://fast.wistia.net/embed/iframe/5wlrbhu5mp',
+                                  title: 'Company Culture in 4 Minutes',
+                                },
+                                id: '',
+                                classes: 'video-2',
+                                type: 'Embed',
+                              },
+                            },
+                            id: 'video-2-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      // Video 3
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 4 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.3,
+                              header: {
+                                styles: { height: '45px' },
+                                opts: {},
+                                id: '',
+                                classes: 'video-3-header',
+                                name: 'FinServ Podcast',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
+                                  title: 'Financial Services Podcast',
+                                },
+                                id: '',
+                                classes: 'video-3',
+                                type: 'Embed',
+                              },
+                            },
+                            id: 'video-3-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      // // Topic Header
+                      // {
+                      //   styles: { paddingBottom: '0px' },
+                      //   opts: {
+                      //     item: true,
+                      //     xs: 12,
+                      //     lg: 12,
+                      //   },
+                      //   id: '',
+                      //   classes: 'find-this',
+                      //   componentName: 'Grid',
+                      //   contents: [
+                      //     {
+                      //       styles: {
+                      //         boxShadow: 'none',
+                      //         backgroundColor: 'transparent',
+                      //         paddingBottom: '0px',
+                      //         paddingLeft: '6px',
+                      //       },
+                      //       opts: {
+                      //         height: 0.05,
+                      //         header: {
+                      //           styles: { height: '0px', padding: '0px' },
+                      //           opts: {},
+                      //           id: '',
+                      //           classes: 'find-me-2',
+                      //           name: '',
+                      //           divider: { display: 'none' },
+                      //         },
+                      //         content: {
+                      //           styles: {},
+                      //           opts: {
+                      //             header: '',
+                      //             subheader: 'By Topic',
+                      //             text: '',
+                      //             headerStyle: {},
+                      //             subheaderStyle: { fontSize: '18px' },
+                      //             textStyle: {},
+                      //           },
+                      //           id: '',
+                      //           classes: '',
+                      //           type: 'Text',
+                      //         },
+                      //       },
+                      //       id: 'topic-header',
+                      //       classes: '',
+                      //       componentName: 'ContentTile',
+                      //     },
+                      //   ],
+                      // },
                       // List 1
                       {
                         styles: {},
@@ -1057,9 +1009,9 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.75,
+                              height: 0.5,
                               header: {
-                                styles: {},
+                                styles: { height: '45px' },
                                 opts: {},
                                 id: '',
                                 classes: 'healthcare-header',
@@ -1110,7 +1062,6 @@ export default {
                           },
                         ],
                       },
-
                       // List 2
                       {
                         styles: {},
@@ -1122,9 +1073,9 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.75,
+                              height: 0.5,
                               header: {
-                                styles: {},
+                                styles: { height: '45px' },
                                 opts: {},
                                 id: '',
                                 classes: 'education-header',
@@ -1179,8 +1130,6 @@ export default {
                   },
                 ],
               },
-
-              // Recommended for You
               {
                 styles: {},
                 opts: {
@@ -1192,12 +1141,13 @@ export default {
                 classes: '',
                 componentName: 'Grid',
                 contents: [
+                  // Recommended for You
                   {
                     styles: {},
                     opts: {
-                      height: 1.1,
+                      height: 0.8,
                       header: {
-                        styles: {},
+                        styles: { height: '45px' },
                         opts: {},
                         id: '',
                         classes: '',
@@ -1245,6 +1195,48 @@ export default {
                     classes: 'content-tile-recommended',
                     componentName: 'ContentTile',
                   },
+                  // {
+                  //   styles: {},
+                  //   opts: {
+                  //     height: 0.8,
+                  //     header: {
+                  //       styles: { height: '45px' },
+                  //       opts: {},
+                  //       id: '',
+                  //       classes: '',
+                  //       name: 'Open Opportunities',
+                  //     },
+                  //     content: {
+                  //       styles: {},
+                  //       opts: {
+                  //         dataUrl: '/crm/tableData/opportunities.json',
+                  //         columns: [
+                  //           {
+                  //             field: 'name',
+                  //             headerName: 'Name',
+                  //             flex: 1,
+                  //             renderCell: (params) => (
+                  //               <a href={`/opportunities/${params.id}/details`}>
+                  //                 {params.formattedValue}
+                  //               </a>
+                  //             ),
+                  //           },
+                  //           {
+                  //             field: 'account',
+                  //             headerName: 'Account',
+                  //             flex: 1,
+                  //           },
+                  //         ],
+                  //       },
+                  //       id: '',
+                  //       classes: '',
+                  //       type: 'Table',
+                  //     },
+                  //   },
+                  //   id: '',
+                  //   classes: '',
+                  //   componentName: 'ContentTile',
+                  // },
                 ],
               },
             ],
@@ -1264,7 +1256,6 @@ export default {
             classes: '',
             componentName: 'Grid',
             contents: [
-              // Welcome + Figure blocksw
               {
                 styles: {},
                 opts: {
@@ -1296,42 +1287,54 @@ export default {
                         classes: '',
                         componentName: 'Grid',
                         contents: [
+                          // Welcome Message
                           {
                             styles: {},
                             opts: {
-                              height: 0.25,
-                              header: {
-                                styles: {},
-                                opts: {},
-                                id: '',
-                                classes: '',
-                                name: '',
-                                divider: {},
-                                display: false,
-                              },
-                              content: {
+                              item: true,
+                              xs: 12,
+                            },
+                            id: '',
+                            classes: '',
+                            componentName: 'Grid',
+                            contents: [
+                              {
                                 styles: {},
                                 opts: {
-                                  header: 'Hello there!',
-                                  subheader:
-                                    'Welcome to the AcmeInvestments Banking Portal!',
-                                  text: '',
-                                  headerStyle: {},
-                                  subheaderStyle: {},
-                                  textStyle: {},
+                                  height: 0.2,
+                                  header: {
+                                    styles: { height: '0px', padding: '0px' },
+                                    opts: {},
+                                    id: '',
+                                    classes: '',
+                                    name: '',
+                                    divider: { display: 'none' },
+                                  },
+                                  content: {
+                                    styles: {},
+                                    opts: {
+                                      header: 'Hello there!',
+                                      subheader:
+                                        'Welcome to the AcmeInvestments Banking Portal!',
+                                      text: '',
+                                      headerStyle: {},
+                                      subheaderStyle: {},
+                                      textStyle: {},
+                                    },
+                                    id: '',
+                                    classes: 'welcome-message-text',
+                                    type: 'Text',
+                                  },
                                 },
-                                id: '',
-                                classes: 'welcome-message-text',
-                                type: 'Text',
+                                id: 'welcome-message',
+                                classes: '',
+                                componentName: 'ContentTile',
                               },
-                            },
-                            id: 'welcome-message',
-                            classes: '',
-                            componentName: 'ContentTile',
+                            ],
                           },
                         ],
                       },
-                      // Figure Tiles
+                      // Number blocks
                       {
                         styles: {},
                         opts: { item: true, xs: 6, md: 3 },
@@ -1342,15 +1345,14 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.25,
+                              height: 0.2,
                               header: {
-                                styles: {},
+                                styles: { height: '0px', padding: '0px' },
                                 opts: {},
                                 id: '',
                                 classes: '',
                                 name: '',
-                                divider: {},
-                                display: false,
+                                divider: { display: 'none' },
                               },
                               content: {
                                 styles: {},
@@ -1389,15 +1391,14 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.25,
+                              height: 0.2,
                               header: {
-                                styles: {},
+                                styles: { height: '0px', padding: '0px' },
                                 opts: {},
                                 id: '',
                                 classes: '',
                                 name: '',
-                                divider: {},
-                                display: false,
+                                divider: { display: 'none' },
                               },
                               content: {
                                 styles: {},
@@ -1436,15 +1437,14 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.25,
+                              height: 0.2,
                               header: {
-                                styles: {},
+                                styles: { height: '0px', padding: '0px' },
                                 opts: {},
                                 id: '',
                                 classes: '',
                                 name: '',
-                                divider: {},
-                                display: false,
+                                divider: { display: 'none' },
                               },
                               content: {
                                 styles: {},
@@ -1483,15 +1483,14 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.25,
+                              height: 0.2,
                               header: {
-                                styles: {},
+                                styles: { height: '0px', padding: '0px' },
                                 opts: {},
                                 id: '',
                                 classes: '',
                                 name: '',
-                                divider: {},
-                                display: false,
+                                divider: { display: 'none' },
                               },
                               content: {
                                 styles: {},
@@ -1524,7 +1523,6 @@ export default {
                   },
                 ],
               },
-              // Button Array
               {
                 styles: {},
                 opts: {
@@ -1536,19 +1534,21 @@ export default {
                 classes: '',
                 componentName: 'Grid',
                 contents: [
+                  // Button Array
                   {
                     styles: {},
+                    sx: {},
                     opts: {
-                      height: 0.5,
+                      height: 0.4,
                       header: {
-                        styles: {},
+                        styles: { paddingTop: '8px', paddingBottom: '8px' },
                         opts: {},
                         id: '',
                         classes: '',
                         name: 'Take Action',
                       },
                       content: {
-                        styles: { paddingBottom: '16px' },
+                        styles: {},
                         options: {},
                         opts: {
                           contents: [
@@ -1927,7 +1927,6 @@ export default {
                   },
                 ],
               },
-              // Performance Chart
               {
                 styles: {},
                 opts: {
@@ -1939,10 +1938,11 @@ export default {
                 classes: '',
                 componentName: 'Grid',
                 contents: [
+                  // Performance Chart
                   {
                     styles: {},
                     opts: {
-                      height: 0.5,
+                      height: 0.6,
                       header: {
                         styles: {},
                         opts: {},
