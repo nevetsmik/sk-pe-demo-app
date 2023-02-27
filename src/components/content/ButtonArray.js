@@ -13,14 +13,13 @@ const ButtonArray = (props) => {
     const parentStyles = getComputedStyle(ref.current.parentElement);
     const paddingTop = parseInt(parentStyles.paddingTop.slice(0, -2));
     const paddingBottom = parseInt(parentStyles.paddingBottom.slice(0, -2));
-    // setPadding(32);
     setPadding(paddingTop + paddingBottom);
   });
 
   return (
     <MuiList
       ref={ref}
-      style={{ height: props.height - padding, width: '100%' }}
+      style={{ height: props.height - padding, width: '100%', padding: '0px' }}
     >
       {props.contents.map((d) => (
         <Button key={d.name} {...d}></Button>

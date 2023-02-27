@@ -33,6 +33,8 @@ const Embed = (props) => {
   let loadingHeight =
     props.embedType !== 'Modal' ? props.height - padding : '100px';
 
+  console.log(props.embedType, availableHeight, loadingHeight);
+
   return (
     <>
       <MuiBox
@@ -40,19 +42,20 @@ const Embed = (props) => {
         sx={{
           display: iframeLoaded ? 'initial' : 'none',
           border: 'none',
-          padding: 0,
-          margin: 0,
+          color: 'red',
         }}
+        height={availableHeight}
       >
         <iframe
           src={props.src}
           title={props.title}
           onLoad={handleIframeLoad}
           width="100%"
-          height={availableHeight}
+          height={availableHeight - 10}
           style={{ border: 'none' }}
         ></iframe>
       </MuiBox>
+
       <MuiBox
         sx={{
           display: iframeLoaded ? 'none' : 'flex',

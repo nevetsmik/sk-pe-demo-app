@@ -1,19 +1,6 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
-// pull out what page we're on, either on dev or prod
-let page;
-if (
-  window.location.hostname === 'localhost' ||
-  window.location.hostname === 'pe-demo-app-dot-pendo-demo-eng.ue.r.appspot.com'
-) {
-  page = window.location.href.split('/')[3].split('?')[0];
-} else {
-  page = window.location.href.split('/')[3];
-}
-// handle if we're on the default route
-page = page === '' ? 'investments' : page;
-
 export default {
   styles: {
     display: 'flex',
@@ -121,7 +108,6 @@ export default {
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
-              display: page === 'research' ? 'inherit' : 'none',
             },
             opts: {
               variant: 'contained',
@@ -233,6 +219,7 @@ export default {
                 window.location.href = `${window.location.origin}/?app=investments`;
               },
             },
+            route: '/research',
           },
           // Investments Button
           {
@@ -241,7 +228,6 @@ export default {
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
-              display: page === 'investments' ? 'inherit' : 'none',
             },
             opts: {
               variant: 'contained',
@@ -251,7 +237,7 @@ export default {
             componentName: 'Button',
             alignment: 'right',
             type: 'Modal',
-            name: 'Investments',
+            name: 'Manage',
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               // updateAddNewLabels();
@@ -357,6 +343,7 @@ export default {
                 window.location.href = `${window.location.origin}/?app=investments`;
               },
             },
+            route: '/',
           },
         ],
       },
@@ -842,7 +829,8 @@ export default {
                         styles: {},
                         opts: {
                           item: true,
-                          xs: 4,
+                          xs: 6,
+                          md: 3,
                         },
                         id: '',
                         classes: '',
@@ -879,7 +867,7 @@ export default {
                       // Video 2
                       {
                         styles: {},
-                        opts: { item: true, xs: 4 },
+                        opts: { item: true, xs: 6, md: 3 },
                         id: '',
                         classes: '',
                         componentName: 'Grid',
@@ -915,7 +903,7 @@ export default {
                       // Video 3
                       {
                         styles: {},
-                        opts: { item: true, xs: 4 },
+                        opts: { item: true, xs: 6, md: 3 },
                         id: '',
                         classes: '',
                         componentName: 'Grid',
@@ -943,6 +931,42 @@ export default {
                               },
                             },
                             id: 'video-3-card',
+                            classes: '',
+                            componentName: 'ContentTile',
+                          },
+                        ],
+                      },
+                      // Video 4
+                      {
+                        styles: {},
+                        opts: { item: true, xs: 6, md: 3 },
+                        id: '',
+                        classes: '',
+                        componentName: 'Grid',
+                        contents: [
+                          {
+                            styles: {},
+                            opts: {
+                              height: 0.3,
+                              header: {
+                                styles: { height: '45px' },
+                                opts: {},
+                                id: '',
+                                classes: 'video-3-header',
+                                name: 'FinServ Podcast',
+                              },
+                              content: {
+                                styles: {},
+                                opts: {
+                                  src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
+                                  title: 'Financial Services Podcast',
+                                },
+                                id: '',
+                                classes: 'video-3',
+                                type: 'Embed',
+                              },
+                            },
+                            id: 'video-4-card',
                             classes: '',
                             componentName: 'ContentTile',
                           },
@@ -1301,7 +1325,7 @@ export default {
                               {
                                 styles: {},
                                 opts: {
-                                  height: 0.2,
+                                  height: 0.175,
                                   header: {
                                     styles: { height: '0px', padding: '0px' },
                                     opts: {},
@@ -1345,7 +1369,7 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.2,
+                              height: 0.175,
                               header: {
                                 styles: { height: '0px', padding: '0px' },
                                 opts: {},
@@ -1391,7 +1415,7 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.2,
+                              height: 0.175,
                               header: {
                                 styles: { height: '0px', padding: '0px' },
                                 opts: {},
@@ -1437,7 +1461,7 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.2,
+                              height: 0.175,
                               header: {
                                 styles: { height: '0px', padding: '0px' },
                                 opts: {},
@@ -1483,7 +1507,7 @@ export default {
                           {
                             styles: {},
                             opts: {
-                              height: 0.2,
+                              height: 0.175,
                               header: {
                                 styles: { height: '0px', padding: '0px' },
                                 opts: {},
@@ -1539,9 +1563,9 @@ export default {
                     styles: {},
                     sx: {},
                     opts: {
-                      height: 0.4,
+                      height: 0.35,
                       header: {
-                        styles: { paddingTop: '8px', paddingBottom: '8px' },
+                        styles: {},
                         opts: {},
                         id: '',
                         classes: '',
@@ -1942,7 +1966,7 @@ export default {
                   {
                     styles: {},
                     opts: {
-                      height: 0.6,
+                      height: 0.65,
                       header: {
                         styles: {},
                         opts: {},

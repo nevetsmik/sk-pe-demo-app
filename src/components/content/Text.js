@@ -20,13 +20,10 @@ const Text = (props) => {
     <MuiBox
       ref={ref}
       style={{
-        // height: props.height - padding,
         maxWidth: '100%',
-        // whiteSpace: 'nowrap',
-        // overflow: 'hidden',
-        // textOverflow: 'ellipsis',
         ...props.sx,
       }}
+      height={props.height - padding}
     >
       {props.header ? (
         <MuiBox

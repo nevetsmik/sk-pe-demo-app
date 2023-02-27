@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import MuiToolbar from '@mui/material/Toolbar';
 import MuiTypography from '@mui/material/Typography';
@@ -13,7 +14,12 @@ let supportedComponents = {
   Button: Button,
 };
 
+//Note: if no route is specified on the content, it will display on all pages
+
 const AppBar = (props) => {
+  // get current route
+  const location = useLocation();
+
   // Wrapper for left aligned items
   const LeftWrapper = muiStyled('div')(({ theme }) => ({
     display: 'flex',
@@ -55,20 +61,25 @@ const AppBar = (props) => {
         {props.contents
           .filter((d) => d.alignment === 'left')
           .map((d, i) => {
-            let Component = supportedComponents[d.componentName];
-            return (
-              <div
-                key={`${d.componentName}-${i}`}
-                style={{ width: '100%' }}
-                className="nav-item"
-              >
-                {Component ? (
-                  <Component {...d}></Component>
-                ) : (
-                  `Unsupported component type: ${d.componentName}`
-                )}
-              </div>
-            );
+            // only include element if it is scoped to this page, or if no page restrictions are specified
+            if (d.route === location.pathname || d.route === undefined) {
+              let Component = supportedComponents[d.componentName];
+              return (
+                <div
+                  key={`${d.componentName}-${i}`}
+                  style={{ width: '100%' }}
+                  className="nav-item"
+                >
+                  {Component ? (
+                    <Component {...d}></Component>
+                  ) : (
+                    `Unsupported component type: ${d.componentName}`
+                  )}
+                </div>
+              );
+            } else {
+              return;
+            }
           })}
       </LeftWrapper>
 
@@ -77,16 +88,21 @@ const AppBar = (props) => {
         {props.contents
           .filter((d) => d.alignment === 'right')
           .map((d, i) => {
-            let Component = supportedComponents[d.componentName];
-            return (
-              <div key={`${d.componentName}-${i}`} className="nav-item">
-                {Component ? (
-                  <Component {...d}></Component>
-                ) : (
-                  `Unsupported component type: ${d.componentName}`
-                )}
-              </div>
-            );
+            // only include element if it is scoped to this page, or if no page restrictions are specified
+            if (d.route === location.pathname || d.route === undefined) {
+              let Component = supportedComponents[d.componentName];
+              return (
+                <div key={`${d.componentName}-${i}`} className="nav-item">
+                  {Component ? (
+                    <Component {...d}></Component>
+                  ) : (
+                    `Unsupported component type: ${d.componentName}`
+                  )}
+                </div>
+              );
+            } else {
+              return;
+            }
           })}
       </RightWrapper>
     </MuiToolbar>
