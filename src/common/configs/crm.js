@@ -37,6 +37,10 @@ const updateAddNewLabels = (event) => {
   });
 };
 
+let urlParams = new URLSearchParams(document.location.search);
+let role = urlParams.get('role');
+let displayAddNew = role === 'partner' ? 'none' : 'inherit';
+
 export default {
   styles: {
     display: 'flex',
@@ -203,10 +207,7 @@ export default {
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
-              // display:
-              //   window.pendo.getSerializedMetadata() === 'partner'
-              //     ? 'none'
-              //     : 'initial',
+              display: displayAddNew,
             },
             opts: {
               variant: 'contained',
@@ -220,6 +221,11 @@ export default {
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
+              // Add '/new' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              pendo.location.setUrl(
+                baseUrl.slice(-1) === '/' ? `${baseUrl}new` : `${baseUrl}/new`
+              );
             },
             header: {
               styles: {},

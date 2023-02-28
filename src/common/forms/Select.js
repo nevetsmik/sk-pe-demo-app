@@ -40,11 +40,7 @@ const Select = (props) => {
         data-testid={`select-dropdown-${props.label}`}
       >
         {props.options.map((d, i) => (
-          <MuiMenuItem
-            key={`${props.id}-${d.name}`}
-            value={d.value}
-            className={`select-${d.value}`}
-          >
+          <MuiMenuItem key={`${props.id}-${d.name}`} value={d.value}>
             {d.name}
           </MuiMenuItem>
         ))}

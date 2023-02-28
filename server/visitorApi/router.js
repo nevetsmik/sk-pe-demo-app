@@ -571,7 +571,10 @@ function getStaticVisitor() {
 
 // Populate metadata on visitor info object based on visitor id
 function populateMetadata(visInfo) {
-  visInfo.visitor.role = getHashedIndexFromArray(roles, visInfo.visitor.id);
+  visInfo.visitor.role = getHashedIndexFromArray(
+    roles.pop(),
+    visInfo.visitor.id
+  );
   visInfo.visitor.team = getHashedIndexFromArray(teams, visInfo.visitor.id);
   visInfo.visitor.title = `${getHashedIndexFromArray(
     titlePrefixes,

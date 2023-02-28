@@ -1,6 +1,45 @@
 import React from 'react';
 import hexToRGBA from '../hexToRGBA';
 
+const updateManageLabels = (event) => {
+  // Dynamically change text field labels based on type
+  let labels = [
+    {
+      newClients: 'Name',
+      changeAllocation: 'Current Account',
+      updateInfo: 'Name',
+    },
+    {
+      newClients: 'Address',
+      changeAllocation: 'New Account',
+      updateInfo: 'Address',
+    },
+    {
+      newClients: 'Type',
+      changeAllocation: 'Date',
+      updateInfo: 'Type',
+    },
+  ];
+
+  let selectedValue =
+    event?.target?.value ||
+    document.getElementById('manage-select-type').nextElementSibling.value;
+
+  labels.forEach((d, i) => {
+    // Label text
+    document.getElementById(`manage-text-field-${i}-label`).innerText =
+      labels[i][selectedValue];
+    // Child span that sets width of text when focused
+    document.getElementById(
+      `manage-text-field-${i}`
+    ).nextElementSibling.children[0].children[0].innerText =
+      labels[i][selectedValue];
+    // Input name attribute
+    document.getElementById(`manage-text-field-${i}`).name =
+      labels[i][selectedValue];
+  });
+};
+
 export default {
   styles: {
     display: 'flex',
@@ -119,15 +158,13 @@ export default {
             type: 'Modal',
             name: 'Subscribe to Research',
             openStartCallback: () => {
-              // Set dynamic labels for add new form before it is rendered
-              // updateAddNewLabels();
-
-              // Add '/new' to url using pendo location api when add new form open
+              // Add '/subscribe' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
+              baseUrl = baseUrl.split('?');
               pendo.location.setUrl(
-                baseUrl.slice(-1) === '/'
-                  ? `${baseUrl}subscribe`
-                  : `${baseUrl}/subscribe`
+                baseUrl[0].slice(-1) === '/'
+                  ? `${baseUrl[0]}subscribe${baseUrl[1]}`
+                  : `${baseUrl[0]}/subscribe${baseUrl[1]}`
               );
             },
             closeEndCallback: () => {
@@ -192,10 +229,8 @@ export default {
                     },
                   ],
                   default: () => {
-                    // Dynamically assign default based on path
                     return 'Daily';
                   },
-                  // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                 },
                 {
                   styles: {},
@@ -214,9 +249,8 @@ export default {
                   label: 'Name',
                 },
               ],
-              submitCallback: function () {
-                console.log('subscription options submitted');
-              },
+              submitCallback: function () {},
+              successMessage: 'Subscription options updated!',
             },
             route: '/research',
           },
@@ -231,22 +265,22 @@ export default {
             opts: {
               variant: 'contained',
             },
-            id: 'subscribe-form-launch',
+            id: 'manage-firm-launch',
             classes: '',
             componentName: 'Button',
             alignment: 'right',
             type: 'Modal',
             name: 'Manage',
             openStartCallback: () => {
-              // Set dynamic labels for add new form before it is rendered
-              // updateAddNewLabels();
+              updateManageLabels();
 
-              // Add '/new' to url using pendo location api when add new form open
+              // Add '/manage' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
+              baseUrl = baseUrl.split('?');
               pendo.location.setUrl(
-                baseUrl.slice(-1) === '/'
-                  ? `${baseUrl}manage`
-                  : `${baseUrl}/manage`
+                baseUrl[0].slice(-1) === '/'
+                  ? `${baseUrl[0]}manage${baseUrl[1]}`
+                  : `${baseUrl[0]}/manage${baseUrl[1]}`
               );
             },
             closeEndCallback: () => {
@@ -258,7 +292,7 @@ export default {
               opts: {},
               id: '',
               classes: '',
-              name: 'Change Allocation',
+              name: 'Manage Your Firm',
             },
             content: {
               styles: {},
@@ -270,76 +304,57 @@ export default {
                 {
                   styles: {},
                   opts: {},
-                  id: 'account-select',
+                  id: 'manage-select-type',
                   classes: '',
                   componentName: 'Select',
-                  label: 'Select Account',
+                  label: 'Type of Change',
                   options: [
                     {
-                      name: 'Retirement Account',
-                      value: 'Retirement Account',
+                      value: 'newClients',
+                      name: 'Add New Client',
                     },
                     {
-                      name: 'Rainy Day Fund',
-                      value: 'Rainy Day Fund',
+                      value: 'updateInfo',
+                      name: 'Update Client Info',
                     },
                     {
-                      name: 'Big Purchase Fund',
-                      value: 'Big Purchase Fund',
+                      value: 'changeAllocation',
+                      name: 'Change Allocation',
                     },
                   ],
                   default: () => {
                     // Dynamically assign default based on path
-                    return 'Retirement Account';
+                    return 'newClients';
                   },
+                  changeEndCallback: updateManageLabels, // Update dynamic add new form labels on select change
                 },
                 {
                   styles: {},
                   opts: {},
-                  id: 'amount-to-move',
+                  id: 'manage-text-field-0',
                   classes: '',
                   componentName: 'TextField',
-                  label: 'Amount to Change',
+                  label: 'Default',
                 },
                 {
                   styles: {},
                   opts: {},
-                  id: 'subscribe-text-name',
+                  id: 'manage-text-field-1',
                   classes: '',
                   componentName: 'TextField',
-                  label: 'Name',
+                  label: 'Default',
                 },
                 {
                   styles: {},
                   opts: {},
-                  id: 'change-date-select',
+                  id: 'manage-text-field-2',
                   classes: '',
-                  componentName: 'Select',
-                  label: 'Frequency',
-                  options: [
-                    {
-                      name: 'Today',
-                      value: 'Today',
-                    },
-                    {
-                      name: 'Tomorrow',
-                      value: 'Tomorrow',
-                    },
-                    {
-                      name: '7 Days from Now',
-                      value: '7 Days from Now',
-                    },
-                  ],
-                  default: () => {
-                    // Dynamically assign default based on path
-                    return 'Today';
-                  },
-                  // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
+                  componentName: 'TextField',
+                  label: 'Default',
                 },
               ],
-              submitCallback: function () {
-                console.log('options updated');
-              },
+              submitCallback: function () {},
+              successMessage: 'Task managed!',
             },
             route: '/',
           },
@@ -1762,15 +1777,13 @@ export default {
                               type: 'Modal',
                               name: 'Add External Account',
                               openStartCallback: () => {
-                                // Set dynamic labels for add new form before it is rendered
-                                // updateAddNewLabels();
-
-                                // Add '/new' to url using pendo location api when add new form open
+                                // Add '/add' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
+                                baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
-                                  baseUrl.slice(-1) === '/'
-                                    ? `${baseUrl}new`
-                                    : `${baseUrl}/new`
+                                  baseUrl[0].slice(-1) === '/'
+                                    ? `${baseUrl[0]}add${baseUrl[1]}`
+                                    : `${baseUrl[0]}/add${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
@@ -1883,12 +1896,13 @@ export default {
                                 // Set dynamic labels for add new form before it is rendered
                                 // updateAddNewLabels();
 
-                                // Add '/new' to url using pendo location api when add new form open
+                                // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
+                                baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
-                                  baseUrl.slice(-1) === '/'
-                                    ? `${baseUrl}change`
-                                    : `${baseUrl}/change`
+                                  baseUrl[0].slice(-1) === '/'
+                                    ? `${baseUrl[0]}change${baseUrl[1]}`
+                                    : `${baseUrl[0]}/change${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
@@ -1979,10 +1993,8 @@ export default {
                                     // changeEndCallback: updateAddNewLabels, // Update dynamic add new form labels on select change
                                   },
                                 ],
-                                submitCallback: function () {
-                                  // Go to relevant details page
-                                  window.location.href = `${window.location.origin}/?app=investments`;
-                                },
+                                submitCallback: function () {},
+                                successMessage: 'Allocation updated!',
                               },
                             },
                             // Set Up New Credit Card
@@ -2002,15 +2014,13 @@ export default {
                               type: 'Modal',
                               name: 'Set Up Credit Card',
                               openStartCallback: () => {
-                                // Set dynamic labels for add new form before it is rendered
-                                // updateAddNewLabels();
-
-                                // Add '/new' to url using pendo location api when add new form open
+                                // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
+                                baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
-                                  baseUrl.slice(-1) === '/'
-                                    ? `${baseUrl}setup`
-                                    : `${baseUrl}/setup`
+                                  baseUrl[0].slice(-1) === '/'
+                                    ? `${baseUrl[0]}setup${baseUrl[1]}`
+                                    : `${baseUrl[0]}/setup${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
@@ -2103,8 +2113,9 @@ export default {
                                 ],
                                 submitCallback: function () {
                                   // Go to relevant details page
-                                  window.location.href = `${window.location.origin}/?app=investments`;
+                                  // window.location.href = `${window.location.origin}/banking?app=investments`;
                                 },
+                                successMessage: 'Setup submitted!',
                               },
                             },
                           ],

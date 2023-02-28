@@ -664,7 +664,7 @@ export default {
                         type: 'Table',
                       },
                     },
-                    id: '',
+                    id: 'open-claims-card',
                     classes: '',
                     componentName: 'ContentTile',
                   },

@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import MuiBox from '@mui/material/Box';
 import MuiFormControl from '@mui/material/FormControl';
 import MuiButton from '@mui/material/Button';
+import MuiPortal from '@mui/material/Portal';
+import MuiSnackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import Select from './Select';
 import TextField from './TextField';
@@ -19,6 +22,22 @@ const supportedComponents = {
 const Form = (props) => {
   // Router navigation hook for rendering new page on submit
   const navigate = useNavigate();
+
+  // Handle snackbar state
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [alertSeverity, setAlertSeverity] = React.useState('success');
+  const [alertMessage, setAlertMessage] = React.useState(
+    'Created successfully!'
+  );
+  const handleSnackbarOpen = (severity, message) => {
+    setAlertSeverity(severity);
+    setAlertMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleCancel = (event) => {
     // Call optional cancel callback
@@ -47,10 +66,28 @@ const Form = (props) => {
     if (props.modalClose) {
       props.modalClose();
     }
+
+    handleSnackbarOpen('success', props.successMessage);
   };
 
   return (
     <>
+      <MuiPortal>
+        <MuiSnackbar
+          open={snackbarOpen}
+          onClose={handleSnackbarClose}
+          autoHideDuration={4000}
+        >
+          <MuiAlert
+            onClose={handleSnackbarClose}
+            severity={alertSeverity}
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            {alertMessage}
+          </MuiAlert>
+        </MuiSnackbar>
+      </MuiPortal>
       {/* Render form components from contents */}
       {props.contents.map((d, i) => {
         let Component = supportedComponents[d.componentName];
@@ -120,6 +157,8 @@ Form.propTypes = {
   cancelCallback: PropTypes.func,
   submitCallback: PropTypes.func,
   modalClose: PropTypes.func,
+  successMessage: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default Form;
