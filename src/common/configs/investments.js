@@ -1872,8 +1872,9 @@ export default {
                                 ],
                                 submitCallback: function () {
                                   // Go to relevant details page
-                                  window.location.href = `${window.location.origin}/?app=investments`;
+                                  // window.location.href = `${window.location.origin}/?app=investments`;
                                 },
+                                successMessage: 'External account added!',
                               },
                             },
                             // Change Allocation
