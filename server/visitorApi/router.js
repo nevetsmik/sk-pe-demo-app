@@ -210,7 +210,7 @@ const staticAccounts = [
 ];
 
 // List of possible roles
-const roles = ['user', 'admin', 'read-only'];
+const roles = ['user', 'admin', 'read-only', 'partner'];
 
 // List of possible teams
 const teams = [

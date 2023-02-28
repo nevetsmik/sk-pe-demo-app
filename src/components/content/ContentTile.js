@@ -14,7 +14,7 @@ import TabbedInput from './TabbedInput';
 import Timeline from './Timeline';
 import ListResults from './ListResults';
 import Text from './Text';
-import Embed from '../../common/forms/Embed.js';
+import Embed from './Embed.js';
 import ButtonArray from './ButtonArray';
 
 // Create object of supported content types to be rendered in tile

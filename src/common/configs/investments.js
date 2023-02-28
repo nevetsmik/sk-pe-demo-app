@@ -80,7 +80,7 @@ export default {
           path: '/research',
         },
         {
-          name: 'Banking',
+          name: 'Banking Portal',
           type: 'route',
           path: '/banking',
         },
@@ -215,8 +215,7 @@ export default {
                 },
               ],
               submitCallback: function () {
-                // Go to relevant details page
-                window.location.href = `${window.location.origin}/?app=investments`;
+                console.log('subscription options submitted');
               },
             },
             route: '/research',
@@ -339,8 +338,7 @@ export default {
                 },
               ],
               submitCallback: function () {
-                // Go to relevant details page
-                window.location.href = `${window.location.origin}/?app=investments`;
+                console.log('options updated');
               },
             },
             route: '/',
@@ -437,8 +435,8 @@ export default {
                                           13000, 12000, 19000, 22000, 24000,
                                         ],
                                         backgroundColor: hexToRGBA(
-                                          '#5ad45a',
-                                          0.75
+                                          '#1DA259',
+                                          1
                                         ),
                                         borderColor: hexToRGBA('#0d88e6', 0.9),
                                         pointBackgroundColor: hexToRGBA(
@@ -710,15 +708,16 @@ export default {
                       content: {
                         styles: {},
                         opts: {
-                          dataUrl:
-                            '/investments/tableData/investment_clients.json',
+                          dataUrl: '/investments/tableData/clients.json',
                           columns: [
                             {
                               field: 'name',
                               headerName: 'Name',
                               flex: 1,
                               renderCell: (params) => (
-                                <a href={`/clients/${params.id}/details`}>
+                                <a
+                                  href={`/investments/${params.id}/details?app=investments`}
+                                >
                                   {params.formattedValue}
                                 </a>
                               ),
@@ -733,6 +732,176 @@ export default {
                         id: '',
                         classes: '',
                         type: 'Table',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Client Details',
+        route: '/investments/:detailId/details',
+        contents: [
+          {
+            styles: {},
+            opts: {
+              container: true,
+            },
+            id: '',
+            classes: '',
+            componentName: 'Grid',
+            contents: [
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  sm: 5,
+                  md: 4,
+                  lg: 3,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Quick Information',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          schema: {
+                            clients: ['name', 'email', 'phone'],
+                          },
+                          baseUrl: '/investments/tableData/',
+                          src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'QuickInfo',
+                      },
+                    },
+                    id: 'quick-info',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                  sm: 7,
+                  md: 8,
+                  lg: 9,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Activity Tracker',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          tabs: [
+                            'New Note',
+                            'Email',
+                            'Call',
+                            'Log Activity',
+                            'Create Task',
+                            'Schedule',
+                          ],
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'TabbedInput',
+                      },
+                    },
+                    id: '',
+                    classes: '',
+                    componentName: 'ContentTile',
+                  },
+                ],
+              },
+              {
+                styles: {},
+                opts: {
+                  item: true,
+                  xs: 12,
+                },
+                id: '',
+                classes: '',
+                componentName: 'Grid',
+                contents: [
+                  {
+                    styles: {},
+                    opts: {
+                      height: 0.5,
+                      header: {
+                        styles: {},
+                        opts: {},
+                        id: '',
+                        classes: '',
+                        name: 'Timeline',
+                      },
+                      content: {
+                        styles: {},
+                        opts: {
+                          entries: [
+                            {
+                              icon: 'NoteAlt',
+                              text: 'Waiting on signed agreement from client.',
+                            },
+                            {
+                              icon: 'Email',
+                              text: 'Sent follow up email to re-engage.',
+                            },
+                            {
+                              icon: 'Phone',
+                              text: 'Had a phone conversation discussing next steps.',
+                            },
+                            {
+                              icon: 'Build',
+                              text: 'Opened account for client.',
+                            },
+                            {
+                              icon: 'CheckBox',
+                              text: 'Meeting completed.',
+                            },
+                            {
+                              icon: 'CalendarToday',
+                              text: 'Meeting requested November 15, 2020.',
+                            },
+                          ],
+                        },
+                        id: '',
+                        classes: '',
+                        type: 'Timeline',
                       },
                     },
                     id: '',
@@ -845,13 +1014,13 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: 'video-1-header',
-                                name: 'Pricing Page Teardown',
+                                name: 'Pricing Teardown',
                               },
                               content: {
                                 styles: {},
                                 opts: {
                                   src: 'https://fast.wistia.net/embed/iframe/6vi5ycxkvg',
-                                  title: 'Pricing Page Teardown',
+                                  title: 'Pricing Teardown',
                                 },
                                 id: '',
                                 classes: 'video-1',
@@ -881,7 +1050,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: 'video-2-header',
-                                name: 'Culture in 4 Minutes',
+                                name: 'Culture in 4m',
                               },
                               content: {
                                 styles: {},
@@ -958,7 +1127,7 @@ export default {
                               content: {
                                 styles: {},
                                 opts: {
-                                  src: 'https://fast.wistia.net/embed/iframe/065lpp45l5',
+                                  src: 'https://fast.wistia.com/embed/iframe/99g46vsb2y',
                                   title: 'Financial Services Podcast',
                                 },
                                 id: '',
@@ -1268,7 +1437,7 @@ export default {
         ],
       },
       {
-        name: 'Banking',
+        name: 'Banking Portal',
         route: '/banking',
         contents: [
           {
@@ -1339,7 +1508,7 @@ export default {
                                     opts: {
                                       header: 'Hello there!',
                                       subheader:
-                                        'Welcome to the AcmeInvestments Banking Portal!',
+                                        'Welcome to your AcmeInvestments Banking Portal!',
                                       text: '',
                                       headerStyle: {},
                                       subheaderStyle: {},
@@ -1386,7 +1555,7 @@ export default {
                                   text: 'Total Wealth',
                                   headerStyle: {
                                     textAlign: 'center',
-                                    color: '#1f9c1f',
+                                    color: '#1DA259',
                                   },
                                   subheaderStyle: {},
                                   textStyle: {
@@ -1432,7 +1601,7 @@ export default {
                                   text: 'Total Assets',
                                   headerStyle: {
                                     textAlign: 'center',
-                                    color: '#1f9c1f',
+                                    color: '#1DA259',
                                   },
                                   subheaderStyle: {},
                                   textStyle: {
@@ -1565,7 +1734,7 @@ export default {
                     opts: {
                       height: 0.35,
                       header: {
-                        styles: {},
+                        styles: { height: '45px' },
                         opts: {},
                         id: '',
                         classes: '',
@@ -2001,8 +2170,8 @@ export default {
                                   4500, 0, 0, 1230, 1600, 1700, 1800, 13000,
                                   12000, 19000, 22000, 24000,
                                 ],
-                                backgroundColor: hexToRGBA('#5ad45a', 0.75),
-                                borderColor: hexToRGBA('#0d88e6', 0.9),
+                                backgroundColor: hexToRGBA('#1DA259', 1),
+                                borderColor: hexToRGBA('#1DA259', 0.9),
                                 pointBackgroundColor: hexToRGBA('#0d88e6', 0.8),
                                 pointBorderColor: hexToRGBA('#0d88e6', 1),
                               },
@@ -2025,9 +2194,9 @@ export default {
                                   0,
                                 ],
                                 backgroundColor: hexToRGBA('#b30000', 0.75),
-                                borderColor: hexToRGBA('#0d88e6', 0.9),
-                                pointBackgroundColor: hexToRGBA('#0d88e6', 0.8),
-                                pointBorderColor: hexToRGBA('#0d88e6', 1),
+                                borderColor: hexToRGBA('#b30000', 0.9),
+                                pointBackgroundColor: hexToRGBA('#b30000', 0.8),
+                                pointBorderColor: hexToRGBA('#b30000', 1),
                               },
                             ],
                           },

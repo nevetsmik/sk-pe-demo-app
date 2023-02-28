@@ -203,6 +203,10 @@ export default {
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
+              // display:
+              //   window.pendo.getSerializedMetadata() === 'partner'
+              //     ? 'none'
+              //     : 'initial',
             },
             opts: {
               variant: 'contained',

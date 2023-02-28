@@ -27,13 +27,19 @@ const Embed = (props) => {
     setPadding(paddingTop + paddingBottom);
   });
 
-  let availableHeight =
-    props.embedType !== 'Modal' ? props.height - padding : '100%';
-
-  let loadingHeight =
-    props.embedType !== 'Modal' ? props.height - padding : '100px';
-
-  console.log(props.embedType, availableHeight, loadingHeight);
+  let availableHeight;
+  let loadingHeight;
+  let srcFormatted = props.src;
+  if (props.embedType !== 'Modal') {
+    availableHeight = props.height - padding;
+    loadingHeight = props.height - padding;
+    srcFormatted =
+      props.src +
+      '?playerColor=01003A&playButton=false&playbar=true&controlsVisibleOnLoad=true';
+  } else {
+    availableHeight = '100%';
+    loadingHeight = '100px';
+  }
 
   return (
     <>
@@ -47,7 +53,7 @@ const Embed = (props) => {
         height={availableHeight}
       >
         <iframe
-          src={props.src}
+          src={srcFormatted}
           title={props.title}
           onLoad={handleIframeLoad}
           width="100%"

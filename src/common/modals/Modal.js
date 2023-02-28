@@ -11,7 +11,7 @@ import MuiIconButton from '@mui/material/IconButton';
 import MuiCloseIcon from '@mui/icons-material/Close';
 
 import Form from '../forms/Form';
-import Embed from '../forms/Embed';
+import Embed from '../../components/content/Embed';
 
 let supportedComponents = {
   Form: Form,

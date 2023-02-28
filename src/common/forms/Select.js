@@ -32,13 +32,19 @@ const Select = (props) => {
         sx={{ ...props.styles }}
         {...props.opts}
         id={props.id}
-        className={props.classes}
+        // className={props.classes}
+        className="find-me"
         label={props.label}
         value={selectValue}
         onChange={handleChange}
+        data-testid={`select-dropdown-${props.label}`}
       >
         {props.options.map((d, i) => (
-          <MuiMenuItem key={`${props.id}-${d.name}`} value={d.value}>
+          <MuiMenuItem
+            key={`${props.id}-${d.name}`}
+            value={d.value}
+            className={`select-${d.value}`}
+          >
             {d.name}
           </MuiMenuItem>
         ))}
