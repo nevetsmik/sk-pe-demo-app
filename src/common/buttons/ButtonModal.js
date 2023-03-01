@@ -38,7 +38,7 @@ const ButtonModal = (props) => {
     }
   };
 
-  return props.displayIndicator ? (
+  return props.displayIndicator || props.displayIndicator === undefined ? (
     <>
       <Modal
         open={open}
