@@ -39,7 +39,7 @@ const updateAddNewLabels = (event) => {
 
 let urlParams = new URLSearchParams(document.location.search);
 let role = urlParams.get('role');
-let displayAddNew = role === 'partner' ? 'none' : 'inherit';
+let displayAddNew = role === 'partner' ? false : true;
 
 export default {
   styles: {
@@ -202,12 +202,13 @@ export default {
             alignment: 'left',
           },
           {
+            // passing in optional property that controls if button is visible
+            displayIndicator: displayAddNew,
             styles: {
               backgroundColor: '#1DA259',
               '&:hover': {
                 backgroundColor: '#1a9150',
               },
-              display: displayAddNew,
             },
             opts: {
               variant: 'contained',
@@ -223,8 +224,11 @@ export default {
               updateAddNewLabels();
               // Add '/new' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
+              baseUrl = baseUrl.split('?');
               pendo.location.setUrl(
-                baseUrl.slice(-1) === '/' ? `${baseUrl}new` : `${baseUrl}/new`
+                baseUrl[0].slice(-1) === '/'
+                  ? `${baseUrl[0]}new?${baseUrl[1]}`
+                  : `${baseUrl[0]}/new?${baseUrl[1]}`
               );
             },
             header: {

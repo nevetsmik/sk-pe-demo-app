@@ -38,7 +38,7 @@ const ButtonModal = (props) => {
     }
   };
 
-  return (
+  return props.displayIndicator ? (
     <>
       <Modal
         open={open}
@@ -78,10 +78,13 @@ const ButtonModal = (props) => {
         )}
       </MuiTooltip>
     </>
+  ) : (
+    ''
   );
 };
 
 ButtonModal.propTypes = {
+  displayIndicator: PropTypes.bool,
   styles: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,

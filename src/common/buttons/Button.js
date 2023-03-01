@@ -66,6 +66,7 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
+  displayIndicator: PropTypes.bool,
   styles: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,

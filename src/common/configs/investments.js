@@ -163,8 +163,8 @@ export default {
               baseUrl = baseUrl.split('?');
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
-                  ? `${baseUrl[0]}subscribe${baseUrl[1]}`
-                  : `${baseUrl[0]}/subscribe${baseUrl[1]}`
+                  ? `${baseUrl[0]}subscribe?${baseUrl[1]}`
+                  : `${baseUrl[0]}/subscribe?${baseUrl[1]}`
               );
             },
             closeEndCallback: () => {
@@ -279,8 +279,8 @@ export default {
               baseUrl = baseUrl.split('?');
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
-                  ? `${baseUrl[0]}manage${baseUrl[1]}`
-                  : `${baseUrl[0]}/manage${baseUrl[1]}`
+                  ? `${baseUrl[0]}manage?${baseUrl[1]}`
+                  : `${baseUrl[0]}/manage?${baseUrl[1]}`
               );
             },
             closeEndCallback: () => {
@@ -1782,8 +1782,8 @@ export default {
                                 baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}add${baseUrl[1]}`
-                                    : `${baseUrl[0]}/add${baseUrl[1]}`
+                                    ? `${baseUrl[0]}add?${baseUrl[1]}`
+                                    : `${baseUrl[0]}/add?${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
@@ -1902,8 +1902,8 @@ export default {
                                 baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}change${baseUrl[1]}`
-                                    : `${baseUrl[0]}/change${baseUrl[1]}`
+                                    ? `${baseUrl[0]}change?${baseUrl[1]}`
+                                    : `${baseUrl[0]}/change?${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
@@ -2020,8 +2020,8 @@ export default {
                                 baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}setup${baseUrl[1]}`
-                                    : `${baseUrl[0]}/setup${baseUrl[1]}`
+                                    ? `${baseUrl[0]}setup?${baseUrl[1]}`
+                                    : `${baseUrl[0]}/setup?${baseUrl[1]}`
                                 );
                               },
                               closeEndCallback: () => {
