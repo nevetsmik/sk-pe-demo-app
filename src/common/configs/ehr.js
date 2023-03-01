@@ -192,6 +192,15 @@ export default {
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
+
+              // Add '/new' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              baseUrl = baseUrl.split('?');
+              pendo.location.setUrl(
+                baseUrl[0].slice(-1) === '/'
+                  ? `${baseUrl[0]}new?${baseUrl[1]}`
+                  : `${baseUrl[0]}/new?${baseUrl[1]}`
+              );
             },
             header: {
               styles: {},

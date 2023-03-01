@@ -1,6 +1,31 @@
 const express = require('express');
 const router = express.Router();
 
+/*********************************** SITE-DEPENDENT DATA ***********************************/
+let urlParams = new URLSearchParams(document.location.search);
+let app = urlParams.get('app') ? urlParams.get('app') : '';
+
+// Non-site dependent values
+//dynamic visitors
+
+// roles
+
+// systems
+
+// site dependent metadata values
+// let crmMetadata = [
+//   'role',
+//   'team',
+//   'title',
+//   'region',
+//   'office',
+//   'quotaBasedrole',
+//   'quotaAttainment',
+// ];
+// let investmentsMetadata = ['role', 'team', 'title', 'region', 'office'];
+// let insuranceMetadata = ['role', 'team', 'title', 'region', 'office'];
+// let ehrMetadata = ['role', 'team', 'title', 'region', 'office'];
+
 /*********************************** DATA ***********************************/
 // List of names for dynamic (date based) visitors
 const dynamicVisitors = [
