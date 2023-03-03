@@ -161,6 +161,7 @@ export default {
               // Add '/subscribe' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               baseUrl = baseUrl.split('?');
+              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
                   ? `${baseUrl[0]}subscribe?${baseUrl[1]}`
@@ -254,7 +255,7 @@ export default {
             },
             route: '/research',
           },
-          // Investments Button
+          // Investments Manage Button
           {
             styles: {
               backgroundColor: '#1DA259',
@@ -277,6 +278,7 @@ export default {
               // Add '/manage' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               baseUrl = baseUrl.split('?');
+              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
                   ? `${baseUrl[0]}manage?${baseUrl[1]}`
@@ -353,7 +355,35 @@ export default {
                   label: 'Default',
                 },
               ],
-              submitCallback: function () {},
+              submitCallback: function (event, navigate) {
+                // Get details from DOM and use to navigate to new details page
+                // ['name', 'type', 'amount'],
+                let url = `/clients/new/details?obj=`;
+                let obj = {};
+                let names = ['Name', 'Amount', 'Type'];
+                let values = [];
+
+                if (
+                  document.getElementById('manage-select-type').innerText ===
+                  'Change Allocation'
+                ) {
+                  values = ['Emily Dunn', 'Basic', '1267488'];
+                } else {
+                  values.push(
+                    document.getElementById('manage-text-field-0').value,
+                    Math.round(
+                      Math.random() * (2000000 - 100000) + 1000000,
+                      document.getElementById('manage-text-field-2').value
+                    )
+                  );
+                }
+
+                for (let i = 0; i < 3; i++) {
+                  obj[names[i]] = values[i];
+                }
+                url += JSON.stringify(obj);
+                navigate(url);
+              },
               successMessage: 'Task managed!',
             },
             route: '/',
@@ -731,7 +761,7 @@ export default {
                               flex: 1,
                               renderCell: (params) => (
                                 <a
-                                  href={`/investments/${params.id}/details?app=investments`}
+                                  href={`/clients/${params.id}/details?app=investments`}
                                 >
                                   {params.formattedValue}
                                 </a>
@@ -761,7 +791,7 @@ export default {
       },
       {
         name: 'Client Details',
-        route: '/investments/:detailId/details',
+        route: '/clients/:detailId/details',
         contents: [
           {
             styles: {},
@@ -800,7 +830,7 @@ export default {
                         styles: {},
                         opts: {
                           schema: {
-                            clients: ['name', 'email', 'phone'],
+                            clients: ['name', 'type', 'amount'],
                           },
                           baseUrl: '/investments/tableData/',
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
@@ -1403,48 +1433,6 @@ export default {
                     classes: 'content-tile-recommended',
                     componentName: 'ContentTile',
                   },
-                  // {
-                  //   styles: {},
-                  //   opts: {
-                  //     height: 0.8,
-                  //     header: {
-                  //       styles: { height: '45px' },
-                  //       opts: {},
-                  //       id: '',
-                  //       classes: '',
-                  //       name: 'Open Opportunities',
-                  //     },
-                  //     content: {
-                  //       styles: {},
-                  //       opts: {
-                  //         dataUrl: '/crm/tableData/opportunities.json',
-                  //         columns: [
-                  //           {
-                  //             field: 'name',
-                  //             headerName: 'Name',
-                  //             flex: 1,
-                  //             renderCell: (params) => (
-                  //               <a href={`/opportunities/${params.id}/details`}>
-                  //                 {params.formattedValue}
-                  //               </a>
-                  //             ),
-                  //           },
-                  //           {
-                  //             field: 'account',
-                  //             headerName: 'Account',
-                  //             flex: 1,
-                  //           },
-                  //         ],
-                  //       },
-                  //       id: '',
-                  //       classes: '',
-                  //       type: 'Table',
-                  //     },
-                  //   },
-                  //   id: '',
-                  //   classes: '',
-                  //   componentName: 'ContentTile',
-                  // },
                 ],
               },
             ],
@@ -1780,6 +1768,7 @@ export default {
                                 // Add '/add' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
+                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
                                     ? `${baseUrl[0]}add?${baseUrl[1]}`
@@ -1795,7 +1784,7 @@ export default {
                                 opts: {},
                                 id: '',
                                 classes: '',
-                                name: 'Subscribe',
+                                name: 'Add External Account',
                               },
                               content: {
                                 styles: {},
@@ -1856,7 +1845,7 @@ export default {
                                   {
                                     styles: {},
                                     opts: {},
-                                    id: 'institution-name',
+                                    id: 'institution-name-field',
                                     classes: '',
                                     componentName: 'TextField',
                                     label: 'Institution Name',
@@ -1870,9 +1859,21 @@ export default {
                                     label: 'Account Nickname',
                                   },
                                 ],
-                                submitCallback: function () {
-                                  // Go to relevant details page
-                                  // window.location.href = `${window.location.origin}/?app=investments`;
+                                submitCallback: function () {},
+                                modalClose: function () {
+                                  // Clear fields, because page doesn't change to do it
+                                  document.getElementById(
+                                    'external-account-type-select'
+                                  ).innerText = 'Checking';
+                                  document.getElementById(
+                                    'account-frequency-sync-select'
+                                  ).innerText = 'Hourly';
+                                  document.getElementById(
+                                    'institution-name-field'
+                                  ).value = '';
+                                  document.getElementById(
+                                    'account-name-field'
+                                  ).value = '';
                                 },
                                 successMessage: 'External account added!',
                               },
@@ -1900,6 +1901,7 @@ export default {
                                 // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
+                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
                                     ? `${baseUrl[0]}change?${baseUrl[1]}`
@@ -1996,6 +1998,21 @@ export default {
                                 ],
                                 submitCallback: function () {},
                                 successMessage: 'Allocation updated!',
+                                modalClose: function () {
+                                  // Clear fields, because page doesn't change to do it
+                                  document.getElementById(
+                                    'account-select'
+                                  ).innerText = 'Retirement Account';
+                                  document.getElementById(
+                                    'amount-to-move'
+                                  ).value = '';
+                                  document.getElementById(
+                                    'subscribe-text-name'
+                                  ).value = '';
+                                  document.getElementById(
+                                    'change-date-select'
+                                  ).innerText = '';
+                                },
                               },
                             },
                             // Set Up New Credit Card
@@ -2018,6 +2035,7 @@ export default {
                                 // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
+                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
                                     ? `${baseUrl[0]}setup?${baseUrl[1]}`
@@ -2108,7 +2126,7 @@ export default {
                                     ],
                                     default: () => {
                                       // Dynamically assign default based on path
-                                      return 'Premium Select';
+                                      return 'Unlimited';
                                     },
                                   },
                                 ],
@@ -2117,6 +2135,22 @@ export default {
                                   // window.location.href = `${window.location.origin}/banking?app=investments`;
                                 },
                                 successMessage: 'Setup submitted!',
+                                modalClose: function () {
+                                  // Clear fields, because page doesn't change to do it
+                                  document.getElementById(
+                                    'name-entry-field'
+                                  ).value = '';
+                                  document.getElementById(
+                                    'phone-entry-field'
+                                  ).value = '';
+                                  document.getElementById(
+                                    'preferred-contact-method-select'
+                                  ).innerText = 'Phone';
+                                  // reset radiogroup
+                                  // document.getElementById(
+                                  //   'setup-options-select'
+                                  // ).value = '';
+                                },
                               },
                             },
                           ],

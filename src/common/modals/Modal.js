@@ -82,6 +82,7 @@ const Modal = (props) => {
               <MuiIconButton
                 onClick={props.handleClose}
                 className="close-button"
+                aria-label="close"
               >
                 <MuiCloseIcon />
               </MuiIconButton>

@@ -38,12 +38,12 @@ const NavSearch = (props) => {
     >
       <StyledInputBase
         placeholder="Search"
-        inputProps={{ 'aria-label': 'search-input' }}
+        inputProps={{ 'aria-label': 'search' }}
       />
       <MuiIconButton
         color="inherit"
         style={{ borderRadius: '5px' }}
-        aria-label="search-button"
+        aria-label="search"
       >
         <MuiSearchIcon />
         {props.buttonTextStyle ? (

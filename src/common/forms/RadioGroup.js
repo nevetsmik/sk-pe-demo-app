@@ -32,7 +32,6 @@ const RadioGroup = (props) => {
       <MuiFormControl>
         <MuiFormLabel id={`${props.id}-label`}>{props.label}</MuiFormLabel>
         <MuiRadioGroup
-          // {...addIns}
           row={props.opts.row ? true : false}
           sx={{ ...props.styles }}
           {...props.opts}

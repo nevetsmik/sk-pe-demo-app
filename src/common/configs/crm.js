@@ -225,6 +225,7 @@ export default {
               // Add '/new' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               baseUrl = baseUrl.split('?');
+              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
                   ? `${baseUrl[0]}new?${baseUrl[1]}`

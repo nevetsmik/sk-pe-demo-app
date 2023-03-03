@@ -57,6 +57,7 @@ const ButtonModal = (props) => {
             className={props.classes}
             color="inherit"
             onClick={handleOpen}
+            aria-label={`${props.name}`}
           >
             <DynamicIcon icon={props.icon}></DynamicIcon>
           </MuiIconButton>
@@ -72,6 +73,7 @@ const ButtonModal = (props) => {
             className={props.classes}
             color="inherit"
             onClick={handleOpen}
+            aria-label={`${props.name}`}
           >
             {props.name}
           </MuiButton>

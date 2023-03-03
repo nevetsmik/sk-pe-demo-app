@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 /*********************************** SITE-DEPENDENT DATA ***********************************/
-let urlParams = new URLSearchParams(document.location.search);
-let app = urlParams.get('app') ? urlParams.get('app') : '';
+// let urlParams = new URLSearchParams(document.location.search);
+// let app = urlParams.get('app') ? urlParams.get('app') : '';
+// console.log(app);
 
 // Non-site dependent values
 //dynamic visitors

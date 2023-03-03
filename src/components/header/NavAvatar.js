@@ -30,6 +30,7 @@ const NavAvatar = (props) => {
         id={props.id}
         className={props.classes}
         onClick={handleClick}
+        aria-label="profile"
       >
         {props.label ? (
           <MuiBox

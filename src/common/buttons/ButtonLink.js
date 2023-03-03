@@ -23,6 +23,7 @@ const ButtonLink = (props) => {
             color="inherit"
             href={props.href}
             target={props.target || ''}
+            aria-label={`${props.name}`}
           >
             <MuiBox style={{ ...props.textStyle }}>{props.name}</MuiBox>
             <DynamicIcon icon={props.icon}></DynamicIcon>
@@ -40,6 +41,7 @@ const ButtonLink = (props) => {
             color="inherit"
             href={props.href}
             target={props.target || ''}
+            aria-label={`${props.name}`}
           >
             {props.name}
           </MuiButton>

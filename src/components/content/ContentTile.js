@@ -76,7 +76,6 @@ const ContentTile = (props) => {
       {...props.opts}
       id={props.id}
       className={props.classes}
-      tabIndex={0}
     >
       <MuiCardHeader
         sx={{
@@ -90,7 +89,6 @@ const ContentTile = (props) => {
         ref={cardHeaderRef}
         title={props.header.name}
         disableTypography={true}
-        tabIndex={0}
       ></MuiCardHeader>
 
       {/* Hide divider if it is a text box */}
@@ -100,7 +98,6 @@ const ContentTile = (props) => {
         ref={cardContentRef}
         sx={{ overflowY: 'auto' }}
         style={{ ...props.styles }}
-        tabIndex={0}
       >
         <Content
           sx={{ ...props.content.styles }}

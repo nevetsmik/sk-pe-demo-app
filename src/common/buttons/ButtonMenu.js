@@ -38,6 +38,7 @@ const ButtonMenu = (props) => {
             id={props.id}
             className={props.classes}
             color="inherit"
+            aria-label={`${props.name}`}
           >
             <DynamicIcon icon={props.icon}></DynamicIcon>
           </MuiIconButton>
@@ -52,6 +53,7 @@ const ButtonMenu = (props) => {
             id={props.id}
             className={props.classes}
             color="inherit"
+            aria-label={`${props.name}`}
           >
             {props.name}
           </MuiButton>

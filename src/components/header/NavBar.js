@@ -196,7 +196,7 @@ const NavBar = (props) => {
           }
         </MuiDrawer>
 
-        <LeftWrapper ref={leftWrapperRef}>
+        <LeftWrapper ref={leftWrapperRef} aria-label="menubar">
           {/* Nav Drawer Button */}
           {drawerMenuIconDisplayed ? (
             <MuiIconButton color="inherit" onClick={handleDrawerToggle}>
@@ -220,7 +220,7 @@ const NavBar = (props) => {
                   selected={location.pathname === d.path}
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   tabIndex={0}
-                  aria-label={`${d.name}-navigation`}
+                  aria-label={`menuitem ${d.name}-navigation`}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
@@ -232,7 +232,7 @@ const NavBar = (props) => {
                   sx={{ display: drawerMenuIconDisplayed ? 'none' : 'inherit' }}
                   onClick={d.callback}
                   tabIndex={0}
-                  aria-label={`${d.name}-navigation`}
+                  aria-label={`menuitem ${d.name}-navigation`}
                 >
                   <MuiTypography textAlign="center">{d.name}</MuiTypography>
                 </StyledMenuItem>
@@ -241,7 +241,7 @@ const NavBar = (props) => {
           })}
         </LeftWrapper>
 
-        <RightWrapper ref={rightWrapperRef}>
+        <RightWrapper ref={rightWrapperRef} aria-label="menubar">
           {/* Right Aligned Items */}
           {renderContentsWithAlignment('right')}
         </RightWrapper>

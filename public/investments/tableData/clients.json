@@ -20,6 +20,12 @@
     },
     "photo": {
       "label": "Photo"
+    },
+    "amount": {
+      "label": "Amount"
+    },
+    "type": {
+      "label": "Type"
     }
   },
   "rows": [
@@ -30,7 +36,9 @@
       "email": "Wisozk_Wilhelm@Mohr.biz",
       "phone": "104-294-9215",
       "title": "aut",
-      "photo": "https://randomuser.me/api/portraits/men/2.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/2.jpg",
+      "amount": "1290707",
+      "type": "Basic"
     },
     {
       "id": "1",
@@ -39,7 +47,9 @@
       "email": "Hand_Mazie@yahoo.com",
       "phone": "387-102-4118",
       "title": "necessitatibus",
-      "photo": "https://randomuser.me/api/portraits/men/4.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/4.jpg",
+      "amount": "575360",
+      "type": "Basic"
     },
     {
       "id": "2",
@@ -48,7 +58,9 @@
       "email": "Quitzon_Braeden@Schuppe.com",
       "phone": "208-907-6322",
       "title": "vel",
-      "photo": "https://randomuser.me/api/portraits/men/6.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/6.jpg",
+      "amount": "508722",
+      "type": "Basic"
     },
     {
       "id": "3",
@@ -66,7 +78,9 @@
       "email": "Jewel_Schiller@Schmeler.com",
       "phone": "508-480-6782",
       "title": "soluta",
-      "photo": "https://randomuser.me/api/portraits/men/11.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/11.jpg",
+      "amount": "211255",
+      "type": "Basic"
     },
     {
       "id": "5",
@@ -75,7 +89,9 @@
       "email": "Conner_Christiansen@gmail.com",
       "phone": "300-470-6486",
       "title": "fugiat",
-      "photo": "https://randomuser.me/api/portraits/men/1.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+      "amount": "1384720",
+      "type": "Select"
     },
     {
       "id": "6",
@@ -84,7 +100,9 @@
       "email": "Eichmann.Ryleigh@Mayer.net",
       "phone": "339-412-4082",
       "title": "cupiditate",
-      "photo": "https://randomuser.me/api/portraits/women/8.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/8.jpg",
+      "amount": "1916814",
+      "type": "Select"
     },
     {
       "id": "7",
@@ -93,7 +111,9 @@
       "email": "Angelo.Rempel@Nitzsche.biz",
       "phone": "758-846-6890",
       "title": "asperiores",
-      "photo": "https://randomuser.me/api/portraits/women/2.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/2.jpg",
+      "amount": "1685361",
+      "type": "Premium"
     },
     {
       "id": "8",
@@ -102,7 +122,9 @@
       "email": "Jeremie.Hirthe@Paula.ca",
       "phone": "538-209-4638",
       "title": "porro",
-      "photo": "https://randomuser.me/api/portraits/women/3.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/3.jpg",
+      "amount": "386855",
+      "type": "Select"
     },
     {
       "id": "9",
@@ -111,7 +133,9 @@
       "email": "Rath_Tianna@Kuvalis.net",
       "phone": "409-317-9327",
       "title": "rerum",
-      "photo": "https://randomuser.me/api/portraits/women/4.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/4.jpg",
+      "amount": "317171",
+      "type": "Basic"
     },
     {
       "id": "10",
@@ -120,7 +144,9 @@
       "email": "Jenkins.Matilde@Lyric.co.uk",
       "phone": "521-478-8017",
       "title": "tempore",
-      "photo": "https://randomuser.me/api/portraits/women/5.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/5.jpg",
+      "amount": "653162",
+      "type": "Premium"
     },
     {
       "id": "11",
@@ -129,7 +155,9 @@
       "email": "Margaretta.Tromp@Hermiston.co.uk",
       "phone": "983-765-1132",
       "title": "optio",
-      "photo": "https://randomuser.me/api/portraits/women/6.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/6.jpg",
+      "amount": "517192",
+      "type": "Basic"
     },
     {
       "id": "12",
@@ -138,7 +166,9 @@
       "email": "Bria_Jacobs@Nikolaus.info",
       "phone": "509-584-9482",
       "title": "rem",
-      "photo": "https://randomuser.me/api/portraits/women/7.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/7.jpg",
+      "amount": "1314433",
+      "type": "Select"
     },
     {
       "id": "13",
@@ -147,7 +177,9 @@
       "email": "Allene_Rolfson@yahoo.com",
       "phone": "910-177-1528",
       "title": "sit",
-      "photo": "https://randomuser.me/api/portraits/women/8.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/8.jpg",
+      "amount": "1768237",
+      "type": "Select"
     },
     {
       "id": "14",
@@ -156,7 +188,9 @@
       "email": "Annette_Jacobson@Wuckert.me",
       "phone": "890-707-5377",
       "title": "placeat",
-      "photo": "https://randomuser.me/api/portraits/women/9.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/9.jpg",
+      "amount": "1027070",
+      "type": "Basic"
     },
     {
       "id": "15",
@@ -165,7 +199,9 @@
       "email": "Ebert.Gennaro@Crist.ca",
       "phone": "533-892-9319",
       "title": "corrupti",
-      "photo": "https://randomuser.me/api/portraits/women/10.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/10.jpg",
+      "amount": "967426",
+      "type": "Basic"
     },
     {
       "id": "16",
@@ -174,7 +210,8 @@
       "email": "Feeney.Hobart@Horace.io",
       "phone": "921-774-9868",
       "title": "commodi",
-      "photo": "https://randomuser.me/api/portraits/women/11.jpg"
+      "amount": "23279",
+      "type": "Premium"
     },
     {
       "id": "17",
@@ -183,7 +220,9 @@
       "email": "Danial.Gutkowski@Heller.info",
       "phone": "456-678-9908",
       "title": "doloremque",
-      "photo": "https://randomuser.me/api/portraits/women/12.jpg"
+      "photo": "https://randomuser.me/api/portraits/women/12.jpg",
+      "amount": "200655",
+      "type": "Basic"
     },
     {
       "id": "18",
@@ -192,7 +231,9 @@
       "email": "Gutkowski.Alfred@yahoo.com",
       "phone": "123-914-0334",
       "title": "ut",
-      "photo": "https://randomuser.me/api/portraits/men/3.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/3.jpg",
+      "amount": "174958",
+      "type": "Select"
     },
     {
       "id": "19",
@@ -201,7 +242,9 @@
       "email": "Ressie.Bins@yahoo.com",
       "phone": "579-565-2615",
       "title": "ipsum",
-      "photo": "https://randomuser.me/api/portraits/men/5.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/5.jpg",
+      "amount": "367197",
+      "type": "Select"
     },
     {
       "id": "20",
@@ -210,7 +253,9 @@
       "email": "Collin.Jast@Gusikowski.tv",
       "phone": "967-894-2234",
       "title": "omnis",
-      "photo": "https://randomuser.me/api/portraits/men/7.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/7.jpg",
+      "amount": "1110334",
+      "type": "Premium"
     },
     {
       "id": "21",
@@ -219,7 +264,9 @@
       "email": "Hazel_Romaguera@Brenda.biz",
       "phone": "516-607-9530",
       "title": "voluptas",
-      "photo": "https://randomuser.me/api/portraits/men/8.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/8.jpg",
+      "amount": "1596020",
+      "type": "Basic"
     },
     {
       "id": "22",
@@ -228,7 +275,9 @@
       "email": "Johnston_Camren@gmail.com",
       "phone": "770-939-3753",
       "title": "commodi",
-      "photo": "https://randomuser.me/api/portraits/men/10.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/10.jpg",
+      "amount": "660837",
+      "type": "Basic"
     },
     {
       "id": "23",
@@ -237,7 +286,9 @@
       "email": "Medhurst.Nora@Williamson.co.uk",
       "phone": "076-573-6611",
       "title": "suscipit",
-      "photo": "https://randomuser.me/api/portraits/men/12.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/12.jpg",
+      "amount": "577717",
+      "type": "Select"
     },
     {
       "id": "24",
@@ -246,7 +297,9 @@
       "email": "Pietro.Ankunding@yahoo.com",
       "phone": "808-000-4129",
       "title": "accusamus",
-      "photo": "https://randomuser.me/api/portraits/men/13.jpg"
+      "photo": "https://randomuser.me/api/portraits/men/13.jpg",
+      "amount": "1071837",
+      "type": "Basic"
     }
   ]
 }

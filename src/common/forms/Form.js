@@ -139,7 +139,7 @@ const Form = (props) => {
           }}
           variant="contained"
           onClick={handleSubmit}
-          aria-label="Close"
+          aria-label="submit"
         >
           Submit
         </MuiButton>

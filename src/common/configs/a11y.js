@@ -123,7 +123,7 @@ export default {
             marginRight: '10px',
           },
           opts: {
-            'aria-label': 'support-link-button',
+            'aria-label': 'support-link',
           },
 
           name: 'Support',
@@ -212,6 +212,16 @@ export default {
             openStartCallback: () => {
               // Set dynamic labels for add new form before it is rendered
               updateAddNewLabels();
+
+              // Add '/add' to url using pendo location api when add new form open
+              let baseUrl = pendo.location.getHref();
+              baseUrl = baseUrl.split('?');
+              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
+              pendo.location.setUrl(
+                baseUrl[0].slice(-1) === '/'
+                  ? `${baseUrl[0]}add?${baseUrl[1]}`
+                  : `${baseUrl[0]}/add?${baseUrl[1]}`
+              );
             },
             header: {
               styles: {},
