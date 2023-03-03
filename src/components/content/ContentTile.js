@@ -100,6 +100,7 @@ const ContentTile = (props) => {
         style={{ ...props.styles }}
       >
         <Content
+          altText={props.altText}
           sx={{ ...props.content.styles }}
           {...props.content.opts}
           id={props.content.id}
@@ -123,6 +124,7 @@ const ContentTile = (props) => {
 };
 
 ContentTile.propTypes = {
+  altText: PropTypes.string,
   styles: PropTypes.object,
   opts: PropTypes.object,
   id: PropTypes.string,

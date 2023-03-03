@@ -28,13 +28,18 @@ const Graph = (props) => {
 
   return (
     <div ref={ref} style={{ height: props.height - padding, width: '100%' }}>
-      <Chart data={props.data} options={props.opts}></Chart>
+      <Chart
+        data={props.data}
+        options={props.opts}
+        altText={props.altText}
+      ></Chart>
     </div>
   );
 };
 
 Graph.propTypes = {
   // config: PropTypes.object.isRequired,
+  altText: PropTypes.string,
   height: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,

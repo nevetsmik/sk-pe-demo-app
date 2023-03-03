@@ -11,6 +11,7 @@ const Doughnut = (props) => {
     <ChartJSDoughnut
       data={props.data}
       options={props.options}
+      aria-label={props.altText}
     ></ChartJSDoughnut>
   );
 };
@@ -18,6 +19,7 @@ const Doughnut = (props) => {
 Doughnut.propTypes = {
   data: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
+  altText: PropTypes.string,
 };
 
 export default Doughnut;

@@ -26,12 +26,19 @@ ChartJS.register(
 );
 
 const Line = (props) => {
-  return <ChartJSLine data={props.data} options={props.options}></ChartJSLine>;
+  return (
+    <ChartJSLine
+      data={props.data}
+      options={props.options}
+      aria-label={props.altText}
+    ></ChartJSLine>
+  );
 };
 
 Line.propTypes = {
   data: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
+  altText: PropTypes.string,
 };
 
 export default Line;

@@ -22,12 +22,19 @@ ChartJS.register(
 );
 
 const Bar = (props) => {
-  return <ChartJSBar data={props.data} options={props.options}></ChartJSBar>;
+  return (
+    <ChartJSBar
+      data={props.data}
+      options={props.options}
+      aria-label={props.altText}
+    ></ChartJSBar>
+  );
 };
 
 Bar.propTypes = {
   data: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
+  altText: PropTypes.string,
 };
 
 export default Bar;

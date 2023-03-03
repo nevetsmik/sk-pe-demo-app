@@ -32,8 +32,7 @@ const Select = (props) => {
         sx={{ ...props.styles }}
         {...props.opts}
         id={props.id}
-        // className={props.classes}
-        className="find-me"
+        className={props.classes}
         label={props.label}
         value={selectValue}
         onChange={handleChange}

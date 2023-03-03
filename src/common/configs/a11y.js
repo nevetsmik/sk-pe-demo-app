@@ -377,6 +377,8 @@ export default {
                               content: {
                                 styles: {},
                                 opts: {
+                                  altText:
+                                    'Line chart of forecast data to show weekly forecast numbers',
                                   type: 'Line',
                                   data: {
                                     labels: [
@@ -479,6 +481,8 @@ export default {
                               content: {
                                 styles: {},
                                 opts: {
+                                  altText:
+                                    'Bar chart of quota attainment by sales representative to amount remaining to goal',
                                   type: 'Bar',
                                   data: {
                                     labels: [
@@ -579,6 +583,8 @@ export default {
                         componentName: 'Grid',
                         contents: [
                           {
+                            altText:
+                              'Doughnut chart of pipeline split by stage, to visualize pipeline status',
                             styles: {},
                             opts: {
                               height: 0.5,
