@@ -367,14 +367,12 @@ export default {
                   document.getElementById('manage-select-type').innerText ===
                   'Change Allocation'
                 ) {
-                  values = ['Emily Dunn', 'Basic', '1267488'];
+                  values = ['Aurora Holtman', '1267488', 'Basic'];
                 } else {
                   values.push(
                     document.getElementById('manage-text-field-0').value,
-                    Math.round(
-                      Math.random() * (2000000 - 100000) + 1000000,
-                      document.getElementById('manage-text-field-2').value
-                    )
+                    Math.round(Math.random() * (2000000 - 100000) + 1000000),
+                    document.getElementById('manage-text-field-2').value
                   );
                 }
 
