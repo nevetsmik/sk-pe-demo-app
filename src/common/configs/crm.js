@@ -50,6 +50,7 @@ export default {
   classes: '',
   favicon: '/crm/logos/main.ico',
   pendoConfig: {
+    name: 'crm',
     apiKey: '74924fb4-e18c-42b1-664b-47ed918c3a45',
     additionalApiKeys: [
       '758434d6-672f-4326-4db4-64412a4af191', // Pendo Experience Sandbox

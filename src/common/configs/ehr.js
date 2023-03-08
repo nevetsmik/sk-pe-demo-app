@@ -46,6 +46,7 @@ export default {
   classes: '',
   favicon: '/ehr/logos/main.ico',
   pendoConfig: {
+    name: 'ehr',
     apiKey: '1e7a2098-5550-4136-7db7-37fa8541cf1b',
     additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {

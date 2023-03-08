@@ -46,6 +46,7 @@ export default {
   classes: '',
   favicon: '/a11y/logos/main.ico',
   pendoConfig: {
+    name: 'a11y',
     apiKey: 'e15c8ca4-0b31-44ca-5a2f-ec158955b4e1',
     additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {

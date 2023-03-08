@@ -53,7 +53,7 @@ export function runSnippet(config, setPendoMetadata) {
 // Fetch visitor metadata from server
 function getVisitor(config, setPendoMetadata) {
   fetch(
-    `/visitorApi/visitors/new?visitor=${urlVisitor}&account=${urlAccount}&accountBasedVisitor=${urlAccountBasedVisitor}&role=${urlRole}&team=${urlTeam}&title=${urlTitle}&quotaAttainment=${urlQuotaAttainment}&region=${urlRegion}&office=${urlOffice}&system=${urlSystem}`
+    `/visitorApi/visitors/new?config=${config.name}&visitor=${urlVisitor}&account=${urlAccount}&accountBasedVisitor=${urlAccountBasedVisitor}&role=${urlRole}&team=${urlTeam}&title=${urlTitle}&quotaAttainment=${urlQuotaAttainment}&region=${urlRegion}&office=${urlOffice}&system=${urlSystem}`
   )
     .then((res) => res.json())
     .then((visitorInfo) => visitorInfo)
@@ -70,8 +70,8 @@ function getVisitor(config, setPendoMetadata) {
           region: 'AMER',
           office: 'Raleigh',
           system: 'Mac',
-          quotaBasedRole: false,
-          quotaAttainment: 0,
+          // quotaBasedRole: false,
+          // quotaAttainment: 0,
         },
         account: { id: 'test' },
       };

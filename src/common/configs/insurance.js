@@ -46,6 +46,7 @@ export default {
   classes: '',
   favicon: '/insurance/logos/main.ico',
   pendoConfig: {
+    name: 'insurance',
     apiKey: 'c533ab73-a019-481d-69fb-8d73adc816bf',
     additionalApiKeys: [],
     snippetCallback: function (config, urlParams) {

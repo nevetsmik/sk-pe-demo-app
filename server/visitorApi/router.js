@@ -2,32 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 /*********************************** SITE-DEPENDENT DATA ***********************************/
-// let urlParams = new URLSearchParams(document.location.search);
-// let app = urlParams.get('app') ? urlParams.get('app') : '';
-// console.log(app);
+// Identify what site + path we're on
+// Parse through and set metadata accordingly
+
+let app = req.query.config;
+let page = req.query.page;
 
 // Non-site dependent values
-//dynamic visitors
-
-// roles
-
-// systems
-
-// site dependent metadata values
-// let crmMetadata = [
-//   'role',
-//   'team',
-//   'title',
-//   'region',
-//   'office',
-//   'quotaBasedrole',
-//   'quotaAttainment',
-// ];
-// let investmentsMetadata = ['role', 'team', 'title', 'region', 'office'];
-// let insuranceMetadata = ['role', 'team', 'title', 'region', 'office'];
-// let ehrMetadata = ['role', 'team', 'title', 'region', 'office'];
-
-/*********************************** DATA ***********************************/
 // List of names for dynamic (date based) visitors
 const dynamicVisitors = [
   'Michael',
@@ -235,78 +216,6 @@ const staticAccounts = [
   'Admire Arts',
 ];
 
-// List of possible roles
-const roles = ['user', 'admin', 'read-only', 'partner'];
-
-// List of possible teams
-const teams = [
-  'Product',
-  'Product',
-  'Product',
-  'Engineering',
-  'IT',
-  'Sales',
-  'Sales',
-  'Sales',
-  'Design',
-  'Finance',
-];
-
-// List of possible title prefixes
-const titlePrefixes = ['Junior ', '', '', '', 'Senior ', 'Senior '];
-
-// List of possible titles for each team
-const titles = {
-  Product: ['Product Manager'],
-  Engineering: [
-    'Front End Engineer',
-    'Front End Engineer',
-    'Front End Engineer',
-    'Back End Engineer',
-    'Back End Engineer',
-    'Back End Engineer',
-    'Engineering Manager',
-  ],
-  IT: ['IT Engineer', 'IT Engineer', 'IT Engineer', 'IT Manager'],
-  Sales: [
-    'Sales Development Representative',
-    'Sales Development Representative',
-    'Sales Development Representative',
-    'Sales Development Manager',
-    'Account Executive',
-    'Account Executive',
-    'Account Executive',
-    'Sales Engineer',
-    'Sales Engineer',
-    'Sales Engineer',
-    'Sales Engineering Manager',
-  ],
-  Design: ['UI Designer', 'UI Designer', 'UI Designer', 'UI Manager'],
-  Finance: [
-    'Accountant',
-    'Accountant',
-    'Accountant',
-    'Accounting Manager',
-    'Accounting Manager',
-    'Accounting Manager',
-    'Sales Operations Analyst',
-    'Sales Operations Manager',
-  ],
-};
-
-// Maximum value for quota attainment
-const maxQuotaAttainment = 110;
-
-// List of possible regions
-const regions = ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'];
-
-// List of possible offices for each region
-const offices = {
-  AMER: ['Raleigh', 'New York', 'San Francisco'],
-  EMEA: ['Herzliya', 'Sheffield'],
-  APAC: ['Tokyo', 'Sydney'],
-};
-
 // List of possible systems
 const systems = [
   'Mac',
@@ -319,6 +228,121 @@ const systems = [
   'Windows',
   'Linux',
 ];
+
+// Metadata values to be set below
+let roles = [];
+let teams = [];
+let titles = {};
+let regions = [];
+let offices = {};
+
+// site dependent metadata values
+if (app === 'crm' || app === 'a11y') {
+  roles = ['user', 'admin', 'read-only'];
+  // roles = ['user', 'admin', 'read-only', 'partner'];
+  teams = [
+    'Product',
+    'Product',
+    'Product',
+    'Engineering',
+    'IT',
+    'Sales',
+    'Sales',
+    'Sales',
+    'Design',
+    'Finance',
+  ];
+  const titlePrefixes = ['Junior ', '', '', '', 'Senior ', 'Senior '];
+  titles = {
+    Product: ['Product Manager'],
+    Engineering: [
+      'Front End Engineer',
+      'Front End Engineer',
+      'Front End Engineer',
+      'Back End Engineer',
+      'Back End Engineer',
+      'Back End Engineer',
+      'Engineering Manager',
+    ],
+    IT: ['IT Engineer', 'IT Engineer', 'IT Engineer', 'IT Manager'],
+    Sales: [
+      'Sales Development Representative',
+      'Sales Development Representative',
+      'Sales Development Representative',
+      'Sales Development Manager',
+      'Account Executive',
+      'Account Executive',
+      'Account Executive',
+      'Sales Engineer',
+      'Sales Engineer',
+      'Sales Engineer',
+      'Sales Engineering Manager',
+    ],
+    Design: ['UI Designer', 'UI Designer', 'UI Designer', 'UI Manager'],
+    Finance: [
+      'Accountant',
+      'Accountant',
+      'Accountant',
+      'Accounting Manager',
+      'Accounting Manager',
+      'Accounting Manager',
+      'Sales Operations Analyst',
+      'Sales Operations Manager',
+    ],
+  };
+  regions = ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'];
+  offices = {
+    AMER: ['Raleigh', 'New York', 'San Francisco'],
+    EMEA: ['Herzliya', 'Sheffield'],
+    APAC: ['Tokyo', 'Sydney'],
+  };
+} else if (app === 'insurance') {
+  roles = ['user', 'admin', 'read-only'];
+  teams = ['Claims', 'Administrative', 'Audit', 'Agents'];
+  titles = {
+    Claims: ['Claims Representative', 'Claims Investigator'],
+    Administrative: ['Administrative Assistant'],
+    Audit: ['Auditor'],
+    Agents: ['Agent'],
+  };
+  regions = ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'];
+  offices = {
+    AMER: ['Raleigh', 'New York', 'San Francisco'],
+    EMEA: ['Herzliya', 'Sheffield'],
+    APAC: ['Tokyo', 'Sydney'],
+  };
+} else if (app === 'ehr') {
+  roles = ['user', 'admin', 'read-only'];
+  teams = ['Physician', 'Administrative', 'Nurse'];
+  titles = {
+    Physician: ['Physician'],
+    Administrative: ['Billing Administrator', 'Administrative Assistant'],
+    Nurse: ['Registered Nurse'],
+  };
+  regions = ['North', 'East', 'South', 'West'];
+  offices = {
+    North: ['Spinoza', 'Smith'],
+    East: ['Humbug'],
+    South: ['Johnson', 'Chianti'],
+    West: ['Jones'],
+  };
+} else if (app === 'investments') {
+  roles = ['user', 'admin'];
+  teams = ['Advisors', 'Analysts', 'Consulting', 'Risk Management', 'Research'];
+  titles = {
+    'Risk Management': ['Risk Analyst', 'Risk Manager'],
+    Research: ['Research Associate', 'Research Analyst'],
+    Analysts: ['Budget Analyst', 'Credit Analyst'],
+    Consulting: ['Financial Consultant'],
+    Advisors: ['Financial Advisor'],
+  };
+  regions = ['AMER', 'EMEA', 'APAC'];
+  offices = {
+    AMER: ['Raleigh', 'New York', 'San Francisco'],
+    EMEA: ['Herzliya', 'Sheffield'],
+    APAC: ['Tokyo', 'Sydney'],
+  };
+}
 
 /*********************************** ROUTES ***********************************/
 router.get('/visitors', function (req, res) {
@@ -597,18 +621,21 @@ function getStaticVisitor() {
 
 // Populate metadata on visitor info object based on visitor id
 function populateMetadata(visInfo) {
-  visInfo.visitor.role = getHashedIndexFromArray(
-    roles.slice(0, 2),
-    visInfo.visitor.id
-  );
+  visInfo.visitor.role = getHashedIndexFromArray(roles, visInfo.visitor.id);
   visInfo.visitor.team = getHashedIndexFromArray(teams, visInfo.visitor.id);
-  visInfo.visitor.title = `${getHashedIndexFromArray(
-    titlePrefixes,
-    visInfo.visitor.id
-  )}${getHashedIndexFromArray(
-    titles[visInfo.visitor.team],
-    visInfo.visitor.id
-  )}`;
+  // if there are title prefixes, use them
+  visInfo.visitor.title = titlePrefixes
+    ? `${getHashedIndexFromArray(
+        titlePrefixes,
+        visInfo.visitor.id
+      )}${getHashedIndexFromArray(
+        titles[visInfo.visitor.team],
+        visInfo.visitor.id
+      )}`
+    : `${getHashedIndexFromArray(
+        titles[visInfo.visitor.team],
+        visInfo.visitor.id
+      )}`;
   visInfo.visitor.region = getHashedIndexFromArray(regions, visInfo.visitor.id);
   visInfo.visitor.office = getHashedIndexFromArray(
     offices[visInfo.visitor.region],
