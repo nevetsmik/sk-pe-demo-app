@@ -7,7 +7,6 @@ const urlAccountBasedVisitor = urlParams.get('accountBasedVisitor') || '';
 const urlRole = urlParams.get('role') || '';
 const urlTeam = urlParams.get('team') || '';
 const urlTitle = urlParams.get('title') || '';
-const urlQuotaAttainment = urlParams.get('quotaAttainment') || '';
 const urlRegion = urlParams.get('region') || '';
 const urlOffice = urlParams.get('office') || '';
 const urlSystem = urlParams.get('system') || '';
@@ -52,8 +51,9 @@ export function runSnippet(config, setPendoMetadata) {
 
 // Fetch visitor metadata from server
 function getVisitor(config, setPendoMetadata) {
+  // console.log(config.name);
   fetch(
-    `/visitorApi/visitors/new?config=${config.name}&visitor=${urlVisitor}&account=${urlAccount}&accountBasedVisitor=${urlAccountBasedVisitor}&role=${urlRole}&team=${urlTeam}&title=${urlTitle}&quotaAttainment=${urlQuotaAttainment}&region=${urlRegion}&office=${urlOffice}&system=${urlSystem}`
+    `/visitorApi/visitors/new?app=${config.name}&visitor=${urlVisitor}&account=${urlAccount}&accountBasedVisitor=${urlAccountBasedVisitor}&role=${urlRole}&team=${urlTeam}&title=${urlTitle}&region=${urlRegion}&office=${urlOffice}&system=${urlSystem}`
   )
     .then((res) => res.json())
     .then((visitorInfo) => visitorInfo)
@@ -70,8 +70,6 @@ function getVisitor(config, setPendoMetadata) {
           region: 'AMER',
           office: 'Raleigh',
           system: 'Mac',
-          // quotaBasedRole: false,
-          // quotaAttainment: 0,
         },
         account: { id: 'test' },
       };

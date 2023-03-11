@@ -790,7 +790,7 @@ export default {
       },
       {
         name: 'Client Details',
-        route: '/clients/:detailId/details',
+        route: '/:detailType/:detailId/details',
         contents: [
           {
             styles: {},

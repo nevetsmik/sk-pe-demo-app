@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-/*********************************** SITE-DEPENDENT DATA ***********************************/
-// Identify what site + path we're on
-// Parse through and set metadata accordingly
-
-let app = req.query.config;
-let page = req.query.page;
-
-// Non-site dependent values
+/*********************************** ALL SITE DATA ***********************************/
 // List of names for dynamic (date based) visitors
 const dynamicVisitors = [
   'Michael',
@@ -229,121 +222,6 @@ const systems = [
   'Linux',
 ];
 
-// Metadata values to be set below
-let roles = [];
-let teams = [];
-let titles = {};
-let regions = [];
-let offices = {};
-
-// site dependent metadata values
-if (app === 'crm' || app === 'a11y') {
-  roles = ['user', 'admin', 'read-only'];
-  // roles = ['user', 'admin', 'read-only', 'partner'];
-  teams = [
-    'Product',
-    'Product',
-    'Product',
-    'Engineering',
-    'IT',
-    'Sales',
-    'Sales',
-    'Sales',
-    'Design',
-    'Finance',
-  ];
-  const titlePrefixes = ['Junior ', '', '', '', 'Senior ', 'Senior '];
-  titles = {
-    Product: ['Product Manager'],
-    Engineering: [
-      'Front End Engineer',
-      'Front End Engineer',
-      'Front End Engineer',
-      'Back End Engineer',
-      'Back End Engineer',
-      'Back End Engineer',
-      'Engineering Manager',
-    ],
-    IT: ['IT Engineer', 'IT Engineer', 'IT Engineer', 'IT Manager'],
-    Sales: [
-      'Sales Development Representative',
-      'Sales Development Representative',
-      'Sales Development Representative',
-      'Sales Development Manager',
-      'Account Executive',
-      'Account Executive',
-      'Account Executive',
-      'Sales Engineer',
-      'Sales Engineer',
-      'Sales Engineer',
-      'Sales Engineering Manager',
-    ],
-    Design: ['UI Designer', 'UI Designer', 'UI Designer', 'UI Manager'],
-    Finance: [
-      'Accountant',
-      'Accountant',
-      'Accountant',
-      'Accounting Manager',
-      'Accounting Manager',
-      'Accounting Manager',
-      'Sales Operations Analyst',
-      'Sales Operations Manager',
-    ],
-  };
-  regions = ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'];
-  offices = {
-    AMER: ['Raleigh', 'New York', 'San Francisco'],
-    EMEA: ['Herzliya', 'Sheffield'],
-    APAC: ['Tokyo', 'Sydney'],
-  };
-} else if (app === 'insurance') {
-  roles = ['user', 'admin', 'read-only'];
-  teams = ['Claims', 'Administrative', 'Audit', 'Agents'];
-  titles = {
-    Claims: ['Claims Representative', 'Claims Investigator'],
-    Administrative: ['Administrative Assistant'],
-    Audit: ['Auditor'],
-    Agents: ['Agent'],
-  };
-  regions = ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'];
-  offices = {
-    AMER: ['Raleigh', 'New York', 'San Francisco'],
-    EMEA: ['Herzliya', 'Sheffield'],
-    APAC: ['Tokyo', 'Sydney'],
-  };
-} else if (app === 'ehr') {
-  roles = ['user', 'admin', 'read-only'];
-  teams = ['Physician', 'Administrative', 'Nurse'];
-  titles = {
-    Physician: ['Physician'],
-    Administrative: ['Billing Administrator', 'Administrative Assistant'],
-    Nurse: ['Registered Nurse'],
-  };
-  regions = ['North', 'East', 'South', 'West'];
-  offices = {
-    North: ['Spinoza', 'Smith'],
-    East: ['Humbug'],
-    South: ['Johnson', 'Chianti'],
-    West: ['Jones'],
-  };
-} else if (app === 'investments') {
-  roles = ['user', 'admin'];
-  teams = ['Advisors', 'Analysts', 'Consulting', 'Risk Management', 'Research'];
-  titles = {
-    'Risk Management': ['Risk Analyst', 'Risk Manager'],
-    Research: ['Research Associate', 'Research Analyst'],
-    Analysts: ['Budget Analyst', 'Credit Analyst'],
-    Consulting: ['Financial Consultant'],
-    Advisors: ['Financial Advisor'],
-  };
-  regions = ['AMER', 'EMEA', 'APAC'];
-  offices = {
-    AMER: ['Raleigh', 'New York', 'San Francisco'],
-    EMEA: ['Herzliya', 'Sheffield'],
-    APAC: ['Tokyo', 'Sydney'],
-  };
-}
-
 /*********************************** ROUTES ***********************************/
 router.get('/visitors', function (req, res) {
   res.json(dynamicVisitors);
@@ -407,6 +285,132 @@ router.get('/visitors/new', function (req, res) {
     visitorType = Math.random() < 0.67 ? 'dynamic' : 'static';
   }
 
+  let app = req.query.app;
+  let appMetadata = {};
+
+  if (app === 'crm' || app === 'a11y') {
+    appMetadata = {
+      roles: ['user', 'admin', 'read-only'],
+      teams: [
+        'Product',
+        'Product',
+        'Product',
+        'Engineering',
+        'IT',
+        'Sales',
+        'Sales',
+        'Sales',
+        'Design',
+        'Finance',
+      ],
+      titlePrefixes: ['Junior ', '', '', '', 'Senior ', 'Senior '],
+      titles: {
+        Product: ['Product Manager'],
+        Engineering: [
+          'Front End Engineer',
+          'Front End Engineer',
+          'Front End Engineer',
+          'Back End Engineer',
+          'Back End Engineer',
+          'Back End Engineer',
+          'Engineering Manager',
+        ],
+        IT: ['IT Engineer', 'IT Engineer', 'IT Engineer', 'IT Manager'],
+        Sales: [
+          'Sales Development Representative',
+          'Sales Development Representative',
+          'Sales Development Representative',
+          'Sales Development Manager',
+          'Account Executive',
+          'Account Executive',
+          'Account Executive',
+          'Sales Engineer',
+          'Sales Engineer',
+          'Sales Engineer',
+          'Sales Engineering Manager',
+        ],
+        Design: ['UI Designer', 'UI Designer', 'UI Designer', 'UI Manager'],
+        Finance: [
+          'Accountant',
+          'Accountant',
+          'Accountant',
+          'Accounting Manager',
+          'Accounting Manager',
+          'Accounting Manager',
+          'Sales Operations Analyst',
+          'Sales Operations Manager',
+        ],
+      },
+      regions: ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'],
+      offices: {
+        AMER: ['Raleigh', 'New York', 'San Francisco'],
+        EMEA: ['Herzliya', 'Sheffield'],
+        APAC: ['Tokyo', 'Sydney'],
+      },
+    };
+  } else if (app === 'investments') {
+    appMetadata = {
+      roles: ['user', 'admin'],
+      teams: [
+        'Advisors',
+        'Analysts',
+        'Consulting',
+        'Risk Management',
+        'Research',
+      ],
+      titlePrefixes: ['Junior ', '', '', '', 'Senior ', 'Senior '],
+      titles: {
+        'Risk Management': ['Risk Analyst', 'Risk Manager'],
+        Research: ['Research Associate', 'Research Analyst'],
+        Analysts: ['Budget Analyst', 'Credit Analyst'],
+        Consulting: ['Financial Consultant'],
+        Advisors: ['Financial Advisor'],
+      },
+      regions: ['AMER', 'EMEA', 'APAC'],
+      offices: {
+        AMER: ['Raleigh', 'New York', 'San Francisco'],
+        EMEA: ['Herzliya', 'Sheffield'],
+        APAC: ['Tokyo', 'Sydney'],
+      },
+    };
+  } else if (app === 'insurance') {
+    appMetadata = {
+      roles: ['user', 'admin', 'read-only'],
+      teams: ['Claims', 'Administrative', 'Audit', 'Agents'],
+      titlePrefixes: ['Jr ', '', '', 'Sr '],
+      titles: {
+        Claims: ['Claims Representative', 'Claims Investigator'],
+        Administrative: ['Administrative Assistant'],
+        Audit: ['Auditor'],
+        Agents: ['Agent'],
+      },
+      regions: ['AMER', 'AMER', 'AMER', 'EMEA', 'APAC'],
+      offices: {
+        AMER: ['Raleigh', 'New York', 'San Francisco'],
+        EMEA: ['Herzliya', 'Sheffield'],
+        APAC: ['Tokyo', 'Sydney'],
+      },
+    };
+  } else if (app === 'ehr') {
+    appMetadata = {
+      roles: ['user', 'admin', 'read-only'],
+      teams: ['Physician', 'Administrative', 'Nurse'],
+      titlePrefixes: ['', '', 'Sr '],
+      titles: {
+        Physician: ['Physician'],
+        Administrative: ['Billing Administrator', 'Administrative Assistant'],
+        Nurse: ['Registered Nurse'],
+      },
+      regions: ['North', 'East', 'South', 'West'],
+      offices: {
+        North: ['Spinoza', 'Smith'],
+        East: ['Humbug'],
+        South: ['Johnson', 'Chianti'],
+        West: ['Jones'],
+      },
+    };
+  }
+
   let visInfo;
   // Get visitor info based on visitor type
   switch (visitorType) {
@@ -414,7 +418,7 @@ router.get('/visitors/new', function (req, res) {
       visInfo = getDynamicVisitor();
       break;
     case 'static':
-      visInfo = getStaticVisitor();
+      visInfo = getStaticVisitor(appMetadata);
       break;
     default:
       visInfo = getDynamicVisitor();
@@ -425,10 +429,10 @@ router.get('/visitors/new', function (req, res) {
   visInfo.visitor.id = req.query.visitor || visInfo.visitor.id;
 
   // Populate metadata + account for visitor based on previously generated visitor ID
-  visInfo = populateMetadata(visInfo);
+  visInfo = populateMetadata(visInfo, appMetadata);
 
   // Overwrite metadata with query params
-  visInfo = overwriteMetadata(visInfo, req.query);
+  visInfo = overwriteMetadata(visInfo, req.query, appMetadata);
 
   // Send as JSON
   res.json(visInfo);
@@ -586,7 +590,7 @@ function getDynamicVisitor(date) {
 
 // Get static visitor (visitorId + acountId)
 // Proportions and IDs here used to maintain data in original Acme CRM accounts
-function getStaticVisitor() {
+function getStaticVisitor(appMetadata) {
   const randNum = Math.random() * 100;
   const accountId =
     staticAccounts[Math.floor(Math.random() * staticAccounts.length)];
@@ -620,25 +624,28 @@ function getStaticVisitor() {
 }
 
 // Populate metadata on visitor info object based on visitor id
-function populateMetadata(visInfo) {
-  visInfo.visitor.role = getHashedIndexFromArray(roles, visInfo.visitor.id);
-  visInfo.visitor.team = getHashedIndexFromArray(teams, visInfo.visitor.id);
-  // if there are title prefixes, use them
-  visInfo.visitor.title = titlePrefixes
-    ? `${getHashedIndexFromArray(
-        titlePrefixes,
-        visInfo.visitor.id
-      )}${getHashedIndexFromArray(
-        titles[visInfo.visitor.team],
-        visInfo.visitor.id
-      )}`
-    : `${getHashedIndexFromArray(
-        titles[visInfo.visitor.team],
-        visInfo.visitor.id
-      )}`;
-  visInfo.visitor.region = getHashedIndexFromArray(regions, visInfo.visitor.id);
+function populateMetadata(visInfo, appMetadata) {
+  visInfo.visitor.role = getHashedIndexFromArray(
+    appMetadata.roles,
+    visInfo.visitor.id
+  );
+  visInfo.visitor.team = getHashedIndexFromArray(
+    appMetadata.teams,
+    visInfo.visitor.id
+  );
+  visInfo.visitor.title = `${getHashedIndexFromArray(
+    appMetadata.titlePrefixes,
+    visInfo.visitor.id
+  )}${getHashedIndexFromArray(
+    appMetadata.titles[visInfo.visitor.team],
+    visInfo.visitor.id
+  )}`;
+  visInfo.visitor.region = getHashedIndexFromArray(
+    appMetadata.regions,
+    visInfo.visitor.id
+  );
   visInfo.visitor.office = getHashedIndexFromArray(
-    offices[visInfo.visitor.region],
+    appMetadata.offices[visInfo.visitor.region],
     visInfo.visitor.id
   );
   visInfo.visitor.system = getHashedIndexFromArray(systems, visInfo.visitor.id);
@@ -647,7 +654,7 @@ function populateMetadata(visInfo) {
 }
 
 // Overwrite metadata with URL params
-function overwriteMetadata(visInfo, params) {
+function overwriteMetadata(visInfo, params, appMetadata) {
   // Visitor + Account
   // If visitor ID based on account, overwrite account ID + overwrite visitor ID with visitor@account.com
   if (params.accountBasedVisitor === 'true') {
@@ -668,19 +675,27 @@ function overwriteMetadata(visInfo, params) {
     }
 
     // Role
-    visInfo.visitor.role = params.role || visInfo.visitor.role;
+
+    visInfo.visitor.role =
+      params.role && appMetadata.roles.includes(params.role)
+        ? params.role
+        : visInfo.visitor.role;
 
     // Team + Title
     // If only team specified, overwrite team and try to get corresponding title (else blank)
-    if (params.team && !params.title) {
+    if (
+      params.team &&
+      appMetadata.teams.includes(params.team) &&
+      !params.title
+    ) {
       visInfo.visitor.team = params.team;
 
       if (titles[visInfo.visitor.team]) {
         visInfo.visitor.title = `${getHashedIndexFromArray(
-          titlePrefixes,
+          appMetadata.titlePrefixes,
           visInfo.visitor.id
         )}${getHashedIndexFromArray(
-          titles[visInfo.visitor.team],
+          appMetadata.titles[visInfo.visitor.team],
           visInfo.visitor.id
         )}`;
       } else {
@@ -693,7 +708,7 @@ function overwriteMetadata(visInfo, params) {
 
       let matchingTeam = '';
       for (let team in titles) {
-        if (titles[team].includes(visInfo.visitor.title)) {
+        if (appMetadata.titles[team].includes(visInfo.visitor.title)) {
           matchingTeam = team;
           break;
         }
@@ -701,7 +716,11 @@ function overwriteMetadata(visInfo, params) {
       visInfo.visitor.team = matchingTeam;
     }
     // Else if both assigned, overwrite both
-    else if (params.team && params.title) {
+    else if (
+      params.team &&
+      appMetadata.teams.includes(params.team) &&
+      params.title
+    ) {
       visInfo.visitor.team = params.team;
       visInfo.visitor.title = params.title;
     }
@@ -711,9 +730,9 @@ function overwriteMetadata(visInfo, params) {
     if (params.region && !params.office) {
       visInfo.visitor.region = params.region;
 
-      if (offices[visInfo.visitor.region]) {
+      if (appMetadata.offices[visInfo.visitor.region]) {
         visInfo.visitor.office = getHashedIndexFromArray(
-          offices[visInfo.visitor.region],
+          appMetadata.offices[visInfo.visitor.region],
           visInfo.visitor.id
         );
       } else {
@@ -742,17 +761,6 @@ function overwriteMetadata(visInfo, params) {
     // System
     visInfo.visitor.system = params.system || visInfo.visitor.system;
   }
-
-  // Specify quotaBasedRole + quota now that metadata is finalized
-  visInfo.visitor.quotaBasedRole =
-    visInfo.visitor.title.includes('Account Executive') ||
-    visInfo.visitor.title.includes('Sales Development Representative');
-  visInfo.visitor.quotaAttainment = visInfo.visitor.quotaBasedRole
-    ? params.visitor
-      ? params.quotaAttainment ||
-        Math.abs(hashCode(visInfo.visitor.id) % maxQuotaAttainment)
-      : Math.abs(hashCode(visInfo.visitor.id) % maxQuotaAttainment)
-    : 0;
 
   return visInfo;
 }

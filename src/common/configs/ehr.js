@@ -75,7 +75,6 @@ export default {
             'role',
             'team',
             'title',
-            'quotaAttainment',
             'region',
             'office',
             'system',
