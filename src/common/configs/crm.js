@@ -232,6 +232,10 @@ export default {
                   : `${baseUrl[0]}/new?${baseUrl[1]}`
               );
             },
+            closeEndCallback: () => {
+              // Return to using browser url on form closed
+              pendo.location.useBrowserUrl();
+            },
             header: {
               styles: {},
               opts: {},
