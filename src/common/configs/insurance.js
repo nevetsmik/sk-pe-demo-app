@@ -986,7 +986,7 @@ export default {
                           schema: {
                             accounts: ['name', 'rep', 'territory'],
                             representatives: ['name', 'email', 'phone'],
-                            claims: ['account', 'representative', 'amount'],
+                            claims: ['account', 'rep', 'amount'],
                           },
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
                           baseUrl: '/insurance/tableData/',

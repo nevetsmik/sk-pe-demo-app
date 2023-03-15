@@ -972,7 +972,7 @@ export default {
                           schema: {
                             providers: ['name', 'region'],
                             physicians: ['name', 'title', 'code'],
-                            patients: ['name', 'physician', 'provider'],
+                            patients: ['name', 'physician_code', 'provider'],
                           },
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
                           baseUrl: '/ehr/tableData/',
