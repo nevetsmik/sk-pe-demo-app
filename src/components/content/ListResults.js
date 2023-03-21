@@ -41,10 +41,13 @@ const DownloadButton = (props) => {
     if (Math.random() < 0.95) {
       pendo.track('Download Succeeded', metadata);
       handleSnackbarOpen('success', 'Download succeeded!');
+      window.pendo.showGuideById('c5zfIIWkf2PNBHzY00m3nOVgv0k');
     } else {
       pendo.track('Download Failed', metadata);
       handleSnackbarOpen('error', 'Download failed. Please try again later.');
+      window.pendo.showGuideById('BEQ7Aiqx4y7cU9oNiD7gB1kWxog');
     }
+    // window.pendo.loadGuides();
   }
 
   return (

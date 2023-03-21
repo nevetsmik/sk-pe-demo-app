@@ -222,6 +222,496 @@ const systems = [
   'Linux',
 ];
 
+// Account metadata lookup
+let accountDataLookup = [
+  {
+    accountId: 'Acme',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Altair Corp',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'BlueLine',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Burnham and Root',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Dinoco',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Dunder Mifflin EU',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Epic Adventure Inc',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Ewing Oil',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'HAL Labs',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Herolutions',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Innovation Arch',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Jetlife',
+    account_tier: 'Commercial',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Jupiter Brews',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Mugatu Industries',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Pluto Corp',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Prestige Worldwide',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Rent A Swag',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Rex Kwan Do',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Shade Arts',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Sphinx Solutions',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'Vinepoly',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Wayne Enterprises',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'Waynes World',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'WhiteBox Inc',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: false,
+  },
+  {
+    accountId: 'WorryFree Inc',
+    account_tier: 'Corporate',
+    planLevel: 'Bronze',
+    inTrial: true,
+  },
+  {
+    accountId: 'EpicAdventureInc',
+    account_tier: 'Corporate',
+    planLevel: 'Free',
+    inTrial: false,
+  },
+  {
+    accountId: 'LionSecurity',
+    account_tier: 'Corporate',
+    planLevel: 'Free',
+    inTrial: false,
+  },
+  {
+    accountId: 'Pendo',
+    account_tier: 'Corporate',
+    planLevel: 'Free',
+    inTrial: true,
+  },
+  {
+    accountId: 'PixelArts',
+    account_tier: 'Corporate',
+    planLevel: 'Free',
+    inTrial: false,
+  },
+  {
+    accountId: 'ReardenSteal',
+    account_tier: 'Corporate',
+    planLevel: 'Free',
+    inTrial: true,
+  },
+  {
+    accountId: 'WhiteBoxInc',
+    account_tier: 'Commercial',
+    planLevel: 'Free',
+    inTrial: true,
+  },
+  {
+    accountId: 'Admire Arts',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Arrowhead',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Associated Strategies',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'BlackBox Inc',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'BlueRibbon',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Candor Corp',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Cloudworks',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Deneb Corp',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Dunder Mifflin US',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Eco Focus',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Empire Industries',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Imaginary Inc',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Inspire Fitness Co',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'LightSpeed',
+    account_tier: 'Commercial',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Moonlight Inc',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Outer Inc',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Pied Piper',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Pixel Arts',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Raptor Inc',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Rearden Steal',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Space Y',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Stark Industries',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Sterling Cooper',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Strat Security',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'TakeOff',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: true,
+  },
+  {
+    accountId: 'Wonka Industries',
+    account_tier: 'Enterprise',
+    planLevel: 'Gold',
+    inTrial: false,
+  },
+  {
+    accountId: 'Bushwood',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Cadence',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Chief Aviation',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Cogent Data',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Dharma Initiative',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Hooli',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Hyperion',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'InGen',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Lion Security',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Macmillan',
+    account_tier: 'Enterprise',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Oceanic',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'One World',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Oscorp',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Parker Industries',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Pizza Planet',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Purrada',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Rosefly',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Sanguine Skincare',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Silver Shamrock',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Soylent Corp',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Sphere Co',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'TelAmeriCorp',
+    account_tier: 'Commercial',
+    planLevel: 'Silver',
+    inTrial: false,
+  },
+  {
+    accountId: 'Vega Corp',
+    account_tier: 'Corporate',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+  {
+    accountId: 'Vortex Solar',
+    account_tier: 'Corporate',
+    planLevel: 'Silver',
+    inTrial: true,
+  },
+];
+
 /*********************************** ROUTES ***********************************/
 router.get('/visitors', function (req, res) {
   res.json(dynamicVisitors);
@@ -231,7 +721,7 @@ router.get('/accounts', function (req, res) {
   res.json(dynamicAccounts.concat(staticAccounts));
 });
 
-router.get('/roles', function (req, res) {
+router.get('/roles/', function (req, res) {
   res.json(roles);
 });
 
@@ -290,6 +780,7 @@ router.get('/visitors/new', function (req, res) {
 
   if (app === 'crm' || app === 'a11y') {
     appMetadata = {
+      suffix: 0,
       roles: ['user', 'admin', 'read-only'],
       teams: [
         'Product',
@@ -350,6 +841,7 @@ router.get('/visitors/new', function (req, res) {
     };
   } else if (app === 'investments') {
     appMetadata = {
+      suffix: 1,
       roles: ['user', 'admin'],
       teams: [
         'Advisors',
@@ -375,6 +867,7 @@ router.get('/visitors/new', function (req, res) {
     };
   } else if (app === 'insurance') {
     appMetadata = {
+      suffix: 2,
       roles: ['user', 'admin', 'read-only'],
       teams: ['Claims', 'Administrative', 'Audit', 'Agents'],
       titlePrefixes: ['Jr ', '', '', 'Sr '],
@@ -393,6 +886,7 @@ router.get('/visitors/new', function (req, res) {
     };
   } else if (app === 'ehr') {
     appMetadata = {
+      suffix: 3,
       roles: ['user', 'admin', 'read-only'],
       teams: ['Physician', 'Administrative', 'Nurse'],
       titlePrefixes: ['', '', 'Sr '],
@@ -415,15 +909,16 @@ router.get('/visitors/new', function (req, res) {
   // Get visitor info based on visitor type
   switch (visitorType) {
     case 'dynamic':
-      visInfo = getDynamicVisitor();
+      visInfo = getDynamicVisitor(appMetadata.suffix);
       break;
     case 'static':
-      visInfo = getStaticVisitor(appMetadata);
+      visInfo = getStaticVisitor(appMetadata.suffix);
       break;
     default:
-      visInfo = getDynamicVisitor();
+      visInfo = getDynamicVisitor(appMetadata.suffix);
       break;
   }
+  console.log(visInfo);
 
   // Overwrite visitor with url params if present before populating metadata
   visInfo.visitor.id = req.query.visitor || visInfo.visitor.id;
@@ -442,7 +937,7 @@ module.exports = router;
 
 /*********************************** VISITOR GENERATION HELPER FUNCTIONS ***********************************/
 // Get dynamic (date based) visitor (visitorId + acountId)
-function getDynamicVisitor(date) {
+function getDynamicVisitor(suffix, date) {
   // Create New Date, date will be used in the case of testing, otherwise, today will = today.
   const today = date || new Date();
 
@@ -554,7 +1049,6 @@ function getDynamicVisitor(date) {
         visitor = `${visitorName}${calcPrevDate(145)}`; // 5 * 7 * 4 + 5  = 145
       }
       break;
-
     // Sunday - Repeat ~40% of visitors from six weeks ago or ~30% of visitors from six months ago
     case 0:
       if (Math.random() < 0.5) {
@@ -582,45 +1076,66 @@ function getDynamicVisitor(date) {
   // Create account string w /out spaces to append to visitor name
   const accountIdNoSpaces = accountId.replace(/\s/g, '');
 
+  let accountInfo = accountDataLookup.filter(
+    (account) => account.accountId == accountId
+  )[0];
+
   return {
-    visitor: { id: `${visitor}@${accountIdNoSpaces}.com` },
-    account: { id: accountId },
+    visitor: { id: `${visitor}-${suffix}@${accountIdNoSpaces}.com` },
+    account: {
+      id: accountId,
+      planLevel: accountInfo.planLevel,
+      account_tier: accountInfo.account_tier,
+      inTrial: accountInfo.inTrial,
+    },
   };
 }
 
 // Get static visitor (visitorId + acountId)
 // Proportions and IDs here used to maintain data in original Acme CRM accounts
-function getStaticVisitor(appMetadata) {
+function getStaticVisitor(suffix) {
   const randNum = Math.random() * 100;
   const accountId =
     staticAccounts[Math.floor(Math.random() * staticAccounts.length)];
   const accountIdNoSpaces = accountId.replace(/\s/g, '');
 
+  let accountInfo = accountDataLookup.filter(
+    (account) => account.accountId == accountId
+  )[0];
+
   let visitorId;
   if (randNum < 25) {
     // 0 - 25 (25%)
-    visitorId = `visitor1@${accountIdNoSpaces}.com`;
+    visitorId = `visitor1-${suffix}@${accountIdNoSpaces}.com`;
   } else if (randNum <= 50) {
     // 25 - 50 (25%)
-    visitorId = `visitor6@${accountIdNoSpaces}.com`;
+    visitorId = `visitor6-${suffix}@${accountIdNoSpaces}.com`;
   } else if (randNum <= 65) {
     // 50 - 65 (15%)
-    visitorId = `visitor4@${accountIdNoSpaces}.com`;
+    visitorId = `visitor4-${suffix}@${accountIdNoSpaces}.com`;
   } else if (randNum <= 80) {
     // 65 - 80 (15%)
-    visitorId = `visitor7@${accountIdNoSpaces}.com`;
+    visitorId = `visitor7-${suffix}@${accountIdNoSpaces}.com`;
   } else if (randNum <= 90) {
     // 80 - 90 (10%)
-    visitorId = `visitor5@${accountIdNoSpaces}.com`;
+    visitorId = `visitor5-${suffix}@${accountIdNoSpaces}.com`;
   } else if (randNum <= 95) {
     // 90 - 95 (5%)
-    visitorId = `visitor3@${accountIdNoSpaces}.com`;
+    visitorId = `visitor3-${suffix}@${accountIdNoSpaces}.com`;
   } else {
     // 95 - 100 (5%)
-    visitorId = `visitor2@${accountIdNoSpaces}.com`;
+    visitorId = `visitor2-${suffix}@${accountIdNoSpaces}.com`;
   }
 
-  return { visitor: { id: visitorId }, account: { id: accountId } };
+  return {
+    visitor: { id: visitorId },
+    account: {
+      id: accountId,
+      planLevel: accountInfo.planLevel,
+      account_tier: accountInfo.account_tier,
+      inTrial: accountInfo.inTrial,
+    },
+  };
 }
 
 // Populate metadata on visitor info object based on visitor id
