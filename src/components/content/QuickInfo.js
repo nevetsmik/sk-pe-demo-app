@@ -53,6 +53,34 @@ const QuickInfo = (props) => {
   const availableHeight =
     props.height - props.card_content_vert_padding - containerDim.padding.vert;
 
+  function fireTE(app) {
+    if (app === 'crm') {
+      console.log('Initiating track events');
+      const fileNames = [
+        'invoice.txt',
+        'list.txt',
+        'contact.txt',
+        'account.txt',
+      ];
+      let num = Math.floor(Math.random() * 4);
+      let paymentNum = Math.floor(Math.random() * 8);
+      let selection = fileNames[num];
+      if (window.pendo) {
+        window.pendo.track('File Downloaded', {
+          filename: selection,
+        });
+
+        window.pendo.track('Payment Initiated');
+
+        if (paymentNum >= 6) {
+          window.pendo.track('Payment Failed');
+        } else {
+          window.pendo.track('Payment Succeeded');
+        }
+      }
+    }
+  }
+
   return (
     <div
       ref={containerRef}
@@ -67,6 +95,10 @@ const QuickInfo = (props) => {
           display: 'flex',
           paddingBottom: '16px',
           justifyContent: 'center',
+        }}
+        onClick={() => {
+          // change to read in app
+          fireTE(props.baseUrl.split('/')[1]);
         }}
       >
         <img

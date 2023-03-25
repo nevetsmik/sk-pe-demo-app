@@ -31,6 +31,8 @@ const Timeline = (props) => {
     >
       <MuiTimeline sx={{ margin: '0px', padding: '0px' }}>
         {props.entries.map((d, i) => {
+          // if the icon has download as an action, fire the TEs
+
           return (
             <MuiTimelineItem
               key={`${i}-${d.text}`}
