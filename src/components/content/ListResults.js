@@ -102,6 +102,10 @@ DownloadButton.propTypes = {
 };
 
 const ListResults = (props) => {
+  var date = new Date(new Date() - 432000000);
+  var dateToStr = date.toUTCString().split(' ');
+  var dynamicDate = dateToStr[2] + ' ' + dateToStr[1];
+
   // Resize handler for container
   const [containerRef, containerDim] = getDimensions();
 
@@ -268,7 +272,7 @@ const ListResults = (props) => {
                           className="article-date"
                           style={{ fontSize: '12px' }}
                         >
-                          {article.date}
+                          {dynamicDate}
                         </MuiBox>
                         <MuiBox className="article-summary">
                           {article.summary}
