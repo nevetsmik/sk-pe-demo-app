@@ -162,11 +162,10 @@ export default {
               // Add '/subscribe' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               baseUrl = baseUrl.split('?');
-              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
-                  ? `${baseUrl[0]}subscribe?${baseUrl[1]}`
-                  : `${baseUrl[0]}/subscribe?${baseUrl[1]}`
+                  ? `${baseUrl[0]}subscribe`
+                  : `${baseUrl[0]}/subscribe`
               );
             },
             closeEndCallback: () => {
@@ -279,11 +278,10 @@ export default {
               // Add '/manage' to url using pendo location api when add new form open
               let baseUrl = pendo.location.getHref();
               baseUrl = baseUrl.split('?');
-              baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
               pendo.location.setUrl(
                 baseUrl[0].slice(-1) === '/'
-                  ? `${baseUrl[0]}manage?${baseUrl[1]}`
-                  : `${baseUrl[0]}/manage?${baseUrl[1]}`
+                  ? `${baseUrl[0]}manage`
+                  : `${baseUrl[0]}/manage`
               );
             },
             closeEndCallback: () => {
@@ -1767,11 +1765,10 @@ export default {
                                 // Add '/add' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
-                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}add?${baseUrl[1]}`
-                                    : `${baseUrl[0]}/add?${baseUrl[1]}`
+                                    ? `${baseUrl[0]}add`
+                                    : `${baseUrl[0]}/add`
                                 );
                               },
                               closeEndCallback: () => {
@@ -1900,11 +1897,10 @@ export default {
                                 // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
-                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}change?${baseUrl[1]}`
-                                    : `${baseUrl[0]}/change?${baseUrl[1]}`
+                                    ? `${baseUrl[0]}subscribe`
+                                    : `${baseUrl[0]}/subscribe`
                                 );
                               },
                               closeEndCallback: () => {
@@ -2034,11 +2030,10 @@ export default {
                                 // Add '/subscribe' to url using pendo location api when add new form open
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
-                                baseUrl[1] = baseUrl[1] ? baseUrl[1] : '';
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}setup?${baseUrl[1]}`
-                                    : `${baseUrl[0]}/setup?${baseUrl[1]}`
+                                    ? `${baseUrl[0]}setup`
+                                    : `${baseUrl[0]}/setup`
                                 );
                               },
                               closeEndCallback: () => {
