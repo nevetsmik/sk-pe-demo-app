@@ -1170,9 +1170,10 @@ function populateMetadata(visInfo, appMetadata) {
 
 // Overwrite metadata with URL params
 function overwriteMetadata(visInfo, params, appMetadata) {
-  // Visitor + Account
-  // If visitor ID based on account, overwrite account ID + overwrite visitor ID with visitor@account.com
+  // Cleanup if the url parameters aren't valid - prevents bad data
   if (params.accountBasedVisitor === 'true') {
+    // Visitor + Account
+    // If visitor ID based on account, overwrite account ID + overwrite visitor ID with visitor@account.com
     visInfo.account.id = params.account || visInfo.account.id;
     visInfo.visitor.id = `${
       visInfo.visitor.id.includes('@')
@@ -1190,7 +1191,6 @@ function overwriteMetadata(visInfo, params, appMetadata) {
     }
 
     // Role
-
     visInfo.visitor.role =
       params.role && appMetadata.roles.includes(params.role)
         ? params.role
