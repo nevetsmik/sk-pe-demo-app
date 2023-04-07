@@ -77,15 +77,15 @@ function getVisitor(config, setPendoMetadata) {
     })
     .then((visitorInfo) => {
       // Console logging if url parameters aren't on preset list
-      if (urlRole && visitorInfo.role !== urlRole) {
+      if (urlRole && visitorInfo.visitor.role !== urlRole) {
         console.log(
           'Url parameter for role is not on accepted list. Defaulted to an accepted value.'
         );
-      } else if (urlTeam && visitorInfo.team !== urlTeam) {
+      } else if (urlTeam && visitorInfo.visitor.team !== urlTeam) {
         console.log(
           'Url parameter for team is not on accepted list. Defaulted to an accepted value.'
         );
-      } else if (urlTitle && visitorInfo.title !== urlTitle) {
+      } else if (urlTitle && visitorInfo.visitor.title !== urlTitle) {
         console.log(
           'Url parameter for title is not on accepted list. Defaulted to an accepted value.'
         );
