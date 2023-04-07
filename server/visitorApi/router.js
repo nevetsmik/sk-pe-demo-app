@@ -1192,7 +1192,8 @@ function overwriteMetadata(visInfo, params, appMetadata) {
 
     // Role
     visInfo.visitor.role =
-      params.role && appMetadata.roles.includes(params.role)
+      params.role &&
+      (appMetadata.roles.includes(params.role) || params.role === 'partner')
         ? params.role
         : visInfo.visitor.role;
 
