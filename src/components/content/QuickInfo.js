@@ -36,6 +36,10 @@ const QuickInfo = (props) => {
           const entry = data.rows.filter((d) => d.id === id)[0];
 
           const details = {};
+
+          if (props.onEntryLoaded) {
+            props.onEntryLoaded(entry);
+          }
           for (const key of props.schema[detailType]) {
             details[data.schema[key].label] = entry[key];
           }
@@ -80,6 +84,9 @@ const QuickInfo = (props) => {
       }
     }
   }
+
+  // Call onload callback if present
+  React.useEffect(() => {}, []);
 
   return (
     <div
@@ -139,6 +146,7 @@ QuickInfo.propTypes = {
   schema: PropTypes.object.isRequired,
   src: PropTypes.string.isRequired,
   baseUrl: PropTypes.string.isRequired,
+  onEntryLoaded: PropTypes.func,
 };
 
 export default QuickInfo;

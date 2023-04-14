@@ -989,6 +989,18 @@ export default {
                           },
                           src: 'https://pendo-static-6591622502678528.storage.googleapis.com/aMWfxQOEkuJp4VuCXMEJQUBQIJ8/guide-media-cd1fdd27-4597-4af1-bb5b-e03bf2b75bc9',
                           baseUrl: '/insurance/tableData/',
+                          onEntryLoaded: (entry) => {
+                            if (entry.zip_code) {
+                              pendo.updateOptions({
+                                visitor: {
+                                  currentClaimZip: entry.zip_code,
+                                  currentClaimInFirezone:
+                                    entry.zip_code === 53246 ||
+                                    entry.zip_code === 54250,
+                                },
+                              });
+                            }
+                          },
                         },
                         id: '',
                         classes: '',
