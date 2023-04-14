@@ -22,3 +22,7 @@ dispatch:
   # Acme A11y
   - url: 'a11y.pendoexperience.io/*'
     service: pe-demo-app
+
+  # Acme CNAME
+  - url: 'acmecname.io/*'
+    service: pe-acme-cname
