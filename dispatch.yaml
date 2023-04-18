@@ -1,4 +1,6 @@
 dispatch:
+  # Dispatch for ALL services under the pe-demo-eng project
+
   # Landing Page
   - url: 'www.pendoexperience.io/*'
     service: default
@@ -24,5 +26,13 @@ dispatch:
     service: pe-demo-app
 
   # Acme CNAME
-  - url: 'acmecname.io/*'
+  - url: 'www.acmecname.io/*'
     service: pe-acme-cname
+
+  # # Micro demos
+  # - url: 'pendomicrodemos.io/*'
+  #   service: pe-micro-demos
+
+  # Micro demos
+  - url: 'www.pendomicrodemos.io/*'
+    service: pe-micro-demos
