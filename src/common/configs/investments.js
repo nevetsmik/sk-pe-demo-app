@@ -1894,13 +1894,13 @@ export default {
                                 // Set dynamic labels for add new form before it is rendered
                                 // updateAddNewLabels();
 
-                                // Add '/subscribe' to url using pendo location api when add new form open
+                                // Add '/change' to url using pendo location api when form opens
                                 let baseUrl = pendo.location.getHref();
                                 baseUrl = baseUrl.split('?');
                                 pendo.location.setUrl(
                                   baseUrl[0].slice(-1) === '/'
-                                    ? `${baseUrl[0]}subscribe`
-                                    : `${baseUrl[0]}/subscribe`
+                                    ? `${baseUrl[0]}change`
+                                    : `${baseUrl[0]}/change`
                                 );
                               },
                               closeEndCallback: () => {
