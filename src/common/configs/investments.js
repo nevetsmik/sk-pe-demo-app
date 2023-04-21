@@ -1163,8 +1163,8 @@ export default {
                                 styles: { height: '45px' },
                                 opts: {},
                                 id: '',
-                                classes: 'video-3-header',
-                                name: 'FinServ Podcast',
+                                classes: 'video-4-header',
+                                name: 'What Next?',
                               },
                               content: {
                                 styles: {},
@@ -1173,7 +1173,7 @@ export default {
                                   title: 'Financial Services Podcast',
                                 },
                                 id: '',
-                                classes: 'video-3',
+                                classes: 'video-4',
                                 type: 'Embed',
                               },
                             },
@@ -1738,7 +1738,7 @@ export default {
                         opts: {},
                         id: '',
                         classes: '',
-                        name: 'Take Action',
+                        name: 'Quick Links',
                       },
                       content: {
                         styles: {},
