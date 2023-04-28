@@ -37,6 +37,7 @@ const NavSearch = (props) => {
       className={props.classes}
     >
       <StyledInputBase
+        id="search-noodle"
         placeholder="Search"
         inputProps={{ 'aria-label': 'search' }}
       />

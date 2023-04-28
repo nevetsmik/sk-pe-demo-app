@@ -197,7 +197,6 @@ export default {
             styles: {},
             opts: {},
             id: 'search-bar',
-            classes: '',
             componentName: 'NavSearch',
             alignment: 'left',
           },
